@@ -29,10 +29,6 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
         ]);
 
-        \App\Models\User::factory()->create([
-            'name' => 'customer',
-            'email' => 'customer@test.com',
-            'role' => 'customer'
-        ]);
+
     }
 }
