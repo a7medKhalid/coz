@@ -24,8 +24,17 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::prefix('/dashboard')->group( function () {
+
+    Route::middleware(['auth','can:view dashboard', 'verified'])->group(function (){
+
+        Route::get('' ,function (){
+            return Inertia::render('Dashboard');
+        })->name('dashboard');
+
+
+    });
+
+});
 
 require __DIR__.'/auth.php';
