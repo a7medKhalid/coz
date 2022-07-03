@@ -25,6 +25,7 @@ class RoleAndPermissionsSeeder extends Seeder
 
 
         //Create Permissions
+        Permission::firstOrCreate(['name' => 'send employee invite']);
 
         //create view dashboard pages permissions
 

@@ -1,15 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Views;
+namespace App\Http\Controllers\ModelsCRUD;
 
 use App\Http\Controllers\Controller;
 use App\Models\Invite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class InviteController extends Controller
 {
-    public function create($email){
+    public function create(Request $request){
+
+        $request->validate(['email' => ['email', 'required']]);
+
+        $email = $request['email'];
 
         $this->middleware('can:send employee invite');
 
