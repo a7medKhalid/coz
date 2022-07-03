@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Views\BranchesViewController;
 use App\Http\Controllers\Views\DashboardViewController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -27,13 +28,14 @@ Route::get('/', function () {
 
 Route::prefix('/dashboard')->group( function () {
 
-    Route::middleware(['auth','can:view dashboard', 'verified'])->group(function (){
+    Route::middleware(['auth','can:manage dashboard', 'verified'])->group(function (){
 
         Route::get('' , [DashboardViewController::class, 'index'])->name('dashboard');
 
-        Route::get('/branches' , function (){
-            return Inertia::render('Branches');
-        })->name('branches');
+        Route::middleware('can:manage branches')->group(function (){
+            Route::get('/branches' ,[BranchesViewController::class, 'index'])->name('branches');
+        });
+
 
     });
 
