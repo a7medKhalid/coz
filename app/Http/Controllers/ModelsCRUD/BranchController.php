@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ModelsCRUD;
 
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BranchController extends Controller
