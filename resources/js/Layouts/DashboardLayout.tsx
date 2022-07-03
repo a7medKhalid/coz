@@ -24,23 +24,6 @@ interface props {
 
 const DashboardLayout: React.FC<props> = ({ children }) => {
     const drawerWidth = 240;
-    const getRoutes = [
-        {
-            title: "branches",
-            link: route("logout"),
-            icon: <LogoutIcon />,
-        },
-        {
-            title: "branches",
-            link: route("logout"),
-            icon: <LogoutIcon />,
-        },
-        {
-            title: "branches",
-            link: route("logout"),
-            icon: <LogoutIcon />,
-        },
-    ];
     const postRoutes = [
         {
             title: "logout",
