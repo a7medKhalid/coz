@@ -25,4 +25,31 @@ class BranchController extends Controller
         return $branchModel;
 
     }
+
+    public function update(Request $request){
+        $request->validate([
+            'branch_id' => ['integer', 'required'],
+            'name' => ['string', 'required'],
+            'coordinates' => ['string', 'required'],
+            'manager_id' => ['integer', 'nullable'],
+        ]);
+
+        $this->middleware('can:manage branches');
+
+        $branchModel = Branch::find($request['branch_id']);
+
+        $branchModel->update([
+            'name' => $request['name'],
+            'coordinates' => $request['coordinates']
+        ]);
+
+        if ($request->has('manager_id')){
+           $manager = User::find($request['manager_id']);
+
+           $branchModel->manager()->save($manager);
+        }
+
+        return $branchModel;
+
+    }
 }

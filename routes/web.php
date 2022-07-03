@@ -36,6 +36,7 @@ Route::prefix('/dashboard')->group( function () {
         Route::middleware('can:manage branches')->group(function (){
             Route::get('/branches' ,[BranchesViewController::class, 'index'])->name('branches');
             Route::post('/branches' ,[BranchesViewController::class, 'addBranch'])->name('addBranch');
+            Route::put('/branches' ,[BranchesViewController::class, 'updateBranch'])->name('updateBranch');
         });
 
         Route::middleware('can:manage employees')->group(function (){
