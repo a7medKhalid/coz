@@ -40,4 +40,17 @@ class BranchesTest extends TestCase
         $response->assertStatus(403);
     }
 
+
+    public function test_admin_can_create_branch()
+    {
+
+        $user = User::whereName('Admin')->first();
+
+        $this->actingAs($user);
+        $response = $this->post('dashboard/branches',['name' => 'branch', 'coordinates' => '264hufbr3976y']);
+
+
+        $response->assertStatus(200);
+    }
+
 }

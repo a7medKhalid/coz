@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('coordinates');
 
-            $table->foreignId('manager_id');
+            $table->foreignId('manager_id')->nullable();
         });
     }
 
