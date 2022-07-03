@@ -55,7 +55,8 @@ class RoleAndPermissionsSeeder extends Seeder
 
 
         //assign permissions to roles
-//        $adminRole->givePermissionTo(['assign roles' ,'Branches CRUD']);
+        $adminRole->givePermissionTo(['send employee invite' ]);
+        $managerRole->givePermissionTo(['send employee invite' ]);
 
     }
 }
