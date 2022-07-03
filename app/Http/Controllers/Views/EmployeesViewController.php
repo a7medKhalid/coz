@@ -16,7 +16,13 @@ class EmployeesViewController extends Controller
         $user = $request->user();
         $allowedDashboardPages = $AllowedDashboardPagesService->execute($user);
 
-        $employees = User::role('employee')->get();
+        $employees = User::role('employee')->paginate(15)->through(function ($item) {
+            return [
+                'id' => $item->id,
+                'name' => $item->name,
+                'email' => $item->email
+            ];});
+
 
         return Inertia::render('Dashboard/Employees/index',['employees' => $employees, 'allowedDashboardPages' => $allowedDashboardPages]);
 
