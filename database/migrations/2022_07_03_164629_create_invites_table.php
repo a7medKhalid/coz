@@ -19,6 +19,8 @@ return new class extends Migration
 
             $table->string('email');
             $table->string('token');
+
+            $table->boolean('isValid')->default(1);
         });
     }
 

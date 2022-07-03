@@ -20,6 +20,7 @@ class RoleAndPermissionsSeeder extends Seeder
         $adminRole = Role::create(['name' => 'admin']);
         $managerRole = Role::create(['name' => 'manager']);
         $employeeRole = Role::create(['name' => 'employee']);
+        $branchEmployeeRole = Role::create(['name' => 'branchEmployee']);
         $productManager = Role::create(['name' => 'productManager']);
 
 
@@ -32,6 +33,7 @@ class RoleAndPermissionsSeeder extends Seeder
         $adminDashboardPages = config('constants.adminDashboardPages');
         $managerDashboardPages = config('constants.managerDashboardPages');
         $employeeDashboardPages = config('constants.employeeDashboardPages');
+        $branchEmployeeDashboardPages = config('constants.branchEmployeeDashboardPages');
         $productManagerDashboardPages = config('constants.productManagerDashboardPages');
 
         foreach ($adminDashboardPages as $page){
@@ -47,6 +49,11 @@ class RoleAndPermissionsSeeder extends Seeder
         foreach ($employeeDashboardPages as $page){
             $permission = Permission::firstOrCreate(['name' => 'manage ' . $page]);
             $employeeRole->givePermissionTo($permission);
+        }
+
+        foreach ($branchEmployeeDashboardPages as $page){
+            $permission = Permission::firstOrCreate(['name' => 'manage ' . $page]);
+            $branchEmployeeRole->givePermissionTo($permission);
         }
 
         foreach ($productManagerDashboardPages as $page){
