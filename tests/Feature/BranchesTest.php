@@ -19,7 +19,7 @@ class BranchesTest extends TestCase
     {
         $this->seed();
 
-        $user = User::whereName('Admin')->first();
+        $user = User::whereName('admin')->first();
 
         $this->actingAs($user);
         $response = $this->get('dashboard/branches');
@@ -31,7 +31,7 @@ class BranchesTest extends TestCase
     public function test_can_not_view_forManageBranchesPermission()
     {
 
-        $user = User::whereName('Customer')->first();
+        $user = User::whereName('customer')->first();
 
         $this->actingAs($user);
         $response = $this->get('dashboard/branches');
@@ -44,13 +44,25 @@ class BranchesTest extends TestCase
     public function test_admin_can_create_branch()
     {
 
-        $user = User::whereName('Admin')->first();
+        $user = User::whereName('admin')->first();
 
         $this->actingAs($user);
         $response = $this->post('dashboard/branches',['name' => 'branch', 'coordinates' => '264hufbr3976y']);
 
 
         $response->assertStatus(200);
+    }
+
+    public function test_non_admin_can_not_create_branch()
+    {
+
+        $user = User::whereName('manager')->first();
+
+        $this->actingAs($user);
+        $response = $this->post('dashboard/branches',['name' => 'branch', 'coordinates' => '264hufbr3976y']);
+
+
+        $response->assertStatus(403);
     }
 
 }
