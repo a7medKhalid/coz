@@ -34,22 +34,22 @@ class RoleAndPermissionsSeeder extends Seeder
         $productManagerDashboardPages = config('constants.productManagerDashboardPages');
 
         foreach ($adminDashboardPages as $page){
-            $permission = Permission::firstOrCreate(['name' => 'view ' . $page]);
+            $permission = Permission::firstOrCreate(['name' => 'manage ' . $page]);
             $adminRole->givePermissionTo($permission);
         }
 
         foreach ($managerDashboardPages as $page){
-            $permission = Permission::firstOrCreate(['name' => 'view ' . $page]);
+            $permission = Permission::firstOrCreate(['name' => 'manage ' . $page]);
             $managerRole->givePermissionTo($permission);
         }
 
         foreach ($employeeDashboardPages as $page){
-            $permission = Permission::firstOrCreate(['name' => 'view ' . $page]);
+            $permission = Permission::firstOrCreate(['name' => 'manage ' . $page]);
             $employeeRole->givePermissionTo($permission);
         }
 
         foreach ($productManagerDashboardPages as $page){
-            $permission = Permission::firstOrCreate(['name' => 'view ' . $page]);
+            $permission = Permission::firstOrCreate(['name' => 'manage ' . $page]);
             $productManager->givePermissionTo($permission);
         }
 
