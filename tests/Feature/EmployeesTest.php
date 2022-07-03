@@ -54,19 +54,18 @@ class EmployeesTest extends TestCase
         $response->assertStatus(200);
     }
 
-    //TODO fix test is returning 403
-//    public function test_manager_can_create_employee_invite()
-//    {
-//
-//        $user = User::whereName('manager')->first();
-//
-//        $this->actingAs($user);
-//
-//        $response = $this->post('dashboard/employees',['email' => 'email@managerTest.com']);
-//
-//
-//        $response->assertStatus(200);
-//    }
+    public function test_manager_can_create_employee_invite()
+    {
+
+        $user = User::whereName('manager')->first();
+
+        $this->actingAs($user);
+
+        $response = $this->post('dashboard/employees',['email' => 'email@managerTest.com']);
+
+
+        $response->assertStatus(200);
+    }
 
     public function test_non_admin_can_not_create_employee_invite()
     {
