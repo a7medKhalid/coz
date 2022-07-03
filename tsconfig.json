@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        // "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react",
+        "lib": ["dom", "es2017"],
+        "module": "esnext",
+        "moduleResolution": "node",
+        "preserveConstEnums": true,
+        "removeComments": false,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "strict": true,
+        "noImplicitAny": false,
+        "strictPropertyInitialization": false,
+        "target": "esnext"
+    },
+    "include": ["resources/js/**/*"],
+    "exclude": ["resources/js/bootstrap.js"]
+}

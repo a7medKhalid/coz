@@ -1,4 +1,4 @@
-import { InertiaLink, Link } from "@inertiajs/inertia-react";
+import { Link, usePage } from "@inertiajs/inertia-react";
 import {
     AppBar,
     Avatar,
@@ -18,36 +18,41 @@ import React from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import route from "../../../vendor/tightenco/ziggy/src/js";
 import LayoutsProviders from "./LayoutsProviders";
+import { MAP_ROUTE_TO_ICON } from "../assets/consts";
+
 interface props {
-    children: React.ReactNode;
+    children: any;
 }
 
+interface routes {
+    title: string;
+    link: any;
+    icon: any;
+}
 const DashboardLayout: React.FC<props> = ({ children }) => {
+    const allowedDashboardPagesProps = children.props.allowedDashboardPages;
+
+    const allowedDashboardPages: routes[] = allowedDashboardPagesProps.map(
+        (item: any) => {
+            return {
+                title: item,
+                link: route(item),
+                icon: "test",
+            };
+        }
+    );
     const drawerWidth = 240;
-    const getRoutes = [
-        {
-            title: "branches",
-            link: route("logout"),
-            icon: <LogoutIcon />,
-        },
-        {
-            title: "branches",
-            link: route("logout"),
-            icon: <LogoutIcon />,
-        },
-        {
-            title: "branches",
-            link: route("logout"),
-            icon: <LogoutIcon />,
-        },
-    ];
+
     const postRoutes = [
         {
             title: "logout",
-            link: route("logout"),
+            link: "logout",
             icon: <LogoutIcon />,
         },
     ];
+    const locationPathName = location.pathname.split("/");
+    const curRouteName = locationPathName[locationPathName.length - 1];
+
     return (
         <LayoutsProviders>
             <Box sx={{ display: "flex" }}>
@@ -76,6 +81,7 @@ const DashboardLayout: React.FC<props> = ({ children }) => {
                     sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
                 >
                     <Toolbar />
+                    {location.pathname}
                     {children}
                 </Box>
                 <Drawer
@@ -94,11 +100,12 @@ const DashboardLayout: React.FC<props> = ({ children }) => {
                     <Avatar src="../assets/images/appLogo.png" />
                     <Divider />
                     <List>
-                        {getRoutes.map((route, index) => (
-                            <InertiaLink
+                        {allowedDashboardPages.map((route) => (
+                            <Link
                                 as="ListItem"
                                 href={route.link}
                                 key={route.title}
+                                selected={route.title === curRouteName}
                             >
                                 <ListItemButton
                                     sx={{
@@ -113,13 +120,13 @@ const DashboardLayout: React.FC<props> = ({ children }) => {
                                         }}
                                     />
                                 </ListItemButton>
-                            </InertiaLink>
+                            </Link>
                         ))}
                     </List>
                     <Divider />
                     <List>
-                        {postRoutes.map((route, index) => (
-                            <InertiaLink
+                        {postRoutes.map((route) => (
+                            <Link
                                 as="ListItem"
                                 href={route.link}
                                 key={route.title}
@@ -131,6 +138,7 @@ const DashboardLayout: React.FC<props> = ({ children }) => {
                                     }}
                                 >
                                     <ListItemIcon>{route.icon}</ListItemIcon>
+
                                     <ListItemText
                                         primary={route.title}
                                         sx={{
@@ -138,7 +146,7 @@ const DashboardLayout: React.FC<props> = ({ children }) => {
                                         }}
                                     />
                                 </ListItemButton>
-                            </InertiaLink>
+                            </Link>
                         ))}
                     </List>
                 </Drawer>
