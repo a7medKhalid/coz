@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Actions\CheckEmployeeTokenAction;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -32,12 +33,13 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request, CheckEmployeeTokenAction $checkEmployeeTokenAction)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'token' => ['nullable', 'string']
         ]);
 
         $user = User::create([
@@ -45,6 +47,13 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        //check if there is valid employee registration token
+
+        if($request->has('token')){
+            $user->assignRole('employee');
+        }
+
 
         event(new Registered($user));
 

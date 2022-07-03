@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Views\BranchesViewController;
 use App\Http\Controllers\Views\DashboardViewController;
+use App\Http\Controllers\Views\EmployeesViewController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +36,10 @@ Route::prefix('/dashboard')->group( function () {
         Route::middleware('can:manage branches')->group(function (){
             Route::get('/branches' ,[BranchesViewController::class, 'index'])->name('branches');
             Route::post('/branches' ,[BranchesViewController::class, 'addBranch'])->name('addBranch');
+
+            Route::get('/employees' ,[EmployeesViewController::class, 'index'])->name('employees');
+            Route::post('/employees' ,[EmployeesViewController::class, 'inviteEmployee'])->name('inviteEmployee');
+
         });
 
 

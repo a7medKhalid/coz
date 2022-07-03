@@ -17,7 +17,7 @@ class DashboardTest extends TestCase
     public function test_view_forManageDashboardPermission()
     {
 
-        $user = User::whereName('Admin')->first();
+        $user = User::whereName('admin')->first();
 
         $this->actingAs($user);
         $response = $this->get('dashboard/branches');
@@ -29,7 +29,7 @@ class DashboardTest extends TestCase
     public function test_can_not_view_forManageDashboardPermission()
     {
 
-        $user = User::whereName('Customer')->first();
+        $user = User::whereName('customer')->first();
 
         $this->actingAs($user);
         $response = $this->get('dashboard');
