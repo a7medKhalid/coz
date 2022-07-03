@@ -36,10 +36,11 @@ Route::prefix('/dashboard')->group( function () {
         Route::middleware('can:manage branches')->group(function (){
             Route::get('/branches' ,[BranchesViewController::class, 'index'])->name('branches');
             Route::post('/branches' ,[BranchesViewController::class, 'addBranch'])->name('addBranch');
+        });
 
+        Route::middleware('can:manage employees')->group(function (){
             Route::get('/employees' ,[EmployeesViewController::class, 'index'])->name('employees');
             Route::post('/employees' ,[EmployeesViewController::class, 'inviteEmployee'])->name('inviteEmployee');
-
         });
 
 
