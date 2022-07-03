@@ -32,6 +32,9 @@ Route::prefix('/dashboard')->group( function () {
             return Inertia::render('Dashboard');
         })->name('dashboard');
 
+        Route::get('/branches' , function (){
+            return Inertia::render('Branches');
+        })->name('branches');
 
     });
 
