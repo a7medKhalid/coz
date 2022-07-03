@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Views;
 use App\Actions\AllowedDashboardPages;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ModelsCRUD\BranchController;
+use App\Models\Branch;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -19,7 +20,9 @@ class BranchesViewController extends Controller
 
         $employees = User::role('employee')->get();
 
-        return Inertia::render('Dashboard/Branches/index',['employees' => $employees, 'allowedDashboardPages' => $allowedDashboardPages]);
+        $branches = Branch::all();
+
+        return Inertia::render('Dashboard/Branches/index',['employees' => $employees, 'branches' => $branches, 'allowedDashboardPages' => $allowedDashboardPages]);
 
     }
 
