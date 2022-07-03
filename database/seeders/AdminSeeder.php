@@ -17,7 +17,7 @@ class AdminSeeder extends Seeder
     {
         $user = User::factory()->create([
             'name' => 'Admin',
-            'email' => 'admin@test.com',
+            'email' => 'admin@test.com'
         ]);
 
         $user->assignRole('admin');
