@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Views\DashboardViewController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,9 +29,7 @@ Route::prefix('/dashboard')->group( function () {
 
     Route::middleware(['auth','can:view dashboard', 'verified'])->group(function (){
 
-        Route::get('' ,function (){
-            return Inertia::render('Dashboard');
-        })->name('dashboard');
+        Route::get('' , [DashboardViewController::class, 'index'])->name('dashboard');
 
         Route::get('/branches' , function (){
             return Inertia::render('Branches');
