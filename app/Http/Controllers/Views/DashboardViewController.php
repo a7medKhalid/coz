@@ -13,6 +13,6 @@ class DashboardViewController extends Controller
 
         $user = $request->user();
         $allowedDashboardPages = $AllowedDashboardPagesService->execute($user);
-        return Inertia::render('Dashboard',['allowedDashboardPages' => $allowedDashboardPages]);
+        return Inertia::render('Dashboard/index',['allowedDashboardPages' => $allowedDashboardPages]);
     }
 }
