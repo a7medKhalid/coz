@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Views;
 use App\Actions\AllowedDashboardPages;
 use App\Actions\SendEmployeeInviteAction;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,7 +16,9 @@ class EmployeesViewController extends Controller
         $user = $request->user();
         $allowedDashboardPages = $AllowedDashboardPagesService->execute($user);
 
-        return Inertia::render('Dashboard/Employees/index',['allowedDashboardPages' => $allowedDashboardPages]);
+        $employees = User::role('employee')->get();
+
+        return Inertia::render('Dashboard/Employees/index',['employees' => $employees, 'allowedDashboardPages' => $allowedDashboardPages]);
 
     }
 
