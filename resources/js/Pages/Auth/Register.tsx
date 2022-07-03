@@ -2,16 +2,7 @@ import React, { useEffect } from "react";
 
 import AuthLayout from "../../Layouts/AuthLayout";
 import { Head, InertiaLink, Link, useForm } from "@inertiajs/inertia-react";
-import {
-    Box,
-    Button,
-    Card,
-    Checkbox,
-    Container,
-    FormControlLabel,
-    Grid,
-    TextField,
-} from "@mui/material";
+import { Box, Button, Grid, TextField } from "@mui/material";
 import ValidationErrors from "../../Components/ValidationErrors";
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -19,6 +10,7 @@ export default function Register() {
         email: "",
         password: "",
         password_confirmation: "",
+        token: "",
     });
 
     useEffect(() => {
@@ -27,7 +19,7 @@ export default function Register() {
         };
     }, []);
 
-    const onHandleChange = (event) => {
+    const onHandleChange = (event: any) => {
         setData(
             event.target.name,
             event.target.type === "checkbox"
@@ -36,7 +28,7 @@ export default function Register() {
         );
     };
 
-    const submit = (e) => {
+    const submit = (e: any) => {
         e.preventDefault();
 
         post(route("register"));
@@ -52,6 +44,13 @@ export default function Register() {
                 <ValidationErrors errors={errors} />
             </Box>
             <Box component="form" onSubmit={submit} noValidate>
+                {/* <TextField
+                    margin="normal"
+                    id="token"
+                    name="token"
+                    value={"ZFEFXOWkkQaWp13v3ZC0EOSOm6p3pI9C"}
+                    // sx={{ display: "none" }}
+                /> */}
                 <TextField
                     margin="normal"
                     required

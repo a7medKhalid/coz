@@ -81,7 +81,6 @@ const DashboardLayout: React.FC<props> = ({ children }) => {
                     sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
                 >
                     <Toolbar />
-                    {location.pathname}
                     {children}
                 </Box>
                 <Drawer
