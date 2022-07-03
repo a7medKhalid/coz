@@ -28,11 +28,11 @@ Route::get('/', function () {
 
 Route::prefix('/dashboard')->group( function () {
 
-    Route::middleware(['auth','can:view dashboard', 'verified'])->group(function (){
+    Route::middleware(['auth','can:manage dashboard', 'verified'])->group(function (){
 
         Route::get('' , [DashboardViewController::class, 'index'])->name('dashboard');
 
-        Route::middleware('can:view branches')->group(function (){
+        Route::middleware('can:manage branches')->group(function (){
             Route::get('/branches' ,[BranchesViewController::class, 'index'])->name('branches');
         });
 
