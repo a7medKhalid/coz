@@ -1,4 +1,4 @@
-import { InertiaLink, Link } from "@inertiajs/inertia-react";
+import { Link, usePage } from "@inertiajs/inertia-react";
 import {
     AppBar,
     Avatar,
@@ -19,22 +19,28 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import route from "../../../vendor/tightenco/ziggy/src/js";
 import LayoutsProviders from "./LayoutsProviders";
 import { MAP_ROUTE_TO_ICON } from "../assets/consts";
+
 interface props {
     children: any;
 }
-import Icon from "@mui/material/Icon";
 
+interface routes {
+    title: string;
+    link: any;
+    icon: any;
+}
 const DashboardLayout: React.FC<props> = ({ children }) => {
     const allowedDashboardPagesProps = children.props.allowedDashboardPages;
-    console.log({ allowedDashboardPagesProps });
 
-    // const allowedDashboardPages = allowedDashboardPagesProps.map((item) => {
-    //     return {
-    //         title: item,
-    //         link: route(item),
-    //         icon: <Icon>add_circle</Icon>,
-    //     };
-    // });
+    const allowedDashboardPages: routes[] = allowedDashboardPagesProps.map(
+        (item: any) => {
+            return {
+                title: item,
+                link: route(item),
+                icon: "test",
+            };
+        }
+    );
     const drawerWidth = 240;
 
     const postRoutes = [
@@ -44,6 +50,9 @@ const DashboardLayout: React.FC<props> = ({ children }) => {
             icon: <LogoutIcon />,
         },
     ];
+    const locationPathName = location.pathname.split("/");
+    const curRouteName = locationPathName[locationPathName.length - 1];
+
     return (
         <LayoutsProviders>
             <Box sx={{ display: "flex" }}>
@@ -72,6 +81,7 @@ const DashboardLayout: React.FC<props> = ({ children }) => {
                     sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
                 >
                     <Toolbar />
+                    {location.pathname}
                     {children}
                 </Box>
                 <Drawer
@@ -89,15 +99,13 @@ const DashboardLayout: React.FC<props> = ({ children }) => {
                     <Toolbar />
                     <Avatar src="../assets/images/appLogo.png" />
                     <Divider />
-                    <List></List>
-                    <Divider />
                     <List>
-                        {postRoutes.map((route, index) => (
-                            <InertiaLink
+                        {allowedDashboardPages.map((route) => (
+                            <Link
                                 as="ListItem"
                                 href={route.link}
                                 key={route.title}
-                                method="post"
+                                selected={route.title === curRouteName}
                             >
                                 <ListItemButton
                                     sx={{
@@ -112,7 +120,33 @@ const DashboardLayout: React.FC<props> = ({ children }) => {
                                         }}
                                     />
                                 </ListItemButton>
-                            </InertiaLink>
+                            </Link>
+                        ))}
+                    </List>
+                    <Divider />
+                    <List>
+                        {postRoutes.map((route) => (
+                            <Link
+                                as="ListItem"
+                                href={route.link}
+                                key={route.title}
+                                method="post"
+                            >
+                                <ListItemButton
+                                    sx={{
+                                        direction: "ltr",
+                                    }}
+                                >
+                                    <ListItemIcon>{route.icon}</ListItemIcon>
+
+                                    <ListItemText
+                                        primary={route.title}
+                                        sx={{
+                                            textAlign: "left",
+                                        }}
+                                    />
+                                </ListItemButton>
+                            </Link>
                         ))}
                     </List>
                 </Drawer>

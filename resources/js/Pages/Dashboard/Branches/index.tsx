@@ -1,14 +1,13 @@
 import React from "react";
 import { Head, useForm } from "@inertiajs/inertia-react";
 import { Box, Button, Grid, TextField } from "@mui/material";
-import { LoadScript, GoogleMap } from "@react-google-maps/api";
 import AddIcon from "@mui/icons-material/Add";
 import DashboardLayout from "../../../Layouts/DashboardLayout";
 const Branches = () => {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { setData, post } = useForm({
         name: "",
     });
-    const onHandleChange = (event) => {
+    const onHandleChange = (event: any) => {
         setData(
             event.target.name,
             event.target.type === "checkbox"
@@ -16,29 +15,20 @@ const Branches = () => {
                 : event.target.value
         );
     };
-    const submit = (e) => {
-        e.preventDefault();
+    // const submit = (e) => {
+    //     e.preventDefault();
 
-        post(route("login"));
-    };
+    //     post(route("login"));
+    // };
 
     // const {} = useLoadScript()
-    const containerStyle = {
-        width: "100%",
-        height: "70vh",
-    };
-
-    const center = {
-        lat: -3.745,
-        lng: -38.523,
-    };
 
     return (
         <>
             <Head title="Dashboard" />
             <div dir="rtl">
                 <Grid container>
-                    <Grid xs>
+                    <Grid item xs>
                         <TextField
                             required
                             fullWidth
@@ -73,6 +63,6 @@ const Branches = () => {
         </>
     );
 };
-Branches.layout = (page) => <DashboardLayout children={page} />;
+Branches.layout = (page: any) => <DashboardLayout children={page} />;
 
 export default Branches;
