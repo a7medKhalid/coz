@@ -28,12 +28,12 @@ class UserSeeder extends Seeder
 
         $manager->assignRole('manager');
 
-        $manager = User::factory()->create([
+        $employee = User::factory()->create([
             'name' => 'employee',
             'email' => 'employee@test.com',
         ]);
 
-        $manager->assignRole('employee');
+        $employee->assignRole('employee');
 
         User::factory()->create([
             'name' => 'customer',
