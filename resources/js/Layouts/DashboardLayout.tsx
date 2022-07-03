@@ -18,16 +18,29 @@ import React from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import route from "../../../vendor/tightenco/ziggy/src/js";
 import LayoutsProviders from "./LayoutsProviders";
+import { MAP_ROUTE_TO_ICON } from "../assets/consts";
 interface props {
-    children: React.ReactNode;
+    children: any;
 }
+import Icon from "@mui/material/Icon";
 
 const DashboardLayout: React.FC<props> = ({ children }) => {
+    const allowedDashboardPagesProps = children.props.allowedDashboardPages;
+    console.log({ allowedDashboardPagesProps });
+
+    // const allowedDashboardPages = allowedDashboardPagesProps.map((item) => {
+    //     return {
+    //         title: item,
+    //         link: route(item),
+    //         icon: <Icon>add_circle</Icon>,
+    //     };
+    // });
     const drawerWidth = 240;
+
     const postRoutes = [
         {
             title: "logout",
-            link: route("logout"),
+            link: "logout",
             icon: <LogoutIcon />,
         },
     ];
@@ -76,29 +89,7 @@ const DashboardLayout: React.FC<props> = ({ children }) => {
                     <Toolbar />
                     <Avatar src="../assets/images/appLogo.png" />
                     <Divider />
-                    <List>
-                        {getRoutes.map((route, index) => (
-                            <InertiaLink
-                                as="ListItem"
-                                href={route.link}
-                                key={route.title}
-                            >
-                                <ListItemButton
-                                    sx={{
-                                        direction: "ltr",
-                                    }}
-                                >
-                                    <ListItemIcon>{route.icon}</ListItemIcon>
-                                    <ListItemText
-                                        primary={route.title}
-                                        sx={{
-                                            textAlign: "left",
-                                        }}
-                                    />
-                                </ListItemButton>
-                            </InertiaLink>
-                        ))}
-                    </List>
+                    <List></List>
                     <Divider />
                     <List>
                         {postRoutes.map((route, index) => (
