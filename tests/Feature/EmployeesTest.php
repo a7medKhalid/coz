@@ -51,7 +51,7 @@ class EmployeesTest extends TestCase
         $response = $this->post('dashboard/employees',['email' => 'email@adminTest.com']);
 
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     public function test_manager_can_create_employee_invite()
@@ -64,7 +64,7 @@ class EmployeesTest extends TestCase
         $response = $this->post('dashboard/employees',['email' => 'email@managerTest.com']);
 
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     public function test_non_admin_can_not_create_employee_invite()
@@ -91,6 +91,6 @@ class EmployeesTest extends TestCase
 
         $response = $this->put('dashboard/employees/assign-branch', ['employee_id' => $employee->id, 'branch_id' => 1]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 }

@@ -33,7 +33,7 @@ class EmployeesViewController extends Controller
     public function inviteEmployee(Request $request, SendEmployeeInviteAction $sendEmployeeInviteAction){
 
         $sendEmployeeInviteAction->execute($request);
-        return 'Employee invited successfully';
+        return back();
     }
 
     public function assignBranchRoleToEmployee(Request $request){
