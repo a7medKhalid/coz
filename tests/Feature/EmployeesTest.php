@@ -107,4 +107,34 @@ class EmployeesTest extends TestCase
 
         $response->assertStatus(302);
     }
+
+    //test manager can assign branch role to employee
+    public function test_manager_can_assign_branch_role_to_employee()
+    {
+
+        $manager = User::whereName('manager')->first();
+        $employee = User::whereName('employee')->first();
+
+        $this->actingAs($manager);
+
+        $response = $this->put('dashboard/employees/assign-branch', ['employee_id' => $employee->id, 'branch_id' => 1]);
+
+        $response->assertStatus(302);
+    }
+
+    //test manager can assign product manager role to employee
+    public function test_manager_can_assign_product_manager_role_to_employee()
+    {
+
+        $manager = User::whereName('manager')->first();
+        $employee = User::whereName('employee')->first();
+
+        $this->actingAs($manager);
+
+        $response = $this->put('dashboard/employees/assign-product-manager', ['employee_id' => $employee->id]);
+
+        $response->assertStatus(302);
+    }
+
+
 }
