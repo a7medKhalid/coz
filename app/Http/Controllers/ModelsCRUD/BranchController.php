@@ -12,7 +12,8 @@ class BranchController extends Controller
     public function create(Request $request){
         $request->validate([
             'name' => ['string', 'required'],
-            'coordinates' => ['string', 'required']
+            'lat' => ['string', 'required'],
+            'lng' => ['string', 'required'],
         ]);
 
 
@@ -20,7 +21,8 @@ class BranchController extends Controller
 
         $branchModel = Branch::create([
             'name' => $request['name'],
-            'coordinates' => $request['coordinates']
+            'lat' => ['string', 'required'],
+            'lng' => ['string', 'required'],
         ]);
 
         return $branchModel;
@@ -31,7 +33,8 @@ class BranchController extends Controller
         $request->validate([
             'branch_id' => ['integer', 'required'],
             'name' => ['string', 'required'],
-            'coordinates' => ['string', 'required'],
+            'lat' => ['string', 'required'],
+            'lng' => ['string', 'required'],
             'manager_id' => ['integer', 'nullable'],
         ]);
 
@@ -41,7 +44,8 @@ class BranchController extends Controller
 
         $branchModel->update([
             'name' => $request['name'],
-            'coordinates' => $request['coordinates']
+            'lat' => $request['lat'],
+            'lng' => $request['lng']
         ]);
 
         if ($request->has('manager_id')){

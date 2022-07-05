@@ -37,11 +37,14 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if ($request->user()->hasRole('employee')){
+        if ($request->user()->hasPermissionTo('manage dashboard')) {
             return redirect()->intended('/dashboard');
+
+        }else{
+            return redirect()->intended(RouteServiceProvider::HOME);
+
         }
 
-        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**
