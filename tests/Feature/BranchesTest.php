@@ -47,7 +47,7 @@ class BranchesTest extends TestCase
         $user = User::whereName('admin')->first();
 
         $this->actingAs($user);
-        $response = $this->post('dashboard/branches',['name' => 'branch', 'coordinates' => '264hufbr3976y']);
+        $response = $this->post('dashboard/branches',['name' => 'branch', 'latitude' => '1', 'longitude' => '1']);
 
 
         $response->assertStatus(201);
@@ -59,7 +59,7 @@ class BranchesTest extends TestCase
         $user = User::whereName('manager')->first();
 
         $this->actingAs($user);
-        $response = $this->post('dashboard/branches',['name' => 'branch', 'coordinates' => '264hufbr3976y']);
+        $response = $this->post('dashboard/branches',['name' => 'branch', 'latitude' => '1', 'longitude' => '1']);
 
 
         $response->assertStatus(403);
@@ -71,7 +71,7 @@ class BranchesTest extends TestCase
         $user = User::whereName('admin')->first();
 
         $this->actingAs($user);
-        $response = $this->put('dashboard/branches',['branch_id' => 1,'name' => 'branch edited', 'coordinates' => '2ufjtgyj54br3976y']);
+        $response = $this->put('dashboard/branches',['branch_id' => 1,'name' => 'branch edited',  'latitude' => '1', 'longitude' => '1']);
 
 
         $response->assertStatus(200);
@@ -83,7 +83,7 @@ class BranchesTest extends TestCase
         $user = User::whereName('manager')->first();
 
         $this->actingAs($user);
-        $response = $this->put('dashboard/branches',['branch_id' => 1,'name' => 'branch edited', 'coordinates' => '2ufjtgyj54br3976y']);
+        $response = $this->put('dashboard/branches',['branch_id' => 1,'name' => 'branch edited', 'latitude' => '1', 'longitude' => '1']);
 
 
         $response->assertStatus(403);
