@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import {
@@ -27,10 +27,7 @@ const columns: GridColDef[] = [
 const Employees = (props) => {
     console.log({ props });
 
-    const auth = props.auth.user;
-    Employees.layout = (page: any) => (
-        <DashboardLayout children={page} auth={auth} />
-    );
+    // const auth = props.auth.user;
 
     const [openModal, setOpenModal] = React.useState(false);
     const [onSuccess, setOnSuccess] = useState(false);
@@ -129,3 +126,4 @@ const Employees = (props) => {
 };
 
 export default Employees;
+Employees.layout = (page: any) => <DashboardLayout children={page} />;
