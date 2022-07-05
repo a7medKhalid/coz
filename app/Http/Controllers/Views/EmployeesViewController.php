@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Views;
 
 use App\Actions\AllowedDashboardPages;
+use App\Actions\GetUserRoleAction;
 use App\Actions\SendEmployeeInviteAction;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ModelsCRUD\BranchController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -25,8 +27,16 @@ class EmployeesViewController extends Controller
                 'email' => $item->email
             ];});
 
+        $branch_controller = new BranchController;
 
-        return Inertia::render('Dashboard/Employees/index',['employees' => $employees, 'allowedDashboardPages' => $allowedDashboardPages]);
+        $branches = $branch_controller->read($request);
+
+        $GetUserRoleAction = new GetUserRoleAction;
+
+        $authType = $GetUserRoleAction->execute($user);
+
+
+        return Inertia::render('Dashboard/Employees/index',['employees' => $employees, 'allowedDashboardPages' => $allowedDashboardPages, 'branches' => $branches, 'authType' => $authType]);
 
     }
 
