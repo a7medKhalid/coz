@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardLayout from "../../../Layouts/DashboardLayout";
+import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 
 const Products = () => {
     return <div>index</div>;
