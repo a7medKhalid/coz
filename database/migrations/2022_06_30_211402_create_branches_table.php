@@ -18,7 +18,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('name');
-            $table->string('coordinates');
+            $table->string('lat');
+            $table->string('lng');
 
             $table->foreignId('manager_id')->nullable();
         });
