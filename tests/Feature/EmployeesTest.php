@@ -93,4 +93,18 @@ class EmployeesTest extends TestCase
 
         $response->assertStatus(302);
     }
+
+    //assign Product Manager Role To Employee test
+    public function test_admin_can_assign_product_manager_role_to_employee()
+    {
+
+        $admin = User::whereName('admin')->first();
+        $employee = User::whereName('employee')->first();
+
+        $this->actingAs($admin);
+
+        $response = $this->put('dashboard/employees/assign-product-manager', ['employee_id' => $employee->id]);
+
+        $response->assertStatus(302);
+    }
 }

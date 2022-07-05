@@ -46,6 +46,7 @@ Route::prefix('/dashboard')->group( function () {
             Route::get('/employees' ,[EmployeesViewController::class, 'index'])->name('employees');
             Route::post('/employees' ,[EmployeesViewController::class, 'inviteEmployee'])->name('inviteEmployee');
             Route::put('/employees/assign-branch' ,[EmployeesViewController::class, 'assignBranchRoleToEmployee'])->name('assignBranchRoleToEmployee');
+            Route::put('/employees/assign-product-manager' ,[EmployeesViewController::class, 'assignProductManagerRoleToEmployee'])->name('assignProductManagerRoleToEmployee');
         });
 
 

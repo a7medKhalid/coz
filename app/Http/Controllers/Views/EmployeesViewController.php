@@ -58,4 +58,24 @@ class EmployeesViewController extends Controller
 
         return back();
     }
+
+    public function assignProductManagerRoleToEmployee(Request $request)
+    {
+
+        //validate request
+        $request->validate([
+            'employee_id' => 'required|integer'
+        ]);
+
+        //find employee by id
+        $employee = User::find($request->employee_id);
+
+
+        //update employee
+        $employee
+            ->assignRole('productManager')
+            ->save();
+
+        return back();
+    }
 }
