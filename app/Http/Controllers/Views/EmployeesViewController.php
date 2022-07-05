@@ -31,6 +31,29 @@ class EmployeesViewController extends Controller
     public function inviteEmployee(Request $request, SendEmployeeInviteAction $sendEmployeeInviteAction){
 
         $sendEmployeeInviteAction->execute($request);
-        return back()->with('success', 'Employee invited successfully');
+        return 'Employee invited successfully';
+    }
+
+    public function assignBranchRoleToEmployee(Request $request){
+
+        //validate request
+        $request->validate([
+            'employee_id' => 'required|integer',
+            'branch_id' => 'required|integer'
+        ]);
+
+        //find employee by id
+        $employee = User::find($request->employee_id);
+
+        $permission = Permission::where('model_id', $request['branch_id'])->first();
+
+        //update employee
+        $employee
+            ->givePermissionTO($permission)
+            ->save();
+
+
+
+        return back();
     }
 }
