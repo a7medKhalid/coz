@@ -55,7 +55,7 @@ class BranchController extends Controller
         if ($request->has('manager_id')){
            $manager = User::find($request['manager_id']);
 
-           $branchModel->manager()->save($manager);
+           $branchModel->manager()->associate($manager);
         }
 
         return $branchModel;

@@ -77,6 +77,23 @@ class BranchesTest extends TestCase
         $response->assertStatus(200);
     }
 
+    //test admin can update branch manager
+    public function test_admin_can_update_branch_manager()
+    {
+
+        $user = User::whereName('admin')->first();
+
+        $manager = User::whereName('manager')->first();
+
+        $this->actingAs($user);
+        $response = $this->put('dashboard/branches', ['branch_id' => 1, 'name' => 'branch edited', 'latitude' => '1', 'longitude' => '1', 'manager_id' => $manager->id]);
+
+        $response->assertStatus(200);
+
+    }
+
+
+
     public function test_non_admin_can_not_update_branch()
     {
 
