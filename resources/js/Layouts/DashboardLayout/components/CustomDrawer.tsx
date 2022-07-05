@@ -64,12 +64,9 @@ const CustomDrawer = ({ allowedDashboardPagesProps, drawerWidth }) => {
                             }}
                         >
                             <ListItemIcon>{route.icon}</ListItemIcon>
-                            <ListItemText
-                                primary={MAP_ROUTE_TO_AR_NAME[route.title]}
-                                sx={{
-                                    textAlign: "left",
-                                }}
-                            />
+                            <ListItemText>
+                                {MAP_ROUTE_TO_AR_NAME[route.title]}
+                            </ListItemText>
                         </ListItemButton>
                     </Link>
                 ))}

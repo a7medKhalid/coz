@@ -25,6 +25,8 @@ const columns: GridColDef[] = [
 ];
 
 const Employees = (props) => {
+    console.log({ props });
+
     const auth = props.auth.user;
     Employees.layout = (page: any) => (
         <DashboardLayout children={page} auth={auth} />
