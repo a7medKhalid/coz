@@ -79,4 +79,18 @@ class EmployeesTest extends TestCase
 
         $response->assertStatus(403);
     }
+
+    //assign Branch Role To Employee test
+    public function test_admin_can_assign_branch_role_to_employee()
+    {
+
+        $admin = User::whereName('admin')->first();
+        $employee = User::whereName('employee')->first();
+
+        $this->actingAs($admin);
+
+        $response = $this->put('dashboard/employees/assign-branch', ['employee_id' => $employee->id, 'branch_id' => 1]);
+
+        $response->assertStatus(200);
+    }
 }
