@@ -44,7 +44,7 @@ const Map: React.FC<MapProps> = ({
     }, [map, onClick, onIdle]);
     return (
         <>
-            <div ref={ref} style={style} />
+            <div id="customgooglemap" ref={ref} style={style} />
             {React.Children.map(children, (child) => {
                 if (React.isValidElement(child)) {
                     // set the map prop on the child component
