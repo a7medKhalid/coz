@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import {
@@ -16,21 +16,22 @@ import {
 import { useForm } from "@inertiajs/inertia-react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ValidationErrors from "../../../Components/ValidationErrors";
+import { LayoutsContext } from "../../../Layouts/LayoutsProvider";
 
 const columns: GridColDef[] = [
-    { field: "id", headerName: "رقم المعرف", width: 80 },
+    { field: "id", headerName: "رقم المعرف", width: 90 },
     { field: "name", headerName: "الإسم", width: 130 },
-    { field: "email", headerName: "الإيميل", width: 150 },
+    { field: "email", headerName: "الإيميل", width: 240 },
     { field: "branchName", headerName: "اسم الفرع", width: 200 },
 ];
 
 const Employees = (props) => {
     console.log({ props });
-
+    const employees = props.employees.data;
     // const auth = props.auth.user;
+    const { snackBar, setSnackBar } = useContext(LayoutsContext);
 
     const [openModal, setOpenModal] = React.useState(false);
-    const [onSuccess, setOnSuccess] = useState(false);
     const { data, setData, post, processing, errors, reset, clearErrors } =
         useForm({
             email: "",
@@ -56,26 +57,17 @@ const Employees = (props) => {
         // clearErrors();
         post(route("inviteEmployee"), {
             onSuccess: () => {
-                setOnSuccess(true);
+                setSnackBar({
+                    isShown: true,
+                    message: "تم إرسال دعوة بنجاح",
+                    status: "success",
+                });
                 handleClose();
             },
         });
     };
     return (
         <div dir="rtl">
-            <Snackbar
-                open={onSuccess}
-                autoHideDuration={3000}
-                onClose={() => setOnSuccess(false)}
-            >
-                <Alert
-                    severity="success"
-                    sx={{ width: "100%" }}
-                    onClose={() => setOnSuccess(false)}
-                >
-                    تم ارسال الدعوة بنجاح
-                </Alert>
-            </Snackbar>
             <Button variant="text" onClick={handleClickOpen}>
                 ارسال دعوة
             </Button>
@@ -112,7 +104,7 @@ const Employees = (props) => {
             </Dialog>
             <Box sx={{ height: "80vh" }}>
                 <DataGrid
-                    rows={data}
+                    rows={employees}
                     columns={columns}
                     pageSize={5}
                     sx={{ backgroundColor: "white" }}

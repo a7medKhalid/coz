@@ -1,9 +1,9 @@
 import { Box, CssBaseline, Paper, Toolbar } from "@mui/material";
 import React from "react";
 
-import LayoutsProviders from "../LayoutsProviders";
 import CustomDrawer from "./components/CustomDrawer";
 import CustomAppBar from "./components/CustomAppBar";
+import LayoutsProviders from "../LayoutsProvider";
 
 interface props {
     children: any;
