@@ -22,7 +22,7 @@ class InviteController extends Controller
         $token = Str::random(32);
 
         //create invite model
-        $inviteModel = Invite::create([
+        $inviteModel = Invite::updateOrCreate([
             'email' => $email,
             'token' => $token
         ]);

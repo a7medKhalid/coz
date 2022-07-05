@@ -31,13 +31,17 @@ Route::prefix('/dashboard')->group( function () {
 
     Route::middleware(['auth','can:manage dashboard', 'verified'])->group(function (){
 
+        //dashboard route
         Route::get('' , [DashboardViewController::class, 'index'])->name('dashboard');
 
+        //branches routes
         Route::middleware('can:manage branches')->group(function (){
             Route::get('/branches' ,[BranchesViewController::class, 'index'])->name('branches');
             Route::post('/branches' ,[BranchesViewController::class, 'addBranch'])->name('addBranch');
+            Route::put('/branches' ,[BranchesViewController::class, 'updateBranch'])->name('updateBranch');
         });
 
+        //employees routes
         Route::middleware('can:manage employees')->group(function (){
             Route::get('/employees' ,[EmployeesViewController::class, 'index'])->name('employees');
             Route::post('/employees' ,[EmployeesViewController::class, 'inviteEmployee'])->name('inviteEmployee');

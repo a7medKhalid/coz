@@ -19,14 +19,31 @@ class UserSeeder extends Seeder
 
 
 
-
-
         $manager = User::factory()->create([
             'name' => 'manager',
             'email' => 'manager@test.com',
         ]);
 
         $manager->assignRole('manager');
+        $manager->assignRole('employee');
+
+
+        $productManager = User::factory()->create([
+            'name' => 'productManager',
+            'email' => 'productManager@test.com',
+        ]);
+
+        $productManager->assignRole('productManager');
+        $productManager->assignRole('employee');
+
+
+        $branchEmployee = User::factory()->create([
+            'name' => 'branchEmployee',
+            'email' => 'branchEmployee@test.com',
+        ]);
+
+        $branchEmployee->assignRole('branchEmployee');
+        $branchEmployee->assignRole('employee');
 
         $employee = User::factory()->create([
             'name' => 'employee',

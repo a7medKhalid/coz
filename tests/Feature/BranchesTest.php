@@ -50,7 +50,7 @@ class BranchesTest extends TestCase
         $response = $this->post('dashboard/branches',['name' => 'branch', 'coordinates' => '264hufbr3976y']);
 
 
-        $response->assertStatus(200);
+        $response->assertStatus(201);
     }
 
     public function test_non_admin_can_not_create_branch()
@@ -60,6 +60,30 @@ class BranchesTest extends TestCase
 
         $this->actingAs($user);
         $response = $this->post('dashboard/branches',['name' => 'branch', 'coordinates' => '264hufbr3976y']);
+
+
+        $response->assertStatus(403);
+    }
+
+    public function test_admin_can_update_branch()
+    {
+
+        $user = User::whereName('admin')->first();
+
+        $this->actingAs($user);
+        $response = $this->put('dashboard/branches',['branch_id' => 1,'name' => 'branch edited', 'coordinates' => '2ufjtgyj54br3976y']);
+
+
+        $response->assertStatus(200);
+    }
+
+    public function test_non_admin_can_not_update_branch()
+    {
+
+        $user = User::whereName('manager')->first();
+
+        $this->actingAs($user);
+        $response = $this->put('dashboard/branches',['branch_id' => 1,'name' => 'branch edited', 'coordinates' => '2ufjtgyj54br3976y']);
 
 
         $response->assertStatus(403);

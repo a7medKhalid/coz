@@ -51,7 +51,9 @@ class RegisteredUserController extends Controller
         //check if there is valid employee registration token
 
         if($request->has('token')){
-            $user->assignRole('employee');
+            if ($checkEmployeeTokenAction->execute($request['email'], $request['token'])){
+                $user->assignRole('employee');
+            }
         }
 
 
