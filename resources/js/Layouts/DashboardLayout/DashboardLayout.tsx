@@ -7,19 +7,16 @@ import CustomAppBar from "./components/CustomAppBar";
 
 interface props {
     children: any;
-    auth: any;
 }
 
-const DashboardLayout: React.FC<props> = ({ auth, children }) => {
+const DashboardLayout: React.FC<props> = ({ children }) => {
     const allowedDashboardPagesProps = children.props.allowedDashboardPages;
-
     const drawerWidth = 240;
-
     return (
         <LayoutsProviders>
             <Box sx={{ display: "flex" }}>
                 <CssBaseline />
-                <CustomAppBar auth={auth} drawerWidth={drawerWidth} />
+                <CustomAppBar drawerWidth={drawerWidth} />
                 <Box
                     component="main"
                     sx={{ flexGrow: 1, bgcolor: "background.default", p: 2 }}
@@ -28,7 +25,7 @@ const DashboardLayout: React.FC<props> = ({ auth, children }) => {
                     <Paper
                         sx={{
                             bgcolor: "white",
-                            minHeight: "90vh",
+                            minHeight: "85vh",
                             borderRadius: 5,
                             p: 3,
                             boxShadow: "0px 0px 10px 5px rgba(0, 0, 0, 0.07)",

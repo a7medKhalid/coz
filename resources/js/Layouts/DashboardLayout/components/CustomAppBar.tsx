@@ -14,8 +14,9 @@ import { blueGrey, deepOrange } from "@mui/material/colors";
 import React from "react";
 import logo from "../../../assets/images/appLogo.png";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Link } from "@inertiajs/inertia-react";
 
-const CustomAppBar = ({ auth, drawerWidth }) => {
+const CustomAppBar = ({ drawerWidth }) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -51,7 +52,7 @@ const CustomAppBar = ({ auth, drawerWidth }) => {
                             noWrap
                             component="span"
                         >
-                            {auth.name} مرحبا
+                            {/* {auth.name} مرحبا */}
                         </Typography>
                         <IconButton
                             onClick={handleClick}
@@ -104,14 +105,13 @@ const CustomAppBar = ({ auth, drawerWidth }) => {
                 <MenuItem sx={{ textAlign: "right" }}>حسابي</MenuItem>
                 <Divider />
 
-                <MenuItem
-                    onClick={() => route("logout")}
-                    sx={{ direction: "ltr" }}
-                >
-                    <ListItemIcon>
-                        <LogoutIcon fontSize="small" />
-                    </ListItemIcon>
-                    تسجيل الخروج
+                <MenuItem sx={{ direction: "ltr" }}>
+                    <Link href={route("logout")} method="post" as="div">
+                        <ListItemIcon>
+                            <LogoutIcon fontSize="small" />
+                        </ListItemIcon>
+                        تسجيل الخروج
+                    </Link>
                 </MenuItem>
             </Menu>
         </>
