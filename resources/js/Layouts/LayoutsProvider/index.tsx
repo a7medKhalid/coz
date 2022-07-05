@@ -26,7 +26,7 @@ export default function LayoutsProviders({ children }) {
     });
     const themeLight = createTheme({
         typography: {
-            fontFamily: "Noto Sans Arabic, sans-serif",
+            fontFamily: "cairo, sans-serif",
         },
         palette: {
             background: {

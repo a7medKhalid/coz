@@ -166,6 +166,24 @@
       "POST"
     ]
   },
+  "assignBranchRoleToEmployee": {
+    "name": "assignBranchRoleToEmployee",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Views\\EmployeesViewController@assignBranchRoleToEmployee",
+    "uri": "dashboard/employees/assign-branch",
+    "method": [
+      "PUT"
+    ]
+  },
+  "assignProductManagerRoleToEmployee": {
+    "name": "assignProductManagerRoleToEmployee",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Views\\EmployeesViewController@assignProductManagerRoleToEmployee",
+    "uri": "dashboard/employees/assign-product-manager",
+    "method": [
+      "PUT"
+    ]
+  },
   "register": {
     "name": "register",
     "domain": null,
