@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ModelsCRUD;
 
+use App\Actions\GetUserRoleAction;
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Models\User;
@@ -10,6 +11,24 @@ use Spatie\Permission\Models\Permission;
 
 class BranchController extends Controller
 {
+    public function read(Request $request)
+    {
+        $user = $request->user();
+
+        $GetUserRoleAction = new GetUserRoleAction;
+
+        $userRole = $GetUserRoleAction->execute($user);
+
+        //if user is admin, return all branches
+        if($userRole == 'admin'){
+            $branches = Branch::all();
+        }
+        //else if user is manager, return only branches that user is assigned to
+        elseif($userRole == 'manager'){
+            $branches = Branch::where('manager_id', $user->id)->get();
+        }
+        return $branches;
+    }
     public function create(Request $request){
         $request->validate([
             'name' => ['string', 'required'],
@@ -55,7 +74,7 @@ class BranchController extends Controller
         if ($request->has('manager_id')){
            $manager = User::find($request['manager_id']);
 
-           $branchModel->manager()->save($manager);
+           $branchModel->manager()->associate($manager);
         }
 
         return $branchModel;
