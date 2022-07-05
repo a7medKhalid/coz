@@ -51,7 +51,7 @@ class EmployeesTest extends TestCase
         $response = $this->post('dashboard/employees',['email' => 'email@adminTest.com']);
 
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     public function test_manager_can_create_employee_invite()
@@ -64,7 +64,7 @@ class EmployeesTest extends TestCase
         $response = $this->post('dashboard/employees',['email' => 'email@managerTest.com']);
 
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     public function test_non_admin_can_not_create_employee_invite()
@@ -79,4 +79,62 @@ class EmployeesTest extends TestCase
 
         $response->assertStatus(403);
     }
+
+    //assign Branch Role To Employee test
+    public function test_admin_can_assign_branch_role_to_employee()
+    {
+
+        $admin = User::whereName('admin')->first();
+        $employee = User::whereName('employee')->first();
+
+        $this->actingAs($admin);
+
+        $response = $this->put('dashboard/employees/assign-branch', ['employee_id' => $employee->id, 'branch_id' => 1]);
+
+        $response->assertStatus(302);
+    }
+
+    //assign Product Manager Role To Employee test
+    public function test_admin_can_assign_product_manager_role_to_employee()
+    {
+
+        $admin = User::whereName('admin')->first();
+        $employee = User::whereName('employee')->first();
+
+        $this->actingAs($admin);
+
+        $response = $this->put('dashboard/employees/assign-product-manager', ['employee_id' => $employee->id]);
+
+        $response->assertStatus(302);
+    }
+
+    //test manager can assign branch role to employee
+    public function test_manager_can_assign_branch_role_to_employee()
+    {
+
+        $manager = User::whereName('manager')->first();
+        $employee = User::whereName('employee')->first();
+
+        $this->actingAs($manager);
+
+        $response = $this->put('dashboard/employees/assign-branch', ['employee_id' => $employee->id, 'branch_id' => 1]);
+
+        $response->assertStatus(302);
+    }
+
+    //test manager can assign product manager role to employee
+    public function test_manager_can_assign_product_manager_role_to_employee()
+    {
+
+        $manager = User::whereName('manager')->first();
+        $employee = User::whereName('employee')->first();
+
+        $this->actingAs($manager);
+
+        $response = $this->put('dashboard/employees/assign-product-manager', ['employee_id' => $employee->id]);
+
+        $response->assertStatus(302);
+    }
+
+
 }

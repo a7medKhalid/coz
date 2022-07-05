@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class EmployeesViewController extends Controller
 {
@@ -31,6 +33,49 @@ class EmployeesViewController extends Controller
     public function inviteEmployee(Request $request, SendEmployeeInviteAction $sendEmployeeInviteAction){
 
         $sendEmployeeInviteAction->execute($request);
-        return back()->with('success', 'Employee invited successfully');
+        return back();
+    }
+
+    public function assignBranchRoleToEmployee(Request $request){
+
+        //validate request
+        $request->validate([
+            'employee_id' => 'required|integer',
+            'branch_id' => 'required|integer'
+        ]);
+
+        //find employee by id
+        $employee = User::find($request->employee_id);
+
+        $permission = Permission::where('model_id', $request['branch_id'])->first();
+
+        //update employee
+        $employee
+            ->givePermissionTO($permission)
+            ->save();
+
+
+
+        return back();
+    }
+
+    public function assignProductManagerRoleToEmployee(Request $request)
+    {
+
+        //validate request
+        $request->validate([
+            'employee_id' => 'required|integer'
+        ]);
+
+        //find employee by id
+        $employee = User::find($request->employee_id);
+
+
+        //update employee
+        $employee
+            ->assignRole('productManager')
+            ->save();
+
+        return back();
     }
 }
