@@ -3,6 +3,9 @@ const CONSTANTS = {
 };
 describe("auth", () => {
     beforeEach(() => {
+        beforeEach(() => {
+            cy.refreshDatabase();
+        });
         cy.visit(CONSTANTS.BASE_URL + "/register");
     });
     describe("register", () => {

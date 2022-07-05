@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DashboardLayout from "../../../Layouts/DashboardLayout";
+import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import {
     Alert,
@@ -24,7 +24,12 @@ const columns: GridColDef[] = [
     { field: "branchName", headerName: "اسم الفرع", width: 200 },
 ];
 
-const Employees = () => {
+const Employees = (props) => {
+    const auth = props.auth.user;
+    Employees.layout = (page: any) => (
+        <DashboardLayout children={page} auth={auth} />
+    );
+
     const [openModal, setOpenModal] = React.useState(false);
     const [onSuccess, setOnSuccess] = useState(false);
     const { data, setData, post, processing, errors, reset, clearErrors } =
@@ -111,6 +116,7 @@ const Employees = () => {
                     rows={data}
                     columns={columns}
                     pageSize={5}
+                    sx={{ backgroundColor: "white" }}
                     rowsPerPageOptions={[5]}
                     checkboxSelection
                     hideFooter
@@ -119,6 +125,5 @@ const Employees = () => {
         </div>
     );
 };
-Employees.layout = (page: any) => <DashboardLayout children={page} />;
 
 export default Employees;

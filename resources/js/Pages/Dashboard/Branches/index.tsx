@@ -2,11 +2,14 @@ import React from "react";
 import { Head, useForm } from "@inertiajs/inertia-react";
 import { Box, Button, Grid, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import DashboardLayout from "../../../Layouts/DashboardLayout";
-const Branches = () => {
+import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
+const Branches = (props) => {
     const { setData, post } = useForm({
         name: "",
     });
+    const auth = props.auth.user;
+
+    Branches.layout = (page) => <DashboardLayout auth={auth} children={page} />;
     const onHandleChange = (event: any) => {
         setData(
             event.target.name,
@@ -63,6 +66,5 @@ const Branches = () => {
         </>
     );
 };
-Branches.layout = (page: any) => <DashboardLayout children={page} />;
 
 export default Branches;
