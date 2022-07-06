@@ -10,6 +10,7 @@ import {
     Alert,
     Box,
     Button,
+    Checkbox,
     Dialog,
     DialogActions,
     DialogContent,
@@ -25,15 +26,19 @@ import { useForm } from "@inertiajs/inertia-react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ValidationErrors from "../../../Components/ValidationErrors";
 import { LayoutsContext } from "../../../Layouts/LayoutsProvider";
+import { Inertia } from "@inertiajs/inertia";
 
 const Employees = (props) => {
     const employees = props.employees.data;
     const branches = props.branches;
+    console.log({ branches });
+
     // const auth = props.auth.user;
     const { snackBar, setSnackBar } = useContext(LayoutsContext);
     const noButtonRef = React.useRef<HTMLButtonElement>(null);
 
     const [promiseArguments, setPromiseArguments] = React.useState<any>(null);
+    const [branch, setBranch] = useState({});
     const [openModal, setOpenModal] = React.useState(false);
     const { data, setData, post, processing, errors, reset, clearErrors } =
         useForm({
@@ -72,13 +77,15 @@ const Employees = (props) => {
     function SelectEditInputCell(props: GridRenderCellParams) {
         const { id, value, field } = props;
         const apiRef = useGridApiContext();
-
         const handleChange = async (event: SelectChangeEvent) => {
+            const branch = branches.filter((v) => v.id == event.target.value);
+            setBranch(branch[0]);
             await apiRef.current.setEditCellValue({
                 id,
                 field,
-                value: event.target.value,
+                value: branch[0].name,
             });
+
             apiRef.current.stopCellEditMode({ id, field });
         };
 
@@ -91,19 +98,38 @@ const Employees = (props) => {
                 native
                 autoFocus
             >
+                <option>---</option>
                 {branches.map((item) => {
-                    return <option>{item.name}</option>;
+                    return <option value={item.id}>{item.name}</option>;
                 })}
             </Select>
         );
     }
+    function CheckBoxEditCell(props: GridRenderCellParams) {
+        const { id, value, field } = props;
+        const apiRef = useGridApiContext();
+        const handleChange = async (event: SelectChangeEvent) => {
+            await apiRef.current.setEditCellValue({
+                id,
+                field,
+                value: event.target.value,
+            });
+
+            apiRef.current.stopCellEditMode({ id, field });
+        };
+
+        return <Checkbox checked={value} onChange={handleChange} />;
+    }
     const renderSelectEditInputCell: GridColDef["renderCell"] = (params) => {
         return <SelectEditInputCell {...params} />;
+    };
+    const renderCheckBoxEditCell: GridColDef["renderCell"] = (params) => {
+        return <CheckBoxEditCell {...params} />;
     };
     const columns: GridColDef[] = [
         { field: "id", headerName: "رقم المعرف", width: 90 },
         { field: "name", headerName: "الإسم", width: 130 },
-        { field: "email", headerName: "الإيميل", width: 240 },
+        { field: "email", headerName: "الإيميل", width: 200 },
         {
             field: "branchName",
             headerName: "الفرع الموظف فيه",
@@ -116,6 +142,7 @@ const Employees = (props) => {
             headerName: "تعيين كمدخل منتجات",
             width: 200,
             editable: true,
+            renderEditCell: renderCheckBoxEditCell,
         },
     ];
 
@@ -127,13 +154,24 @@ const Employees = (props) => {
 
     const handleYes = async () => {
         const { newRow, oldRow, reject, resolve } = promiseArguments;
-        console.log({ newRow });
-        console.log({ oldRow });
 
-        //   put(route("assignBranchRoleToEmployee"), {
-        //       employee_id: newRow.id,
-        //       branch_id: id,
-        //   });
+        post(
+            route("assignBranchRoleToEmployee", {
+                employee_id: newRow.id,
+                branch_id: branch.id,
+            }),
+            {
+                onSuccess: () => {
+                    setSnackBar({
+                        isShown: true,
+                        message: "تم تحديث الفرع بنجاح",
+                        status: "success",
+                    });
+                    resolve(newRow);
+                    setPromiseArguments(null);
+                },
+            }
+        );
     };
     function computeMutation(newRow, oldRow) {
         if (newRow.branchName !== oldRow.branchName) {
@@ -197,7 +235,7 @@ const Employees = (props) => {
 
     return (
         <div dir="rtl">
-            <Button variant="text" onClick={handleClickOpen}>
+            <Button id="sendInvite" variant="text" onClick={handleClickOpen}>
                 ارسال دعوة
             </Button>
             <Dialog open={openModal} onClose={handleClose}>
@@ -223,8 +261,14 @@ const Employees = (props) => {
                             <ValidationErrors errors={errors} />
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={handleClose}>اغلاق</Button>
-                            <LoadingButton type="submit" loading={processing}>
+                            <Button id="cancel" onClick={handleClose}>
+                                اغلاق
+                            </Button>
+                            <LoadingButton
+                                id="send"
+                                type="submit"
+                                loading={processing}
+                            >
                                 ارسال
                             </LoadingButton>
                         </DialogActions>
