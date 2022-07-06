@@ -45,9 +45,6 @@ class BranchController extends Controller
             'longitude' => $request['longitude'],
         ]);
 
-        //create manage branch permission
-        $permission = Permission::create(['name' => 'manage branch ' . $branchModel->id ,'model_id' => $branchModel->id]);
-
         return $branchModel;
 
     }
@@ -75,6 +72,8 @@ class BranchController extends Controller
            $manager = User::find($request['manager_id']);
 
            $branchModel->manager()->associate($manager);
+
+           $branchModel->save();
         }
 
         return $branchModel;
