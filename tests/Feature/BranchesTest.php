@@ -50,7 +50,7 @@ class BranchesTest extends TestCase
         $response = $this->post('dashboard/branches',['name' => 'branch', 'latitude' => '1', 'longitude' => '1']);
 
 
-        $response->assertStatus(201);
+        $response->assertStatus(302);
     }
 
     public function test_non_admin_can_not_create_branch()
@@ -71,10 +71,10 @@ class BranchesTest extends TestCase
         $user = User::whereName('admin')->first();
 
         $this->actingAs($user);
-        $response = $this->put('dashboard/branches',['branch_id' => 1,'name' => 'branch edited',  'latitude' => '1', 'longitude' => '1']);
+        $response = $this->post('dashboard/branches',['branch_id' => 1,'name' => 'branch edited',  'latitude' => '1', 'longitude' => '1']);
 
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     //test admin can update branch manager
@@ -86,9 +86,9 @@ class BranchesTest extends TestCase
         $manager = User::whereName('manager')->first();
 
         $this->actingAs($user);
-        $response = $this->put('dashboard/branches', ['branch_id' => 1, 'name' => 'branch edited', 'latitude' => '1', 'longitude' => '1', 'manager_id' => $manager->id]);
+        $response = $this->post('dashboard/branches', ['branch_id' => 1, 'name' => 'branch edited', 'latitude' => '1', 'longitude' => '1', 'manager_id' => $manager->id]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
 
     }
 
@@ -100,7 +100,7 @@ class BranchesTest extends TestCase
         $user = User::whereName('manager')->first();
 
         $this->actingAs($user);
-        $response = $this->put('dashboard/branches',['branch_id' => 1,'name' => 'branch edited', 'latitude' => '1', 'longitude' => '1']);
+        $response = $this->post('dashboard/branches',['branch_id' => 1,'name' => 'branch edited', 'latitude' => '1', 'longitude' => '1']);
 
 
         $response->assertStatus(403);

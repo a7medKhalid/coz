@@ -30,7 +30,7 @@ class BranchesViewController extends Controller
         $branch_controller = new BranchController;
 
         $branchModel = $branch_controller->create($request);
-        return $branchModel;
+        return back();
 
     }
 
@@ -40,7 +40,7 @@ class BranchesViewController extends Controller
 
         $branchModel = $branch_controller->update($request);
 
-        return $branchModel;
+        return back();
     }
 
 

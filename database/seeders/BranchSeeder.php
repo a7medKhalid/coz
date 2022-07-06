@@ -32,8 +32,6 @@ class BranchSeeder extends Seeder
             'manager_id' => $manager->id,
         ]);
 
-        //create manage branch permission
-        $permission = Permission::create(['name' => 'manage branch ' . $branch->id ,'model_id' => $branch->id]);
 
     }
 }

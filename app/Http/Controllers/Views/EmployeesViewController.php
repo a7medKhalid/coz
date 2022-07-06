@@ -7,11 +7,11 @@ use App\Actions\GetUserRoleAction;
 use App\Actions\SendEmployeeInviteAction;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ModelsCRUD\BranchController;
+use App\Models\Branch;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class EmployeesViewController extends Controller
 {
@@ -20,11 +20,14 @@ class EmployeesViewController extends Controller
         $user = $request->user();
         $allowedDashboardPages = $AllowedDashboardPagesService->execute($user);
 
-        $employees = User::role('employee')->paginate(15)->through(function ($item) {
+        $employees = User::role('employee')->paginate(15)->through(function ($user) {
+
+
             return [
-                'id' => $item->id,
-                'name' => $item->name,
-                'email' => $item->email
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'branch' => $user->branch?->name,
             ];});
 
         $branch_controller = new BranchController;
@@ -57,13 +60,17 @@ class EmployeesViewController extends Controller
         //find employee by id
         $employee = User::find($request->employee_id);
 
-        $permission = Permission::where('model_id', $request['branch_id'])->first();
+        //find branch by id
+        $branch = Branch::find($request->branch_id);
 
-        //update employee
-        $employee
-            ->givePermissionTO($permission)
-            ->save();
 
+        //assign manage branch role to employee
+        $employee->assignRole('branchEmployee');
+
+        //assign branch id to employee
+        $employee->branch()->associate($branch);
+
+        $employee->save();
 
 
         return back();
