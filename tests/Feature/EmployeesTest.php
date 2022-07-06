@@ -26,6 +26,7 @@ class EmployeesTest extends TestCase
 
 
         $response->assertStatus(200);
+
     }
 
     public function test_manager_can_view_employees_page()
@@ -48,7 +49,7 @@ class EmployeesTest extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->post('dashboard/employees',['email' => 'email@adminTest.com']);
+        $response = $this->post('dashboard/employees/invite',['email' => 'email@adminTest.com']);
 
 
         $response->assertStatus(302);
@@ -61,7 +62,7 @@ class EmployeesTest extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->post('dashboard/employees',['email' => 'email@managerTest.com']);
+        $response = $this->post('dashboard/employees/invite',['email' => 'email@managerTest.com']);
 
 
         $response->assertStatus(302);
@@ -74,8 +75,7 @@ class EmployeesTest extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->post('dashboard/employees',['email' => 'email@managerTest.com']);
-
+        $response = $this->post('dashboard/employees/invite',['email' => 'email@managerTest.com']);
 
         $response->assertStatus(403);
     }
@@ -89,9 +89,16 @@ class EmployeesTest extends TestCase
 
         $this->actingAs($admin);
 
-        $response = $this->put('dashboard/employees/assign-branch', ['employee_id' => $employee->id, 'branch_id' => 1]);
+        $response = $this->post('dashboard/employees/assign-branch', ['employee_id' => $employee->id, 'branch_id' => 1]);
 
         $response->assertStatus(302);
+
+        //check if employee has branch role
+        $this->assertTrue($employee->hasRole('branchEmployee'));
+
+//        //check if employee has branch id
+//        $this->assertEquals($employee->branch_id, 1);
+
     }
 
     //assign Product Manager Role To Employee test
@@ -103,7 +110,7 @@ class EmployeesTest extends TestCase
 
         $this->actingAs($admin);
 
-        $response = $this->put('dashboard/employees/assign-product-manager', ['employee_id' => $employee->id]);
+        $response = $this->post('dashboard/employees/assign-product-manager', ['employee_id' => $employee->id]);
 
         $response->assertStatus(302);
     }
@@ -117,7 +124,7 @@ class EmployeesTest extends TestCase
 
         $this->actingAs($manager);
 
-        $response = $this->put('dashboard/employees/assign-branch', ['employee_id' => $employee->id, 'branch_id' => 1]);
+        $response = $this->post('dashboard/employees/assign-branch', ['employee_id' => $employee->id, 'branch_id' => 1]);
 
         $response->assertStatus(302);
     }
@@ -131,7 +138,7 @@ class EmployeesTest extends TestCase
 
         $this->actingAs($manager);
 
-        $response = $this->put('dashboard/employees/assign-product-manager', ['employee_id' => $employee->id]);
+        $response = $this->post('dashboard/employees/assign-product-manager', ['employee_id' => $employee->id]);
 
         $response->assertStatus(302);
     }
