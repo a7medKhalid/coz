@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('latitude');
             $table->string('longitude');
 
-            $table->foreignId('manager_id')->nullable();
+            $table->foreignId('user_id')->nullable();
         });
     }
 

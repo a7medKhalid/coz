@@ -39,6 +39,7 @@ class BranchesViewController extends Controller
         $branch_controller = new BranchController;
 
         $branchModel = $branch_controller->create($request);
+
         return back();
 
     }
@@ -46,6 +47,10 @@ class BranchesViewController extends Controller
     public function updateBranch(Request $request){
 
         $branch_controller = new BranchController;
+
+        dump("Display this on the screen");
+
+
 
         $branchModel = $branch_controller->update($request);
 

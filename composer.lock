@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "860be987834cea60b99ab5d786bb6242",
+    "content-hash": "24d5cc1dcff422db6d30252e193b9a51",
     "packages": [
         {
             "name": "brick/math",
@@ -1045,6 +1045,74 @@
                 }
             ],
             "time": "2022-05-21T17:30:32+00:00"
+        },
+        {
+            "name": "itsgoingd/clockwork",
+            "version": "v5.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/itsgoingd/clockwork.git",
+                "reference": "9df41432da1d8cb39c7fda383ddcc02231c83ff3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/itsgoingd/clockwork/zipball/9df41432da1d8cb39c7fda383ddcc02231c83ff3",
+                "reference": "9df41432da1d8cb39c7fda383ddcc02231c83ff3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Clockwork\\Support\\Laravel\\ClockworkServiceProvider"
+                    ],
+                    "aliases": {
+                        "Clockwork": "Clockwork\\Support\\Laravel\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Clockwork\\": "Clockwork/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "itsgoingd",
+                    "email": "itsgoingd@luzer.sk",
+                    "homepage": "https://twitter.com/itsgoingd"
+                }
+            ],
+            "description": "php dev tools in your browser",
+            "homepage": "https://underground.works/clockwork",
+            "keywords": [
+                "Devtools",
+                "debugging",
+                "laravel",
+                "logging",
+                "lumen",
+                "profiling",
+                "slim"
+            ],
+            "support": {
+                "issues": "https://github.com/itsgoingd/clockwork/issues",
+                "source": "https://github.com/itsgoingd/clockwork/tree/v5.1.6"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/itsgoingd",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-04-12T21:35:47+00:00"
         },
         {
             "name": "laravel/framework",
@@ -5883,6 +5951,71 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "beyondcode/laravel-dump-server",
+            "version": "1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beyondcode/laravel-dump-server.git",
+                "reference": "33a19c632655c1d4f16c0bc67ce6ba0504116b8a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beyondcode/laravel-dump-server/zipball/33a19c632655c1d4f16c0bc67ce6ba0504116b8a",
+                "reference": "33a19c632655c1d4f16c0bc67ce6ba0504116b8a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0|^9.0",
+                "illuminate/http": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0|^9.0",
+                "illuminate/support": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0|^9.0",
+                "php": ">=7.2.5",
+                "symfony/var-dumper": "^5.0|^6.0"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.0",
+                "phpunit/phpunit": "^7.0|^9.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BeyondCode\\DumpServer\\DumpServerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "helpers.php"
+                ],
+                "psr-4": {
+                    "BeyondCode\\DumpServer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Pociot",
+                    "email": "marcel@beyondco.de",
+                    "homepage": "https://beyondco.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Symfony Var-Dump Server for Laravel",
+            "homepage": "https://github.com/beyondcode/laravel-dump-server",
+            "keywords": [
+                "beyondcode",
+                "laravel-dump-server"
+            ],
+            "support": {
+                "issues": "https://github.com/beyondcode/laravel-dump-server/issues",
+                "source": "https://github.com/beyondcode/laravel-dump-server/tree/1.8.0"
+            },
+            "time": "2022-02-12T12:37:34+00:00"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.4.1",

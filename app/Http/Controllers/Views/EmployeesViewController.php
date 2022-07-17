@@ -28,6 +28,7 @@ class EmployeesViewController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'branch' => $user->branch?->name,
+                'isProductManager' => $user->hasRole('productManager'),
             ];});
 
         $branch_controller = new BranchController;
