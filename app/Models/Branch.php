@@ -12,6 +12,6 @@ class Branch extends Model
     protected $guarded = [];
 
     public function manager(){
-        return $this->belongsTo(User::class, 'manager_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
