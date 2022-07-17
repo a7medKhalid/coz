@@ -79,11 +79,9 @@ class BranchController extends Controller
 
             $manager = User::find($request['manager_id']);
 
-            //remove all roles from manager
-            $manager->removeAllRoles();
 
             //assign manager role to manager
-            $manager->assignRole('manager');
+            $manager->syncRoles(['manager']);
 
             $branchModel->manager()->associate($manager);
 
