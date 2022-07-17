@@ -141,7 +141,7 @@ const Employees = (props) => {
             renderEditCell: renderSelectEditInputCell,
         },
         {
-            field: "assignProductManager",
+            field: "isProductManager",
             headerName: "تعيين كمدخل منتجات",
             width: 200,
             editable: true,
@@ -159,10 +159,15 @@ const Employees = (props) => {
         const { newRow, oldRow, reject, resolve } = promiseArguments;
 
         post(
-            route("assignBranchRoleToEmployee", {
-                employee_id: newRow.id,
-                branch_id: branch.id,
-            }),
+            route(
+                newRow.isProductManager
+                    ? "assignProductManagerRoleToEmployee"
+                    : "assignBranchRoleToEmployee",
+                {
+                    employee_id: newRow.id,
+                    branch_id: branch.id,
+                }
+            ),
             {
                 onSuccess: () => {
                     setSnackBar({
@@ -178,12 +183,14 @@ const Employees = (props) => {
     };
     function computeMutation(newRow, oldRow) {
         if (newRow.branch !== oldRow.branch) {
-            return `فرع الموظف من '${
+            return `بالضغظ على نعم سيتم فرع الموظف'${
                 oldRow?.branch ? oldRow?.branch : "غير موظف"
             }' الى '${newRow.branch}'`;
         }
-        if (newRow.assignProductManager !== oldRow.assignProductManager) {
-            return `تعيين كمدير مخزن '${newRow.name || ""}`;
+        if (newRow.isProductManager !== oldRow.isProductManager) {
+            return ` ${
+                newRow.name || ""
+            } بالضغظ على نعم سيتم تعيين كمدير مخزن `;
         }
         return null;
     }
@@ -224,9 +231,7 @@ const Employees = (props) => {
                 <DialogTitle>
                     {`'${newRow.name}'`} هل أنت متأكد من تحديث
                 </DialogTitle>
-                <DialogContent dividers>
-                    {`بالضغط على نعم سيتم تغير ${mutation}.`}
-                </DialogContent>
+                <DialogContent dividers>{`${mutation}.`}</DialogContent>
                 <DialogActions>
                     <Button ref={noButtonRef} onClick={handleNo}>
                         لا
