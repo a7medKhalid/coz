@@ -26,15 +26,16 @@ interface props {
 const Table: React.FC<props> = ({ employees, branches }) => {
     const { data, setData, post, processing, errors, reset, clearErrors } =
         useForm({});
+
     const [promiseArguments, setPromiseArguments] = React.useState<any>(null);
     const [employee, setEmployee] = React.useState<any>(null);
     const noButtonRef = React.useRef<HTMLButtonElement>(null);
     const { snackBar, setSnackBar } = React.useContext(LayoutsContext);
 
     function computeMutation(newRow, oldRow) {
-        if (newRow.manager_id !== oldRow.manager_id) {
+        if (newRow.user_id !== oldRow.user_id) {
             return `
-          ${newRow.name} كمدير فرع ل ${newRow.manager_id} سيتم تعيين 
+          ${newRow.name} كمدير فرع ل ${newRow.user_id} سيتم تعيين 
             `;
         }
 
@@ -98,7 +99,7 @@ const Table: React.FC<props> = ({ employees, branches }) => {
         { field: "id", headerName: "رقم المعرف", width: 90 },
         { field: "name", headerName: "اسم الفرع", width: 130 },
         {
-            field: "manager_id",
+            field: "user_id",
             headerName: "مدير الفرع",
             width: 200,
             renderEditCell: renderSelectEditInputCell,
@@ -124,7 +125,7 @@ const Table: React.FC<props> = ({ employees, branches }) => {
 
         post(
             route("updateBranch", {
-                manager_id: employee.id,
+                user_id: employee.id,
                 branch_id: newRow.id,
                 name: newRow.name,
                 latitude: newRow.latitude,
