@@ -1,9 +1,13 @@
 import React, { useContext, useEffect } from "react";
-import { Head, useForm } from "@inertiajs/inertia-react";
+import { Head, InertiaLink, useForm } from "@inertiajs/inertia-react";
 import { Alert, Box, Button, Grid, Snackbar, TextField } from "@mui/material";
 import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import AddBranch from "./components/AddBranch";
+import AddBranch from "./Add";
+import { DataGrid } from "@mui/x-data-grid";
+import { branchType, employeeType } from "../../../helpers/types";
+import Table from "./components/Table";
+import CustomLink from "../../../components/CustomLink";
 
 const Branches = (props) => {
     // const {} = useLoadScript()
@@ -18,7 +22,10 @@ const Branches = (props) => {
         >
             <Head title="Dashboard" />
             <div dir="rtl">
-                <AddBranch />
+                <CustomLink to="viewAddBranch" text="اضافة فرع" />
+
+                <Table employees={props.employees} branches={props.branches} />
+                {/* <AddBranch /> */}
             </div>
         </Wrapper>
     );

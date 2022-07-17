@@ -55,6 +55,7 @@ const CustomDrawer = ({ allowedDashboardPagesProps, drawerWidth }) => {
                         as="div"
                         href={route.link}
                         key={route.title}
+                        id={route.title}
                         // selected={route.title === curRouteName}
                     >
                         <ListItemButton

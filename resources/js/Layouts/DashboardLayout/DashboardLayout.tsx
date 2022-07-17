@@ -4,6 +4,7 @@ import React from "react";
 import CustomDrawer from "./components/CustomDrawer";
 import CustomAppBar from "./components/CustomAppBar";
 import LayoutsProviders from "../LayoutsProvider";
+import { blueGrey } from "@mui/material/colors";
 
 interface props {
     children: any;
@@ -24,7 +25,7 @@ const DashboardLayout: React.FC<props> = ({ children }) => {
                     <Toolbar />
                     <Paper
                         sx={{
-                            bgcolor: "white",
+                            bgcolor: "#fff",
                             minHeight: "85vh",
                             borderRadius: 5,
                             p: 3,
