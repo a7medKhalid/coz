@@ -1,11 +1,11 @@
 <?php
 
     $allRoles = ['dashboard'];
-    $adminDashboardPages = ['branches', 'employees'];
+    $adminDashboardPages = ['branches', 'employees', 'products'];
     $managerDashboardPages = ['employees'];
     $employeeDashboardPages = [];
     $branchEmployeeDashboardPages = [];
-    $productManagerDashboardPages = [];
+    $productManagerDashboardPages = ['products'];
 
     $adminDashboardPages = array_merge($adminDashboardPages,$allRoles);
     $managerDashboardPages = array_merge($managerDashboardPages, $allRoles);
