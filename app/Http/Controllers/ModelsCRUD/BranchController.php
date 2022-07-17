@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Permission;
 
 class BranchController extends Controller
@@ -25,7 +26,7 @@ class BranchController extends Controller
         }
         //else if user is manager, return only branches that user is assigned to
         elseif($userRole == 'manager'){
-            $branches = Branch::where('manager_id', $user->id)->get();
+            $branches = $user->branch;
         }
         return $branches;
     }
@@ -50,6 +51,8 @@ class BranchController extends Controller
     }
 
     public function update(Request $request){
+
+
         $request->validate([
             'branch_id' => ['integer', 'required'],
             'name' => ['string', 'required'],
@@ -68,12 +71,40 @@ class BranchController extends Controller
             'longitude' => $request['longitude'],
         ]);
 
-        if ($request->has('manager_id')){
-           $manager = User::find($request['manager_id']);
+        if ($request['manager_id'] != null) {
 
-           $branchModel->manager()->associate($manager);
 
-           $branchModel->save();
+            $branchModel->user_id = $request['manager_id'];
+            $branchModel->save();
+
+            $manager = User::find($request['manager_id']);
+
+            //remove all roles from manager
+            $manager->removeAllRoles();
+
+            //assign manager role to manager
+            $manager->assignRole('manager');
+
+            $branchModel->manager()->associate($manager);
+
+            $branchModel->save();
+
+
+
+        }else{
+
+            $manager = $branchModel->manager;
+
+            $manager?->removeAllRoles();
+
+            //remove manager from branch
+            $manager?->dissociate();
+
+            //assign employee role to manager
+            $manager?->assignRole('employee');
+
+            $branchModel->user_id = null;
+            $branchModel->save();
         }
 
         return $branchModel;

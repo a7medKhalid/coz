@@ -29,7 +29,7 @@ class BranchSeeder extends Seeder
 
         $branch = Branch::factory()->create([
             'name' => 'Branch 1',
-            'manager_id' => $manager->id,
+            'user_id' => $manager->id,
         ]);
 
 

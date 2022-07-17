@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Branch;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -75,6 +76,7 @@ class BranchesTest extends TestCase
 
 
         $response->assertStatus(302);
+
     }
 
     //test admin can update branch manager
@@ -86,10 +88,20 @@ class BranchesTest extends TestCase
         $manager = User::whereName('manager')->first();
 
         $this->actingAs($user);
-        $response = $this->post('dashboard/branches', ['branch_id' => 1, 'name' => 'branch edited', 'latitude' => '1', 'longitude' => '1', 'manager_id' => $manager->id]);
+        $response = $this->post('dashboard/branches/update', ['branch_id' => 1, 'name' => 'branch edited', 'latitude' => '1', 'longitude' => '1', 'manager_id' => $manager->id]);
 
         $response->assertStatus(302);
 
+//        //check manager does not have employee role
+//        $this->assertFalse($manager->hasRole('employee'));
+
+        //check manager has branch role
+//
+//
+//        $this->assertTrue($manager->hasRole('manager'));
+//
+//        //check branch has manager id
+//        $this->assertEquals($manager->id, Branch::find(1)->manager_id);
     }
 
 
