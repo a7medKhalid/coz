@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductsViewController;
 use App\Http\Controllers\Views\BranchesViewController;
 use App\Http\Controllers\Views\DashboardViewController;
 use App\Http\Controllers\Views\EmployeesViewController;
@@ -48,6 +49,23 @@ Route::prefix('/dashboard')->group( function () {
             Route::post('/employees/invite' ,[EmployeesViewController::class, 'inviteEmployee'])->name('inviteEmployee');
             Route::post('/employees/assign-branch' ,[EmployeesViewController::class, 'assignBranchRoleToEmployee'])->name('assignBranchRoleToEmployee');
             Route::post('/employees/assign-product-manager' ,[EmployeesViewController::class, 'assignProductManagerRoleToEmployee'])->name('assignProductManagerRoleToEmployee');
+        });
+
+        Route::middleware('can:manage products')->group(function (){
+            Route::get('/products' ,[ProductsViewController::class, 'index'])->name('products');
+            Route::post('/products' ,[ProductsViewController::class, 'createProduct'])->name('addProduct');
+            Route::post('/products/update' ,[ProductsViewController::class, 'updateProduct'])->name('updateProduct');
+            Route::post('/products/delete' ,[ProductsViewController::class, 'deleteProduct'])->name('deleteProduct');
+            Route::post('/products/image' ,[ProductsViewController::class, 'addProductImage'])->name('addProductImage');
+            Route::post('/products/image/delete' ,[ProductsViewController::class, 'deleteProductImage'])->name('deleteProductImage');
+
+            Route::get('/categories' ,[ProductsViewController::class, 'getCategories'])->name('categories');
+            Route::post('/categories' ,[ProductsViewController::class, 'createCategory'])->name('addCategory');
+            Route::post('/categories/delete' ,[ProductsViewController::class, 'deleteCategory'])->name('deleteCategory');
+
+
+
+
         });
 
 
