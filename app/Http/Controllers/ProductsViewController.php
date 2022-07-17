@@ -13,18 +13,28 @@ class ProductsViewController extends Controller
 
         $user = $request->user();
         $allowedDashboardPages = $AllowedDashboardPagesService->execute($user);
-        return Inertia::render('Dashboard/Products/index',['allowedDashboardPages' => $allowedDashboardPages] );
+
+        $productController = new ProductController;
+        $products = $productController->getAllProducts($user);
+
+        return Inertia::render('Dashboard/Products/index',['allowedDashboardPages' => $allowedDashboardPages, 'products' => $products] );
     }
 
     public function createProduct(Request $request){
+        $productController = new ProductController;
+        $product = $productController->createProduct($request);
         return back();
     }
 
     public function updateProduct(Request $request){
+        $productController = new ProductController;
+        $product = $productController->updateProduct($request);
         return back();
     }
 
     public function deleteProduct(Request $request){
+        $productController = new ProductController;
+        $productController->deleteProduct($request);
         return back();
     }
 
