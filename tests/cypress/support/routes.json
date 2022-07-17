@@ -142,9 +142,9 @@
     "name": "updateBranch",
     "domain": null,
     "action": "App\\Http\\Controllers\\Views\\BranchesViewController@updateBranch",
-    "uri": "dashboard/branches",
+    "uri": "dashboard/branches/update",
     "method": [
-      "PUT"
+      "POST"
     ]
   },
   "employees": {
@@ -161,7 +161,7 @@
     "name": "inviteEmployee",
     "domain": null,
     "action": "App\\Http\\Controllers\\Views\\EmployeesViewController@inviteEmployee",
-    "uri": "dashboard/employees",
+    "uri": "dashboard/employees/invite",
     "method": [
       "POST"
     ]
@@ -172,7 +172,7 @@
     "action": "App\\Http\\Controllers\\Views\\EmployeesViewController@assignBranchRoleToEmployee",
     "uri": "dashboard/employees/assign-branch",
     "method": [
-      "PUT"
+      "POST"
     ]
   },
   "assignProductManagerRoleToEmployee": {
@@ -181,7 +181,7 @@
     "action": "App\\Http\\Controllers\\Views\\EmployeesViewController@assignProductManagerRoleToEmployee",
     "uri": "dashboard/employees/assign-product-manager",
     "method": [
-      "PUT"
+      "POST"
     ]
   },
   "register": {

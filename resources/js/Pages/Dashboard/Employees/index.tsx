@@ -31,8 +31,6 @@ import { Inertia } from "@inertiajs/inertia";
 const Employees = (props) => {
     const employees = props.employees.data;
     const branches = props.branches;
-    console.log({ branches });
-
     // const auth = props.auth.user;
     const { snackBar, setSnackBar } = useContext(LayoutsContext);
     const noButtonRef = React.useRef<HTMLButtonElement>(null);
@@ -99,8 +97,13 @@ const Employees = (props) => {
                 autoFocus
             >
                 <option>---</option>
+                {/* <option value={-1}>غير موظف</option> */}
                 {branches.map((item) => {
-                    return <option value={item.id}>{item.name}</option>;
+                    return (
+                        <option key={item.id} value={item.id}>
+                            {item.name}
+                        </option>
+                    );
                 })}
             </Select>
         );
@@ -131,7 +134,7 @@ const Employees = (props) => {
         { field: "name", headerName: "الإسم", width: 130 },
         { field: "email", headerName: "الإيميل", width: 200 },
         {
-            field: "branchName",
+            field: "branch",
             headerName: "الفرع الموظف فيه",
             width: 200,
             editable: true,
@@ -174,10 +177,10 @@ const Employees = (props) => {
         );
     };
     function computeMutation(newRow, oldRow) {
-        if (newRow.branchName !== oldRow.branchName) {
+        if (newRow.branch !== oldRow.branch) {
             return `فرع الموظف من '${
-                oldRow?.branchName ? oldRow?.branchName : "غير موظف"
-            }' الى '${newRow.branchName}'`;
+                oldRow?.branch ? oldRow?.branch : "غير موظف"
+            }' الى '${newRow.branch}'`;
         }
         if (newRow.assignProductManager !== oldRow.assignProductManager) {
             return `تعيين كمدير مخزن '${newRow.name || ""}`;
@@ -204,13 +207,14 @@ const Employees = (props) => {
         // noButtonRef.current?.focus();
     };
     const renderConfirmDialog = () => {
+        console.log({ promiseArguments });
+
         if (!promiseArguments) {
             return null;
         }
 
         const { newRow, oldRow } = promiseArguments;
         const mutation = computeMutation(newRow, oldRow);
-
         return (
             <Dialog
                 maxWidth="xs"
@@ -283,7 +287,6 @@ const Employees = (props) => {
                     pageSize={5}
                     sx={{ backgroundColor: "white" }}
                     rowsPerPageOptions={[5]}
-                    checkboxSelection
                     processRowUpdate={processRowUpdate}
                     hideFooter
                     experimentalFeatures={{ newEditingApi: true }}

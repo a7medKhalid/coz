@@ -13,11 +13,11 @@ describe("as admin ", () => {
         cy.contains("ادارة الموظفين");
         cy.contains("الرئيسية");
         // add branch
-        // cy.get("#branches").click();
-        // cy.get("#name").type("فرع البساتين");
-        // cy.get("#customgooglemap").click();
-        // cy.get("#addBranchButton").click();
-        // cy.contains("تم إضافة الفرع بنجاح");
+        cy.get("#branches").click();
+        cy.get("#name").type("فرع البساتين");
+        cy.get("#customgooglemap").click();
+        cy.get("#addBranchButton").click();
+        cy.contains("تم إضافة الفرع بنجاح");
         // send invite
         cy.get("#employees").click();
         cy.get("#sendInvite").click();
@@ -25,6 +25,6 @@ describe("as admin ", () => {
         cy.get("#email").type("test@test.com");
         cy.get("#send").click();
         cy.contains("بنجاح");
-        cy.get('[data-id="2"] > [data-field="branchName"]').dblclick();
+        cy.get('[data-id="2"] > [data-field="branch"]').click().click().click();
     });
 });

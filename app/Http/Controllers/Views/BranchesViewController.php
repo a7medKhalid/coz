@@ -25,6 +25,15 @@ class BranchesViewController extends Controller
         return Inertia::render('Dashboard/Branches/index',['employees' => $employees, 'branches' => $branches, 'allowedDashboardPages' => $allowedDashboardPages]);
 
     }
+      public function viewAddBranch(Request $request, AllowedDashboardPages $AllowedDashboardPagesService){
+
+        $user = $request->user();
+        $allowedDashboardPages = $AllowedDashboardPagesService->execute($user);
+
+        return Inertia::render('Dashboard/Branches/Add',[ 'allowedDashboardPages' => $allowedDashboardPages]);
+
+    }
+
 
     public function addBranch(Request $request){
         $branch_controller = new BranchController;
