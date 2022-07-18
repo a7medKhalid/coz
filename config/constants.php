@@ -7,11 +7,11 @@
     $branchEmployeeDashboardPages = [];
     $productManagerDashboardPages = ['products'];
 
-    $adminDashboardPages = array_merge($adminDashboardPages,$allRoles);
-    $managerDashboardPages = array_merge($managerDashboardPages, $allRoles);
-    $employeeDashboardPages = array_merge($employeeDashboardPages, $allRoles);
-    $branchEmployeeDashboardPages = array_merge($employeeDashboardPages, $allRoles);
-    $productManagerDashboardPages = array_merge($productManagerDashboardPages, $allRoles);
+    $adminDashboardPages = array_merge($allRoles, $adminDashboardPages);
+    $managerDashboardPages = array_merge($allRoles, $managerDashboardPages);
+    $employeeDashboardPages = array_merge($allRoles, $employeeDashboardPages);
+    $branchEmployeeDashboardPages = array_merge($allRoles, $employeeDashboardPages);
+    $productManagerDashboardPages = array_merge($allRoles, $productManagerDashboardPages);
 
 
 return [
