@@ -8,6 +8,19 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
 
+    public function getProductById(Request $request)
+    {
+        $product = Product::find($request->product_id);
+        return $product;
+    }
+
+    public function getImages(Request $request)
+    {
+        $product = Product::find($request->product_id);
+        return $product->getMedia('product_images');
+    }
+
+
     public function createProduct(Request $request){
 
         //validate the request
