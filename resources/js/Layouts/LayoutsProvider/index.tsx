@@ -1,11 +1,6 @@
 // this is componenet to wrap layouts.. to add shared config
 
 import React, { createContext, useContext, useState } from "react";
-import createCache from "@emotion/cache";
-import { prefixer } from "stylis";
-import stylisRTLPlugin from "stylis-plugin-rtl";
-import { CacheProvider } from "@emotion/react";
-import { Alert, createTheme, Snackbar, ThemeProvider } from "@mui/material";
 import CustomSnackBar from "./components/CustomSnackBar";
 
 interface snackBarInterface {
@@ -20,36 +15,20 @@ export default function LayoutsProviders({ children }) {
         message: "",
         status: "",
     });
-    const cacheRtl = createCache({
-        key: "muirtl",
-        stylisPlugins: [prefixer, stylisRTLPlugin],
-    });
-    const themeLight = createTheme({
-        typography: {
-            fontFamily: "cairo, sans-serif",
-        },
-        palette: {
-            background: {
-                default: "#f3f4f6",
-            },
-        },
-    });
+
     const ctx = {
         snackBar,
         setSnackBar,
     };
     return (
-        <ThemeProvider theme={themeLight}>
-            <LayoutsContext.Provider value={ctx}>
-                {snackBar.isShown && (
-                    <CustomSnackBar
-                        snack={snackBar}
-                        setSnackBar={(val) => setSnackBar({ ...val })}
-                    />
-                )}
-
-                <CacheProvider value={cacheRtl}>{children}</CacheProvider>
-            </LayoutsContext.Provider>
-        </ThemeProvider>
+        <LayoutsContext.Provider value={ctx}>
+            {snackBar.isShown && (
+                <CustomSnackBar
+                    snack={snackBar}
+                    setSnackBar={(val) => setSnackBar({ ...val })}
+                />
+            )}
+            {children}
+        </LayoutsContext.Provider>
     );
 }

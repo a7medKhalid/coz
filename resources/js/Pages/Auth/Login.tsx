@@ -1,17 +1,10 @@
 import React, { useEffect } from "react";
 
 import { Head, InertiaLink, Link, useForm } from "@inertiajs/inertia-react";
-import Button from "@mui/material/Button";
 import ValidationErrors from "../../Components/ValidationErrors";
-import {
-    Box,
-    Card,
-    Checkbox,
-    Container,
-    FormControlLabel,
-    Grid,
-    TextField,
-} from "@mui/material";
+import Button from "../../Components/Button";
+import Input from "../../Components/Input";
+import Label from "../../Components/Label";
 import AuthLayout from "../../Layouts/AuthLayout";
 
 export default function Login({ status, canResetPassword }) {
@@ -43,62 +36,59 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        <AuthLayout>
-            <Box
-                sx={{
-                    width: "100%",
-                }}
-            >
+        // <AuthLayout>
+        <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+            <div>
+                <Link href="/">
+                    {/* <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" /> */}
+                </Link>
+            </div>
+
+            <div className="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 <ValidationErrors errors={errors} />
-            </Box>
-            <Box component="form" onSubmit={submit} noValidate>
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
-                    autoFocus
-                    onChange={onHandleChange}
-                />
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    onChange={onHandleChange}
-                />
-                <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Remember me"
-                />
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                >
-                    Sign In
-                </Button>
-                <Grid container>
-                    <Grid item xs>
-                        <InertiaLink href="/forget">
-                            Forgot password?
-                        </InertiaLink>
-                    </Grid>
-                    <Grid item>
-                        <InertiaLink href="/register">
-                            {"Don't have an account? Sign Up"}
-                        </InertiaLink>
-                    </Grid>
-                </Grid>
-            </Box>
-        </AuthLayout>
+
+                <ValidationErrors errors={errors} />
+
+                <form onSubmit={submit}>
+                    <div className="mt-4">
+                        <Label forInput="email" value="الإيميل" />
+                        <Input
+                            type="email"
+                            name="email"
+                            value={data.email}
+                            className="mt-1 block w-full"
+                            handleChange={onHandleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="mt-4">
+                        <Label forInput="password" value="كلمة السر" />
+                        <Input
+                            type="password"
+                            name="password"
+                            value={data.password}
+                            className="mt-1 block w-full"
+                            handleChange={onHandleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="flex items-center justify-end mt-4">
+                        <Link
+                            href={route("register")}
+                            className="underline text-sm text-gray-600 hover:text-gray-900"
+                        >
+                            ليس لديك حساب؟
+                        </Link>
+
+                        <Button className="ml-4" processing={processing}>
+                            تسجيل الدخول
+                        </Button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        // </AuthLayout>
     );
 }

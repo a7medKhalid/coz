@@ -3,7 +3,7 @@ export interface branchType {
     id: number;
     latitude: string;
     longitude: string;
-    manager_id?: any;
+    user_id?: any;
     name: string;
     updated_at: Date;
 }

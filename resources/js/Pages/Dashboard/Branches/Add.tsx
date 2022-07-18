@@ -1,16 +1,17 @@
 import { InertiaLink, useForm } from "@inertiajs/inertia-react";
-import { Box, Button, Grid, TextField } from "@mui/material";
 import React, { useContext } from "react";
 import ValidationErrors from "../../../Components/ValidationErrors";
-import AddIcon from "@mui/icons-material/Add";
 import MapWrapper from "./components/MapWrapper";
 import { LayoutsContext } from "../../../Layouts/LayoutsProvider";
 import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 import CustomLink from "../../../components/CustomLink";
+import Input from "../../../Components/Input";
+import Label from "../../../Components/Label";
+import Button from "../../../Components/Button";
 
 export default function Add() {
     const { snackBar, setSnackBar } = useContext(LayoutsContext);
-    const { data, setData, post, setDefaults, errors } = useForm({
+    const { data, setData, post, setDefaults, errors, processing } = useForm({
         name: "",
         latitude: "",
         longitude: "",
@@ -34,8 +35,8 @@ export default function Add() {
     };
     const submit = (e) => {
         e.preventDefault();
-        data.latitude = position.lat == 0 ? null : position.lat;
-        data.longitude = position.lng == 0 ? null : position.lng;
+        data.latitude = +position.lat == 0 ? null : position.lat;
+        data.longitude = +position.lng == 0 ? null : position.lng;
 
         post(route("addBranch"), {
             onSuccess: () =>
@@ -47,43 +48,35 @@ export default function Add() {
         });
     };
     return (
-        <div dir="rtl">
-            <Grid container>
-                <Grid item xs>
-                    <Box component="form" onSubmit={submit} noValidate>
-                        <CustomLink to="branches" text="عودة" />
+        <div className="rtl">
+            <CustomLink to="branches" text="عودة" />
+            <form onSubmit={submit}>
+                <div className="grid grid-cols-4 gap-5 mt-5 min-h-screen">
+                    <div>
                         <ValidationErrors errors={errors} />
-                        {/* <LoopObject object={selectedPosition} /> */}
-                        <TextField
-                            required
-                            fullWidth
-                            id="name"
-                            label="عنوان الفرع"
+                        <Label forInput="name" value="اسم الفرع" />
+                        <Input
+                            type="text"
                             name="name"
-                            // autoComplete="email"
-                            autoFocus
-                            onChange={onHandleChange}
+                            value={data.name}
+                            className="mt-1 block w-full"
+                            handleChange={onHandleChange}
+                            required
                         />
-                        <Button
-                            variant="outlined"
-                            type={"submit"}
-                            id="addBranchButton"
-                            startIcon={<AddIcon />}
-                            sx={{ mt: 2 }}
-                        >
-                            اضافة
+                        <Button className="ml-4 mt-5" processing={processing}>
+                            إضافة
                         </Button>
-                    </Box>
-                </Grid>
-                <Grid item md={8} sx={{ ml: 2, height: "80vh" }}>
-                    <MapWrapper
-                        setSelectedPosition={(val: any) => {
-                            setSelectedPosition(val);
-                        }}
-                    />
-                </Grid>
-            </Grid>
+                    </div>
+                    <div className="col-span-3 h-3/4">
+                        <MapWrapper
+                            setSelectedPosition={(val: any) => {
+                                setSelectedPosition(val);
+                            }}
+                        />
+                    </div>
+                </div>
+            </form>
         </div>
     );
 }
-Add.layout = (page) => <DashboardLayout children={page} />;
+Add.layout = (page) => <DashboardLayout children={page} title="إضافة فرع" />;

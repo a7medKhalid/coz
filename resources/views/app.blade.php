@@ -11,6 +11,8 @@
         <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet"> -->
         
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet"><!-- Scripts -->
+          @vite('resources/css/app.css')
+
         @routes
         @viteReactRefresh
         @vite('resources/js/app.jsx')
