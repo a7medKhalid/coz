@@ -87,8 +87,10 @@ class BranchesTest extends TestCase
 
         $manager = User::whereName('manager')->first();
 
+        $branch = Branch::whereName('branch')->first();
+
         $this->actingAs($user);
-        $response = $this->post('dashboard/branches/update', ['branch_id' => 1, 'name' => 'branch edited', 'latitude' => '1', 'longitude' => '1', 'manager_id' => $manager->id]);
+        $response = $this->post('dashboard/branches/update', ['branch_id' => $branch->id, 'name' => 'branch edited', 'latitude' => '1', 'longitude' => '1', 'manager_id' => $manager->id]);
 
         $response->assertStatus(302);
 

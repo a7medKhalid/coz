@@ -46,8 +46,13 @@ class ProductsViewController extends Controller
         return back();
     }
 
-    public function getCategorys(Request $request){
-        return back();
+    public function getCategories(Request $request){
+
+        $categoryController = new CategoryController;
+
+        $categories = $categoryController->getAllCategories($request);
+
+        return $categories;
     }
 
     public function addCategory(Request $request){
@@ -55,8 +60,18 @@ class ProductsViewController extends Controller
     }
 
     public function createCategory(Request $request){
+        $categoryController = new CategoryController;
+        $category = $categoryController->createCategory($request);
         return back();
     }
+
+    public function deleteCategory(Request $request){
+        $categoryController = new CategoryController;
+        $category = $categoryController->deleteCategory($request);
+        return back();
+    }
+
+
 
 
 
