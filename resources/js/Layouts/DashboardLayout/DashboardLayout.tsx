@@ -39,7 +39,7 @@ const SideBar = ({ allowedDashboardPages, setActivePage, activePage }) => {
             <div className=" mb-3  absolute bottom-5 w-full flex flex-col items-center justify-center px-2">
                 <img src={appLogo} alt="logo" className="w-12 h-12" />
                 <Divider className="my-5" />
-                <InertiaLink href={route("logout")}>
+                <InertiaLink href={route("logout")} method="post">
                     <LogoutIcon className="text-red-500 w-8 h-8 " />
                 </InertiaLink>
             </div>

@@ -6,6 +6,7 @@ import Button from "../../Components/Button";
 import Input from "../../Components/Input";
 import Label from "../../Components/Label";
 import AuthLayout from "../../Layouts/AuthLayout";
+import appLogo from "../../assets/images/appLogo.png";
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -46,8 +47,9 @@ export default function Login({ status, canResetPassword }) {
 
             <div className="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 <ValidationErrors errors={errors} />
-
-                <ValidationErrors errors={errors} />
+                <div className="flex items-center justify-center">
+                    <img src={appLogo} alt="logo" className="w-12 h-12" />
+                </div>
 
                 <form onSubmit={submit}>
                     <div className="mt-4">
