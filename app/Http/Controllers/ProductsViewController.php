@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\AllowedDashboardPages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
 class ProductsViewController extends Controller
@@ -38,11 +39,37 @@ class ProductsViewController extends Controller
         return back();
     }
 
+    public function getProductImages(Request $request){
+        $productController = new ProductController;
+        $productImages = $productController->getImages($request);
+        return $productImages;
+    }
+
     public function addProductImage(Request $request){
+
+        Validator::make($request->all(), [
+            'image' => ['mimes:jpeg,jpg,png','required','max:10000'],
+            'product_id' => ['required','integer'],
+        ])->validate();
+
+
+        $file = $request->file('image');
+
+        $productController = new ProductController;
+        $product = $productController->getProductById($request);
+
+        $product->addMedia($file)->toMediaCollection('product_images');
+
         return back();
     }
 
     public function deleteProductImage(Request $request){
+
+        $productController = new ProductController;
+        $product = $productController->getProductById($request);
+
+        $product->deleteMedia($request->image_id);
+
         return back();
     }
 

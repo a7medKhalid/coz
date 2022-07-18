@@ -56,6 +56,7 @@ Route::prefix('/dashboard')->group( function () {
             Route::post('/products' ,[ProductsViewController::class, 'createProduct'])->name('createProduct');
             Route::post('/products/update' ,[ProductsViewController::class, 'updateProduct'])->name('updateProduct');
             Route::post('/products/delete' ,[ProductsViewController::class, 'deleteProduct'])->name('deleteProduct');
+            Route::get('/products/image' ,[ProductsViewController::class, 'getProductImages'])->name('getProductImages');
             Route::post('/products/image' ,[ProductsViewController::class, 'addProductImage'])->name('addProductImage');
             Route::post('/products/image/delete' ,[ProductsViewController::class, 'deleteProductImage'])->name('deleteProductImage');
 
