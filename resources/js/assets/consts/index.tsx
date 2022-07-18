@@ -1,15 +1,22 @@
 // export * from "./dashboard";
-import LogoutIcon from "@mui/icons-material/Logout";
-import SettingsIcon from "@mui/icons-material/Settings";
-import PeopleIcon from "@mui/icons-material/People";
+
+import {
+    ArchiveIcon,
+    CubeIcon,
+    HomeIcon,
+    PersonGroupIcon,
+} from "../icons/heroIcons";
+import React from "react";
 export const MAP_ROUTE_TO_ICON = {
-    dashboard: <LogoutIcon />,
-    branches: <SettingsIcon />,
-    employees: <PeopleIcon />,
+    dashboard: <HomeIcon />,
+    branches: <CubeIcon />,
+    employees: <PersonGroupIcon />,
+    products: <ArchiveIcon />,
 };
 
 export const MAP_ROUTE_TO_AR_NAME = {
     dashboard: "الرئيسية",
     branches: "ادارة الفروع",
     employees: "ادارة الموظفين",
+    products: "ادارة المنتجات",
 };
