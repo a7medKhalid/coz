@@ -10,12 +10,14 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Product extends Model implements HasMedia
 {
     use InteractsWithMedia;
+    use HasFactory;
+
 
     protected $guarded = [];
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'product_has_categories');
     }
 
 }
