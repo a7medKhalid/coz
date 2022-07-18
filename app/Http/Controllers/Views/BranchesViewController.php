@@ -48,10 +48,6 @@ class BranchesViewController extends Controller
 
         $branch_controller = new BranchController;
 
-        dump("Display this on the screen");
-
-
-
         $branchModel = $branch_controller->update($request);
 
         return back();

@@ -23,6 +23,7 @@ const Table: React.FC<props> = ({ employees, branches }) => {
             </div>
         );
     }
+
     return (
         <div className="overflow-x-auto relative bg-white shadow-xl border border-gray-200 min-h-screen rounded-xl mt-5">
             <table className="w-full  text-sm  text-gray-500  text-right ">
@@ -77,7 +78,7 @@ const AddManager = ({ employees, item }) => {
     const addManager = (employee) => {
         post(
             route("updateBranch", {
-                user_id: employee.id,
+                manager_id: employee.id,
                 branch_id: item.id,
                 name: item.name,
                 latitude: item.latitude,

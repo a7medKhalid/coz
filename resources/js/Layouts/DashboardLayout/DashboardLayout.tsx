@@ -6,6 +6,7 @@ import LayoutsProviders from "../LayoutsProvider";
 import { MAP_ROUTE_TO_AR_NAME, MAP_ROUTE_TO_ICON } from "../../assets/consts";
 import { InertiaLink } from "@inertiajs/inertia-react";
 import appLogo from "../../assets/images/appLogo.png";
+import { LogoutIcon } from "../../assets/icons";
 interface props {
     children: any;
     title?: string;
@@ -35,8 +36,12 @@ const SideBar = ({ allowedDashboardPages, setActivePage, activePage }) => {
                     </InertiaLink>
                 );
             })}
-            <div className=" mb-3  absolute bottom-5 w-full flex items-center justify-center">
+            <div className=" mb-3  absolute bottom-5 w-full flex flex-col items-center justify-center px-2">
                 <img src={appLogo} alt="logo" className="w-12 h-12" />
+                <Divider className="my-5" />
+                <InertiaLink href={route("logout")}>
+                    <LogoutIcon className="text-red-500 w-8 h-8 " />
+                </InertiaLink>
             </div>
         </div>
     );
@@ -66,6 +71,13 @@ const SideBarIcon = ({ icon, text = "tooltip 💡", isActive }) => (
             {text}
         </span>
     </div>
+);
+const Divider = ({ className }) => (
+    <hr
+        className={`bg-gray-200 
+    border border-gray-100 w-full rounded-full
+    mx-2 ${className}`}
+    />
 );
 
 const DashboardLayout: React.FC<props> = ({ children, title }) => {

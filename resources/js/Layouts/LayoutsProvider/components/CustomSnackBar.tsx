@@ -20,7 +20,7 @@ const CustomSnackBar = ({ snack, setSnackBar }) => {
                     CLASSES_MAP[snack.status]
                 }`}
             >
-                تم اضافة الفرع بنجاح
+                {snack.message}
             </div>
         );
     }
