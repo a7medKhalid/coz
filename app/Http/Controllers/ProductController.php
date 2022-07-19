@@ -87,6 +87,7 @@ class ProductController extends Controller
                 'description' => $product->description,
                 'price' => $product->price,
                 'isArchived' => $product->isArchived,
+                'categories' => $product->categories->pluck('name'),
             ];});
 
         return $products;
