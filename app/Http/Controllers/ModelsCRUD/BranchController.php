@@ -24,8 +24,8 @@ class BranchController extends Controller
         if($userRole == 'admin'){
             $branches = Branch::all();
         }
-        //else if user is manager, return only branches that user is assigned to
-        elseif($userRole == 'manager'){
+        //else if user is branch manager, return only branches that user is assigned to
+        elseif($userRole == 'branchManager'){
             $branches = $user->branch;
         }
         return $branches;
@@ -71,39 +71,31 @@ class BranchController extends Controller
             'longitude' => $request['longitude'],
         ]);
 
+        //remove branchManager role from old manager
+        $oldManager = $branchModel->manager;
+        $oldManager?->removeRole('branchManager');
+
+        //assign employee role to manager
+        $oldManager?->assignRole('employee');
+
+
         if ($request['manager_id'] != null) {
 
 
-            $branchModel->user_id = $request['manager_id'];
-            $branchModel->save();
-
             $manager = User::find($request['manager_id']);
 
-
             //assign manager role to manager
-            $manager->syncRoles(['manager']);
+            $manager->syncRoles(['branchManager']);
 
             $branchModel->manager()->associate($manager);
 
-            $branchModel->save();
-
-
-
         }else{
 
-            $manager = $branchModel->manager;
-
-            $manager?->removeAllRoles();
-
-            //remove manager from branch
-            $manager?->dissociate();
-
-            //assign employee role to manager
-            $manager?->assignRole('employee');
-
             $branchModel->user_id = null;
-            $branchModel->save();
+
         }
+
+        $branchModel->save();
 
         return $branchModel;
 

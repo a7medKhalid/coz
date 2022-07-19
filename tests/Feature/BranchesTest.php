@@ -106,6 +106,44 @@ class BranchesTest extends TestCase
 //        $this->assertEquals($manager->id, Branch::find(1)->manager_id);
     }
 
+    public function test_admin_can_update_branch_manager_to_null()
+    {
+
+        $user = User::whereName('admin')->first();
+
+        $manager = User::whereName('manager')->first();
+
+        $branch = Branch::whereName('branch edited')->first();
+
+        $this->actingAs($user);
+        $response = $this->post('dashboard/branches/update', ['branch_id' => $branch->id, 'name' => 'branch edited', 'latitude' => '1', 'longitude' => '1', 'manager_id' => null]);
+
+        $response->assertStatus(302);
+
+        //check manager does have employee role
+        $this->assertTrue($manager->hasRole('employee'));
+
+        //check manager does not have branch role
+        $this->assertFalse($manager->hasRole('manager'));
+
+        //check branch does not have manager id
+        $branch = $branch->fresh();
+        $this->assertNull($branch->manager_id);
+
+        //assign again
+        $user = User::whereName('admin')->first();
+
+        $manager = User::whereName('manager')->first();
+
+        $branch = Branch::whereName('branch edited')->first();
+
+        $this->actingAs($user);
+        $response = $this->post('dashboard/branches/update', ['branch_id' => $branch->id, 'name' => 'branch edited', 'latitude' => '1', 'longitude' => '1', 'manager_id' => $manager->id]);
+
+
+
+    }
+
 
 
     public function test_non_admin_can_not_update_branch()
