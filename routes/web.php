@@ -49,6 +49,7 @@ Route::prefix('/dashboard')->group( function () {
             Route::post('/employees/invite' ,[EmployeesViewController::class, 'inviteEmployee'])->name('inviteEmployee');
             Route::post('/employees/assign-branch' ,[EmployeesViewController::class, 'assignBranchRoleToEmployee'])->name('assignBranchRoleToEmployee');
             Route::post('/employees/assign-product-manager' ,[EmployeesViewController::class, 'assignProductManagerRoleToEmployee'])->name('assignProductManagerRoleToEmployee');
+            Route::post('/employees/unAssign-product-manager' ,[EmployeesViewController::class, 'unAssignProductManagerRoleToEmployee'])->name('unAssignProductManagerRoleToEmployee');
         });
 
         Route::middleware('can:manage products')->group(function (){
