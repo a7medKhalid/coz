@@ -1,2 +1,1 @@
-export * from "./ProductReady";
-export * from "./ProductEditOrCreate";
+export * from "./Product";

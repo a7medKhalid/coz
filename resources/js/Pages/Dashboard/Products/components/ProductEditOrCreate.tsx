@@ -5,21 +5,23 @@ import Dropdown from "../../../../Components/Dropdown";
 import Input from "../../../../components/Input";
 
 interface props {
+    type: "create" | "edit";
     img: string;
     title: string;
     price: number;
     description: string;
     categories: string[];
     onEdit: () => void;
-    onDelete: () => void;
+    onCancel: () => void;
 }
 const ProductEditOrCreate: React.FC<props> = ({
     img,
     title,
+    type,
     description,
     price,
     onEdit,
-    onDelete,
+    onCancel,
     categories,
 }) => {
     const [stateCategories, setStateCategories] = React.useState([
@@ -119,9 +121,11 @@ const ProductEditOrCreate: React.FC<props> = ({
             </div>
 
             <div className="rtl flex items-center bg-gray-100 border-t border-gray-200 py-3  px-4">
-                <Button onClick={onEdit}>حفظ</Button>
+                <Button onClick={onEdit}>
+                    {type == "create" ? "اضافة" : "حفظ"}
+                </Button>
                 <div
-                    onClick={onDelete}
+                    onClick={onCancel}
                     className="text-red-500 mr-4 hover:bg-red-200 py-1 rounded transition duration-150 cursor-pointer px-4"
                 >
                     الغاء
