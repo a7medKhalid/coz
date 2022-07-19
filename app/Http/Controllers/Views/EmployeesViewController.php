@@ -64,14 +64,24 @@ class EmployeesViewController extends Controller
         //find branch by id
         $branch = Branch::find($request->branch_id);
 
+        if ($request['branch_id' === null]){
+           $employee->removeRole('productManager');
 
-        //assign manage branch role to employee
-        $employee->assignRole('branchEmployee');
+           $employee->branch()->dissociate();
 
-        //assign branch id to employee
-        $employee->branch()->associate($branch);
+           $employee->save();
 
-        $employee->save();
+        }else{
+            //assign manage branch role to employee
+            $employee->assignRole('branchEmployee');
+
+            //assign branch id to employee
+            $employee->branch()->associate($branch);
+
+            $employee->save();
+        }
+
+
 
 
         return back();

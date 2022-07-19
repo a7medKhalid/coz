@@ -29,6 +29,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'price' => 'required|numeric',
+            'categories' => 'required|array',
         ]);
 
        $product = Product::create([
@@ -36,6 +37,10 @@ class ProductController extends Controller
             'description' => $request->description,
             'price' => $request->price,
         ]);
+
+        $categories = $request->categories;
+
+        $product->categories()->sync($categories);
 
         return $product;
     }
@@ -49,6 +54,7 @@ class ProductController extends Controller
             'description' => 'required|string|max:255',
             'price' => 'required|numeric',
             'archived' => 'nullable|boolean',
+            'categories' => 'nullable|array',
         ]);
 
         $product = Product::find($request->product_id);
@@ -81,7 +87,7 @@ class ProductController extends Controller
     }
 
     public function getAllProducts($user){
-        $products = Product::paginate(15)->through(function ($product) {
+        $products = Product::latest()->paginate(15)->through(function ($product) {
 
 
             return [
@@ -113,10 +119,9 @@ class ProductController extends Controller
         $branch = $getUserBranch->execute($user);
         $inventory = $branch->inventroy;
 
-        $products = Product::paginate(15)->through(function ($product) use ($inventory) {
-            $productInventory = $inventory?->where('product_id', $product->id)->first();
-            $quantity = $productInventory?$productInventory->quantity:0;
-
+        $products = Product::latest()->paginate(15)->through(function ($product) use ($inventory) {
+            $productInventory = $inventory?->where('id', $product->id)->first();
+            $quantity = $productInventory?$productInventory->pivot->quantity:0;
             return [
                 'id' => $product->id,
                 'name' => $product->name,
