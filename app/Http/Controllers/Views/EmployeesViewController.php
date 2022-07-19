@@ -96,4 +96,22 @@ class EmployeesViewController extends Controller
 
         return back();
     }
+
+    public function unAssignProductManagerRoleToEmployee(Request $request)
+    {
+
+        //validate request
+        $request->validate([
+            'employee_id' => 'required|integer'
+        ]);
+
+        //find employee by id
+        $employee = User::find($request->employee_id);
+
+
+        //update employee
+        $employee->removeRole('productManager');
+
+        return back();
+    }
 }

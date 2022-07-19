@@ -10,14 +10,14 @@ class GetUserRoleAction
     {
         //check if user is admin or manager
         $isAdmin = $user->hasRole('admin');
-        $isManager = $user->hasRole('manager');
+        $isManager = $user->hasRole('branchManager');
         $isProductManager = $user->hasRole('productManager');
         $isEmployee = $user->hasRole('employee');
 
         if ($isAdmin){
             $authType = 'admin';
         }elseif ($isManager) {
-            $authType = 'manager';
+            $authType = 'branchManager';
         }elseif ($isProductManager) {
             $authType = 'productManager';
         }elseif ($isEmployee){
