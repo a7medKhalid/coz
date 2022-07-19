@@ -23,7 +23,7 @@ class BranchSeeder extends Seeder
             'email' => 'branch1manager@test.com',
         ]);
 
-        $manager->assignRole('manager');
+        $manager->assignRole('branchManager');
         $manager->assignRole('employee');
 
 

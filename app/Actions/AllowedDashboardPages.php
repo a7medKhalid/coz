@@ -15,7 +15,7 @@ class AllowedDashboardPages
 
         if ($userRole === 'admin'){
             $allowedPages = config('constants.adminDashboardPages');
-        }elseif ($userRole === 'manager'){
+        }elseif ($userRole === 'branchManager'){
             $allowedPages = config('constants.managerDashboardPages');
         }elseif ($userRole === 'employee'){
             $allowedPages = config('constants.employeeDashboardPages');

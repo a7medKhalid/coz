@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
             'email' => 'manager@test.com',
         ]);
 
-        $manager->assignRole('manager');
+        $manager->assignRole('branchManager');
         $manager->assignRole('employee');
 
 
