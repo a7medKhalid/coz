@@ -6,19 +6,24 @@ import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 
 import Product from "./components/Product";
 
+interface category {
+    id: number;
+    created_at: Date;
+    updated_at: Date;
+    name: string;
+}
 interface product {
     id: number;
     name: string;
     description: string;
     price: number;
+    categories: category[];
     isArchived: number;
 }
 const Products = (props) => {
     const { get } = useForm({});
     const products = props.products.data;
     const [editing, setEditing] = React.useState({ id: -1 });
-    const [allCategories, setAllCategories] = React.useState(null);
-    console.log({ props });
 
     return (
         <div>
@@ -28,6 +33,7 @@ const Products = (props) => {
                     type="create"
                     name=""
                     price={0}
+                    allCategories={props.categories}
                     categories={[]}
                     description=""
                     onEdit={() => {}}
@@ -44,7 +50,8 @@ const Products = (props) => {
                                     name={product.name}
                                     description={product.description}
                                     price={product.price}
-                                    categories={["s", "e", "3"]}
+                                    allCategories={props.categories}
+                                    categories={product.categories}
                                     onEdit={() => {}}
                                     onCancel={() => {
                                         setEditing({ id: -1 });
@@ -58,7 +65,8 @@ const Products = (props) => {
                                     name={product.name}
                                     description={product.description}
                                     price={product.price}
-                                    categories={["s", "e", "3"]}
+                                    allCategories={props.categories}
+                                    categories={product.categories}
                                     onEdit={() => {
                                         setEditing({ id: product.id });
                                     }}
