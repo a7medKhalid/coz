@@ -115,7 +115,7 @@ class BranchController extends Controller
         $productInventory = $branchModel->inventory->where('product_id', $request['product_id'])->first();
 
         if($productInventory){
-            $productInventory->update([
+            $productInventory = $branchModel->updateExistingPivot($request['product_id'],[
                 'quantity' => $request['quantity'],
             ]);
         }else{

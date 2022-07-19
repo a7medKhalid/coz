@@ -20,4 +20,8 @@ class Product extends Model implements HasMedia
         return $this->belongsToMany(Category::class, 'product_has_categories');
     }
 
+    public function inventory(){
+        return $this->belongsToMany(Branch::class, 'branch_has_products')->withPivot('quantity');
+    }
+
 }
