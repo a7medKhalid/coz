@@ -29,6 +29,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'price' => 'required|numeric',
+            'categories' => 'required|array',
         ]);
 
        $product = Product::create([
@@ -36,6 +37,10 @@ class ProductController extends Controller
             'description' => $request->description,
             'price' => $request->price,
         ]);
+
+        $categories = $request->categories;
+
+        $product->categories()->sync($categories);
 
         return $product;
     }
@@ -49,6 +54,7 @@ class ProductController extends Controller
             'description' => 'required|string|max:255',
             'price' => 'required|numeric',
             'archived' => 'nullable|boolean',
+            'categories' => 'nullable|array',
         ]);
 
         $product = Product::find($request->product_id);
