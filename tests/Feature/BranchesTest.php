@@ -2,10 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Actions\GetUserBranchAction;
 use App\Models\Branch;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
@@ -142,6 +145,47 @@ class BranchesTest extends TestCase
 
 
 
+    }
+
+    //test branch manager can update inventory
+    public function test_branch_manager_can_update_inventory()
+    {
+
+        $user = User::whereName('manager')->first();
+
+        $this->actingAs($user);
+
+        $product = Product::first();
+
+        $response = $this->post('dashboard/inventory/update', ['product_id' => $product->id, 'quantity' => '1']);
+
+        $response->assertStatus(302);
+
+//        $getUserBranch = new GetUserBranchAction();
+//        $branch = $getUserBranch->execute($user);
+//
+//        $inventory = $branch->inventory->fresh();
+//        dd($inventory, $product->id);
+//
+//        $inventory = ->where('product_id', $product->id)->first();
+//
+//
+////        //check product quantity
+////        $this->assertEquals(1, $inventory->quantity);
+
+    }
+
+    //test view inventroy for branch manager
+    public function test_branch_manager_can_view_inventory()
+    {
+
+        $user = User::whereName('manager')->first();
+
+        $this->actingAs($user);
+
+        $response = $this->get('dashboard/inventory');
+
+        $response->assertStatus(200);
     }
 
 

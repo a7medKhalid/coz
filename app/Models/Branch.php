@@ -14,4 +14,12 @@ class Branch extends Model
     public function manager(){
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function inventory(){
+        return $this->belongsToMany(Product::class, 'branch_has_products');
+    }
+
+//    public function inventory(){
+//        return $this->hasMany(BranchHasProduct::class);
+//    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InventoryViewController;
 use App\Http\Controllers\ProductsViewController;
 use App\Http\Controllers\Views\BranchesViewController;
 use App\Http\Controllers\Views\DashboardViewController;
@@ -65,9 +66,11 @@ Route::prefix('/dashboard')->group( function () {
             Route::post('/categories' ,[ProductsViewController::class, 'createCategory'])->name('createCategory');
             Route::post('/categories/delete' ,[ProductsViewController::class, 'deleteCategory'])->name('deleteCategory');
 
+        });
 
-
-
+        Route::middleware('can:manage inventory')->group(function (){
+            Route::get('/inventory' ,[InventoryViewController::class, 'index'])->name('inventory');
+            Route::post('/inventory/update' ,[InventoryViewController::class, 'updateBranchInventory'])->name('updateInventory');
         });
 
 
