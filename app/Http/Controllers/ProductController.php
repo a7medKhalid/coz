@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\GetUserBranchAction;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -47,6 +48,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'price' => 'required|numeric',
+            'archived' => 'nullable|boolean',
         ]);
 
         $product = Product::find($request->product_id);
@@ -54,6 +56,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
+        $product->isArchived = $request->archived??false;
 
         $categories = $request->categories;
 
@@ -88,6 +91,48 @@ class ProductController extends Controller
                 'price' => $product->price,
                 'isArchived' => $product->isArchived,
                 'categories' => $product->categories->pluck('name'),
+                'images' => $product->getMedia('product_images')->map(function ($image) {
+                    return [
+                        'id' => $image->id,
+                        'name' => $image->name,
+                        'url' => $image->getFullUrl(),
+                    ];
+                })->toArray(),
+            ];});
+
+        return $products;
+
+    }
+
+
+
+
+    public function getAllActiveProductsWithQuantity($user){
+
+        $getUserBranch = new GetUserBranchAction;
+        $branch = $getUserBranch->execute($user);
+        $inventory = $branch->inventroy;
+
+        $products = Product::paginate(15)->through(function ($product) use ($inventory) {
+            $productInventory = $inventory?->where('product_id', $product->id)->first();
+            $quantity = $productInventory?$productInventory->quantity:0;
+
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'isArchived' => $product->isArchived,
+                'categories' => $product->categories->pluck('name'),
+                'images' => $product->getMedia('product_images')->map(function ($image) {
+                    return [
+                        'id' => $image->id,
+                        'name' => $image->name,
+                        'url' => $image->getFullUrl(),
+                    ];
+                })->toArray(),
+
+                'quantity' => $quantity,
             ];});
 
         return $products;

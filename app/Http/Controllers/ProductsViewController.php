@@ -79,7 +79,9 @@ class ProductsViewController extends Controller
 
         $categories = $categoryController->getAllCategories($request);
 
-        return $categories;
+        return inertia('Dashboard/Products/index', [
+            'categories' => $categories,
+        ]);
     }
 
     public function addCategory(Request $request){
