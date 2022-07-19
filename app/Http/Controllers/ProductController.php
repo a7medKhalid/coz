@@ -114,9 +114,8 @@ class ProductController extends Controller
         $inventory = $branch->inventroy;
 
         $products = Product::paginate(15)->through(function ($product) use ($inventory) {
-            $productInventory = $inventory?->where('product_id', $product->id)->first();
-            $quantity = $productInventory?$productInventory->quantity:0;
-
+            $productInventory = $inventory?->where('id', $product->id)->first();
+            $quantity = $productInventory?$productInventory->pivot->quantity:0;
             return [
                 'id' => $product->id,
                 'name' => $product->name,
