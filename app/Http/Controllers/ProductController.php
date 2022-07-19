@@ -29,7 +29,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'price' => 'required|numeric',
-            'categories' => 'required|array',
+            'categories' => 'nullable|array',
         ]);
 
        $product = Product::create([
@@ -38,9 +38,9 @@ class ProductController extends Controller
             'price' => $request->price,
         ]);
 
-        $categories = $request->categories;
-
-        $product->categories()->sync($categories);
+       if ($request['categories'] !== null) {
+           $product->categories()->sync($request->categories);
+       }
 
         return $product;
     }
