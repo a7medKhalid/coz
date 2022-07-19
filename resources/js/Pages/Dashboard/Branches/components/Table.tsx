@@ -52,14 +52,10 @@ const Table: React.FC<props> = ({ employees, branches }) => {
                                 </td>
                                 <td className="py-4 px-6">{item.name}</td>
                                 <td className="py-4 px-6">
-                                    {item.user_id ? (
-                                        item.user_id
-                                    ) : (
-                                        <AddManager
-                                            employees={employees}
-                                            item={item}
-                                        />
-                                    )}
+                                    <AddManager
+                                        employees={employees}
+                                        item={item}
+                                    />
                                 </td>
                             </tr>
                         );
@@ -110,7 +106,7 @@ const AddManager = ({ employees, item }) => {
                         type="button"
                         className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                     >
-                        اختيار مدير للفرع
+                        {item.user_id ? item.user_id : "اختيار مدير للفرع"}
                         <svg
                             className="ml-2 -mr-0.5 h-4 w-4"
                             xmlns="http://www.w3.org/2000/svg"
