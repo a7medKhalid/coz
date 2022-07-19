@@ -81,7 +81,7 @@ class ProductController extends Controller
     }
 
     public function getAllProducts($user){
-        $products = Product::paginate(15)->through(function ($product) {
+        $products = Product::latest()->paginate(15)->through(function ($product) {
 
 
             return [
@@ -113,7 +113,7 @@ class ProductController extends Controller
         $branch = $getUserBranch->execute($user);
         $inventory = $branch->inventroy;
 
-        $products = Product::paginate(15)->through(function ($product) use ($inventory) {
+        $products = Product::latest()->paginate(15)->through(function ($product) use ($inventory) {
             $productInventory = $inventory?->where('id', $product->id)->first();
             $quantity = $productInventory?$productInventory->pivot->quantity:0;
             return [
