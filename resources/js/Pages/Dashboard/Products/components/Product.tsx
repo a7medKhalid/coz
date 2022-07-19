@@ -1,11 +1,17 @@
 import { useForm } from "@inertiajs/inertia-react";
-import { Carousel } from "flowbite-react";
+import { Badge, Carousel } from "flowbite-react";
 import React from "react";
 import { TagIcon } from "../../../../assets/icons";
 import Button from "../../../../components/Button";
 import Input from "../../../../components/Input";
 import { LayoutsContext } from "../../../../Layouts/LayoutsProvider";
 
+interface category {
+    id: number;
+    created_at: Date;
+    updated_at: Date;
+    name: string;
+}
 interface props {
     id?: number;
     type: "create" | "edit" | "ready";
@@ -13,7 +19,8 @@ interface props {
     name: string;
     price: number;
     description: string;
-    categories: string[];
+    allCategories: category[];
+    categories: category[];
     onEdit: () => void;
     onCancel: () => void;
 }
@@ -23,6 +30,7 @@ const Product: React.FC<props> = ({
     img,
     name,
     description,
+    allCategories,
     price,
     onEdit,
     onCancel,
@@ -111,6 +119,7 @@ const Product: React.FC<props> = ({
         if (stateCategories.includes(event.target.value)) {
             return;
         }
+
         setStateCategories([...stateCategories, event.target.value]);
         event.target.value;
     };
@@ -121,6 +130,7 @@ const Product: React.FC<props> = ({
             })
         );
     };
+
     return (
         <div className="bg-white border flex flex-col justify-between border-gray-200 rounded overflow">
             <form onSubmit={submit}>
@@ -154,7 +164,7 @@ const Product: React.FC<props> = ({
                         </Carousel>
                     </div>
                     <div className="py-4 px-4 rtl h-52">
-                        <div className="flex items-center overflow-x-auto">
+                        <div className="flex items-center overflow-x-auto overflow-y-hidden">
                             {type !== "ready" ? (
                                 <>
                                     <select
@@ -163,10 +173,10 @@ const Product: React.FC<props> = ({
                                         className="py-0.5 w-fit text-xs  rounded-lg text-white ml-2 border-none bg-primary"
                                     >
                                         <option value="">اضافة تصنيف</option>
-                                        {categories.map((item) => {
+                                        {allCategories.map((item) => {
                                             return (
-                                                <option value={item}>
-                                                    {item}
+                                                <option value={item.name}>
+                                                    {item.name}
                                                 </option>
                                             );
                                         })}
@@ -178,7 +188,7 @@ const Product: React.FC<props> = ({
                                                 onClick={() =>
                                                     removeCategory(item)
                                                 }
-                                                className="py-0.5 ml-2 px-4 hover:bg-red-500 hover:text-white transition duration-150 cursor-pointer w-fit rounded-lg border border-gray-200 bg-gray-100 text-xs"
+                                                className="line-clamp-1 py-0.5 ml-2  px-4 hover:bg-red-500 hover:text-white transition duration-150 cursor-pointer w-fit rounded-lg border border-gray-200 bg-gray-100 text-xs"
                                             >
                                                 {item}
                                             </div>
@@ -190,7 +200,7 @@ const Product: React.FC<props> = ({
                                     {categories?.map((item) => {
                                         return (
                                             <div className="py-0.5 mb-2 ml-2 px-4 w-fit rounded-lg border border-gray-200 bg-gray-100 text-xs">
-                                                {item}
+                                                {item.name}
                                             </div>
                                         );
                                     })}
