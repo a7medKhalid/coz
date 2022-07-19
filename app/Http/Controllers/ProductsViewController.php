@@ -18,7 +18,10 @@ class ProductsViewController extends Controller
         $productController = new ProductController;
         $products = $productController->getAllProducts($user);
 
-        return Inertia::render('Dashboard/Products/index',['allowedDashboardPages' => $allowedDashboardPages, 'products' => $products] );
+        $categoryController = new CategoryController;
+        $categories = $categoryController->getAllCategories($request);
+
+        return Inertia::render('Dashboard/Products/index',['allowedDashboardPages' => $allowedDashboardPages, 'products' => $products, 'categories' => $categories] );
     }
 
     public function createProduct(Request $request){
