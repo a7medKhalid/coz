@@ -2,9 +2,9 @@
 
     $allRoles = ['dashboard'];
     $adminDashboardPages = ['branches', 'employees', 'products'];
-    $managerDashboardPages = ['employees'];
+    $managerDashboardPages = ['employees', 'inventory'];
     $employeeDashboardPages = [];
-    $branchEmployeeDashboardPages = [];
+    $branchEmployeeDashboardPages = ['inventory'];
     $productManagerDashboardPages = ['products'];
 
     $adminDashboardPages = array_merge($allRoles, $adminDashboardPages);

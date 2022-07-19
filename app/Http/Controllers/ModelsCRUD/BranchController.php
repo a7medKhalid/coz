@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ModelsCRUD;
 
+use App\Actions\GetUserBranchAction;
 use App\Actions\GetUserRoleAction;
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
@@ -98,6 +99,30 @@ class BranchController extends Controller
         $branchModel->save();
 
         return $branchModel;
+
+    }
+
+    public function updateInventory(Request $request){
+
+        $request->validate([
+            'product_id' => ['integer', 'required'],
+            'quantity' => ['integer', 'required'],
+        ]);
+
+        $getUserBranch = new GetUserBranchAction;
+        $branchModel = $getUserBranch->execute($request->user());
+
+        $productInventory = $branchModel->inventory->where('product_id', $request['product_id'])->first();
+
+        if($productInventory){
+            $productInventory->update([
+                'quantity' => $request['quantity'],
+            ]);
+        }else{
+            $productInventory = $branchModel->inventory()->attach($request['product_id'], ['quantity' => $request['quantity']]);
+        }
+
+        return $productInventory;
 
     }
 }
