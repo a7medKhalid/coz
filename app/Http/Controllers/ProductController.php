@@ -88,7 +88,7 @@ class ProductController extends Controller
 
     }
 
-    public function getAllProducts($user){
+    public function getAllProducts(){
         $products = Product::latest()->paginate(15)->through(function ($product) {
 
 

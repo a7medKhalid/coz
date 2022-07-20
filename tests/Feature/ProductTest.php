@@ -18,12 +18,7 @@ class ProductTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
-    {
-        $response = $this->get('/');
 
-        $response->assertStatus(200);
-    }
 
     //test create product
     public function test_create_product()

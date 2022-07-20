@@ -9,10 +9,7 @@ use Inertia\Inertia;
 
 class StoreViewController extends Controller
 {
-    public function index(Request $request, AllowedDashboardPages $AllowedDashboardPagesService){
-
-        $user = $request->user();
-        $allowedDashboardPages = $AllowedDashboardPagesService->execute($user);
+    public function index(Request $request){
 
         $productController = new ProductController();
         //if request has category, get products for that category and if it has branch get available products for that branch
@@ -25,7 +22,7 @@ class StoreViewController extends Controller
                 $products = $productController->getAllProductsByCategory($request->category);
             }
         }else{
-            $products = $productController->getAllProducts($user);
+            $products = $productController->getAllProducts();
         }
 
 
@@ -35,7 +32,7 @@ class StoreViewController extends Controller
         $branchesController = new BranchController;
         $branches = $branchesController->getAllBranches();
 
-        return Inertia::render('index',['allowedDashboardPages' => $allowedDashboardPages, 'products' => $products, 'categories' => $categories, 'branches' => $branches] );
+        return Inertia::render('index',['products' => $products, 'categories' => $categories, 'branches' => $branches] );
     }
 
 }
