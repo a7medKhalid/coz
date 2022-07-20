@@ -16,7 +16,7 @@ class ProductsViewController extends Controller
         $allowedDashboardPages = $AllowedDashboardPagesService->execute($user);
 
         $productController = new ProductController;
-        $products = $productController->getAllProducts($user);
+        $products = $productController->getAllProducts();
 
         $categoryController = new CategoryController;
         $categories = $categoryController->getAllCategories($request);

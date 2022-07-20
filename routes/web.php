@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InventoryViewController;
 use App\Http\Controllers\ProductsViewController;
+use App\Http\Controllers\StoreViewController;
 use App\Http\Controllers\Views\BranchesViewController;
 use App\Http\Controllers\Views\DashboardViewController;
 use App\Http\Controllers\Views\EmployeesViewController;
@@ -77,5 +78,18 @@ Route::prefix('/dashboard')->group( function () {
     });
 
 });
+
+Route::prefix(
+    '/'
+)->group(function () {
+    Route::get('', [StoreViewController::class, 'index'])->name('store');
+
+});
+
+
+
+
+
+
 
 require __DIR__.'/auth.php';

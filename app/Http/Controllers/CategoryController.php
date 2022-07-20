@@ -12,6 +12,11 @@ class CategoryController extends Controller
         return $categories;
     }
 
+    public function getAllCategoriesNames(Request $request){
+        $categories = Category::all()->pluck('name');
+        return $categories;
+    }
+
     public function createCategory(Request $request){
         $category = Category::create([
             'name' => $request->name,

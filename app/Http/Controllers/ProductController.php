@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Actions\GetUserBranchAction;
+use App\Models\Branch;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -29,7 +31,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'price' => 'required|numeric',
-            'categories' => 'required|array',
+            'categories' => 'nullable|array',
         ]);
 
        $product = Product::create([
@@ -38,9 +40,9 @@ class ProductController extends Controller
             'price' => $request->price,
         ]);
 
-        $categories = $request->categories;
-
-        $product->categories()->sync($categories);
+       if ($request['categories'] !== null) {
+           $product->categories()->sync($request->categories);
+       }
 
         return $product;
     }
@@ -86,7 +88,7 @@ class ProductController extends Controller
 
     }
 
-    public function getAllProducts($user){
+    public function getAllProducts(){
         $products = Product::latest()->paginate(15)->through(function ($product) {
 
 
@@ -138,6 +140,45 @@ class ProductController extends Controller
                 })->toArray(),
 
                 'quantity' => $quantity,
+            ];});
+
+        return $products;
+    }
+
+    public function getAllProductsByBranch($branchId, $categoryName = null){
+        $branch = Branch::find($branchId);
+
+        $products = $branch->products;
+
+        if($categoryName){
+            $products = $products->whereHas('categories', function($query) use ($categoryName){
+                $query->where('name', $categoryName);
+            });
+        }
+
+        return $products;
+    }
+
+
+    public function getAllProductsByCategory($categoryName){
+
+        $category = Category::whereName($categoryName)->first();
+
+        $products = $category->products->latest()->paginate(15)->through(function ($product) use ($category) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'isArchived' => $product->isArchived,
+                'categories' => $product->categories->pluck('name'),
+                'images' => $product->getMedia('product_images')->map(function ($image) {
+                    return [
+                        'id' => $image->id,
+                        'name' => $image->name,
+                        'url' => $image->getFullUrl(),
+                    ];
+                })->toArray(),
             ];});
 
         return $products;
