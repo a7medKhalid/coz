@@ -1,6 +1,6 @@
 import { useForm } from "@inertiajs/inertia-react";
 import { Carousel } from "flowbite-react";
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../../../components/Button";
 import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 
@@ -23,7 +23,7 @@ interface product {
 const Products = (props) => {
     const { get } = useForm({});
     const products = props.products.data;
-    const [editing, setEditing] = React.useState({ id: -1 });
+    const [editing, setEditing] = React.useState<product>({ id: -2 });
 
     return (
         <div>
@@ -44,14 +44,14 @@ const Products = (props) => {
                         <div>
                             {editing.id === product.id ? (
                                 <Product
-                                    id={product.id}
+                                    id={editing.id}
                                     type="edit"
                                     img="https://images.pexels.com/photos/1854652/pexels-photo-1854652.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                    name={product.name}
-                                    description={product.description}
-                                    price={product.price}
+                                    name={editing.name}
+                                    description={editing.description}
+                                    price={editing.price}
                                     allCategories={props.categories}
-                                    categories={product.categories}
+                                    categories={editing.categories}
                                     onEdit={() => {}}
                                     onCancel={() => {
                                         setEditing({ id: -1 });
@@ -68,7 +68,7 @@ const Products = (props) => {
                                     allCategories={props.categories}
                                     categories={product.categories}
                                     onEdit={() => {
-                                        setEditing({ id: product.id });
+                                        setEditing({ ...product });
                                     }}
                                     onCancel={() => {}}
                                 />
