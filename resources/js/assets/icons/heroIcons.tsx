@@ -3,7 +3,7 @@ import React from "react";
 export const CubeIcon = () => {
     return (
         <svg
-            className="w-7 h-7"
+            className="w-6 h-6"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@ export const CubeIcon = () => {
 export const PersonGroupIcon = () => {
     return (
         <svg
-            className="w-7 h-7"
+            className="w-6 h-6"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +29,7 @@ export const PersonGroupIcon = () => {
 export const ArchiveIcon = () => {
     return (
         <svg
-            className="w-7 h-7"
+            className="w-6 h-6"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -69,6 +69,57 @@ export const LogoutIcon = (props) => {
             <path
                 fill-rule="evenodd"
                 d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+                clip-rule="evenodd"
+            ></path>
+        </svg>
+    );
+};
+
+export const TagIcon = ({ className }) => {
+    return (
+        <svg
+            className={`w-6 h-6 ${className}`}
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fill-rule="evenodd"
+                d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z"
+                clip-rule="evenodd"
+            ></path>
+        </svg>
+    );
+};
+
+export const AddDocumentIcon = ({ className }) => {
+    return (
+        <svg
+            className={`w-6 h-6 ${className}`}
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fill-rule="evenodd"
+                d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V8z"
+                clip-rule="evenodd"
+            ></path>
+        </svg>
+    );
+};
+
+export const XCircleIcon = ({ className }) => {
+    return (
+        <svg
+            className={`w-6 h-6 ${className}`}
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
                 clip-rule="evenodd"
             ></path>
         </svg>

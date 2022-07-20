@@ -2,7 +2,7 @@ import React, { useState, useContext, Fragment, createContext } from "react";
 import { Link } from "@inertiajs/inertia-react";
 import { Transition } from "@headlessui/react";
 
-const DropDownContext = createContext();
+const DropDownContext = createContext<any>(null);
 
 const Dropdown = ({ children }) => {
     const [open, setOpen] = useState(false);
@@ -104,7 +104,7 @@ const DropdownItem = ({ children, onClick }) => {
     return (
         <div
             onClick={onClick}
-            className="block w-full text-right cursor-pointer px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+            className="block w-full text-right cursor-pointer px-4 py-2  text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
         >
             {children}
         </div>

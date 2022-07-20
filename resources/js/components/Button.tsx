@@ -3,8 +3,9 @@ import React from "react";
 export default function Button({
     type = "submit",
     className = "",
-    processing,
+    processing = false,
     children,
+    onClick = () => {},
 }) {
     return (
         <button
@@ -15,6 +16,7 @@ export default function Button({
                 } ` + className
             }
             disabled={processing}
+            onClick={onClick}
         >
             {children}
         </button>
