@@ -31,6 +31,12 @@ class BranchController extends Controller
         }
         return $branches;
     }
+
+    public function getAllBranches()
+    {
+        $branches = Branch::all()->select(['id','name','latitude', 'longitude']);
+        return $branches;
+    }
     public function create(Request $request){
         $request->validate([
             'name' => ['string', 'required'],
