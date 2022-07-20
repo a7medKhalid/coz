@@ -1,8 +1,13 @@
 import { useForm } from "@inertiajs/inertia-react";
-import { Badge, Carousel } from "flowbite-react";
+import { Badge, Carousel, Modal } from "flowbite-react";
 import React, { useEffect, useState } from "react";
-import { TagIcon } from "../../../../assets/icons";
+import {
+    AddDocumentIcon,
+    TagIcon,
+    XCircleIcon,
+} from "../../../../assets/icons";
 import Button from "../../../../components/Button";
+import CustomModal from "../../../../components/CustomModal";
 import Input from "../../../../components/Input";
 import { LayoutsContext } from "../../../../Layouts/LayoutsProvider";
 
@@ -15,7 +20,7 @@ interface category {
 interface props {
     id?: number;
     type: "create" | "edit" | "ready";
-    img: string;
+    images: any;
     name: string;
     price: number;
     description: string;
@@ -27,7 +32,7 @@ interface props {
 const Product: React.FC<props> = ({
     id,
     type,
-    img,
+    images,
     name,
     description,
     allCategories,
@@ -40,6 +45,8 @@ const Product: React.FC<props> = ({
     const [stateCategories, setStateCategories] = React.useState<any>([
         ...categories,
     ]);
+
+    const [showImagesCarousel, setShowImagesCarousel] = React.useState(false);
     const {
         data,
         setData,
@@ -190,38 +197,15 @@ const Product: React.FC<props> = ({
 
         return c[0]?.name;
     };
+
     return (
         <div className="bg-white border flex flex-col justify-between border-gray-200 rounded overflow">
             <form onSubmit={submit}>
                 <div>
+                    <ProductImage images={images} productID={id} />
                     {/* <ImageCarousel /> */}
-                    <div className="h-48 w-full">
-                        <Carousel slide={false}>
-                            <img
-                                src={
-                                    type === "create"
-                                        ? "https://semantic-ui.com/images/wireframe/image.png"
-                                        : img
-                                }
-                                alt="logo"
-                                className="w-full max-h-48 object-cover "
-                            />
-                            <img
-                                src={
-                                    "https://semantic-ui.com/images/wireframe/image.png"
-                                }
-                                alt="logo"
-                                className="w-full max-h-48 object-cover "
-                            />
-                            <img
-                                src={
-                                    "https://semantic-ui.com/images/wireframe/image.png"
-                                }
-                                alt="logo"
-                                className="w-full max-h-48 object-cover "
-                            />
-                        </Carousel>
-                    </div>
+                    {/* <div className="h-48 w-full"> */}
+                    {/* </div> */}
                     <div className="py-4 px-4 rtl h-52">
                         <div className="flex items-center overflow-x-auto overflow-y-hidden">
                             {type !== "ready" ? (
@@ -359,3 +343,148 @@ const Product: React.FC<props> = ({
 };
 
 export default Product;
+
+const ProductImage = ({ images, productID }) => {
+    // console.log({ images });
+
+    const { data, setData, post, processing, transform, progress } = useForm({
+        product_id: productID,
+        image: null,
+    });
+    const { setSnackBar } = React.useContext(LayoutsContext);
+
+    const uploadImage = (e: any) => {
+        transform((data) => ({
+            ...data,
+            image: e.target.files[0],
+        }));
+
+        post(route("addProductImage"), {
+            onError: function (e) {
+                console.log({ e });
+                setSnackBar({
+                    isShown: true,
+                    message: "حصل خطا ما",
+                    status: "error",
+                });
+            },
+            onSuccess: () =>
+                setSnackBar({
+                    isShown: true,
+                    message: "تم تعديل المنتج بنجاح",
+                    status: "success",
+                }),
+        });
+    };
+    const removeImage = (img: any) => {
+        post(
+            route("deleteProductImage", {
+                image_id: img.id,
+                product_id: productID,
+            }),
+            {
+                onError: function (e) {
+                    setSnackBar({
+                        isShown: true,
+                        message: "حصل خطا ما",
+                        status: "error",
+                    });
+                },
+                onSuccess: () =>
+                    setSnackBar({
+                        isShown: true,
+                        message: "تم تعديل المنتج بنجاح",
+                        status: "success",
+                    }),
+            }
+        );
+    };
+    const [show, setShow] = React.useState(false);
+    const inputRef = React.useRef(null);
+    return (
+        <React.Fragment>
+            <img
+                onClick={() => setShow(true)}
+                src={images[0].url}
+                className="w-full h-48 object-cover"
+            />
+            <Modal show={show} onClose={() => setShow(false)}>
+                <Modal.Header>صور المنتج</Modal.Header>
+                <Modal.Body>
+                    <div className=" mb-2">
+                        {progress && (
+                            <progress value={progress.percentage} max="100">
+                                {progress.percentage}%
+                            </progress>
+                        )}
+                    </div>
+                    <div className="grid grid-cols-3 rtl gap-3 h-96 overflow-y-scroll">
+                        <form>
+                            <div onClick={() => inputRef?.current?.click()}>
+                                <input
+                                    ref={inputRef}
+                                    type="file"
+                                    name="image"
+                                    id=""
+                                    className="hidden"
+                                    accept="image/png, image/jpeg"
+                                    onChange={uploadImage}
+                                />
+                                <div className=" h-72 border-2 border-gray-200 hover:bg-gray-100 cursor-pointer border-dashed flex items-center justify-center">
+                                    <AddDocumentIcon
+                                        className={"w-10 h-10 text-primary"}
+                                    />
+                                </div>
+                            </div>
+                        </form>
+
+                        {images.map((img) => {
+                            return (
+                                <div className="relative">
+                                    <img
+                                        src={img.url}
+                                        className={"h-72  object-cover"}
+                                    />
+                                    <div
+                                        onClick={() => removeImage(img)}
+                                        className="absolute right-2 top-2 transition-all duration-150  text-red-500 cursor-pointer hover:scale-150 "
+                                    >
+                                        <XCircleIcon className={""} />
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    {/* <Button onClick={onClick}>I accept</Button>
+                    <Button color="gray" onClick={onClick}>
+                        Decline
+                    </Button> */}
+                </Modal.Footer>
+            </Modal>
+        </React.Fragment>
+    );
+};
+// <CustomModal>
+//     <CustomModal.Trigger>
+//         <img src={images[0]} className="w-full h-48 object-cover" />
+//     </CustomModal.Trigger>
+//     <CustomModal.Content>
+//         <CustomModal.Title>صور المنتج</CustomModal.Title>
+//         {/* <div className="rtl py-5 px-5 "> */}
+//         <div className="grid grid-cols-3 ">
+//             {images.map((img) => {
+//                 return (
+//                     <img
+//                         src={img}
+//                         className={"h-56 w-56 object-cover"}
+//                     />
+//                 );
+//             })}
+//         </div>
+
+//         {/* </div> */}
+//         <CustomModal.Footer></CustomModal.Footer>
+//     </CustomModal.Content>
+// </CustomModal>

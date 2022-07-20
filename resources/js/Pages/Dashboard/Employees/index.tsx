@@ -13,7 +13,6 @@ import Label from "../../../components/Label";
 import Input from "../../../components/Input";
 
 const Employees = (props) => {
-    console.log("rr", props);
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
     });
@@ -31,13 +30,9 @@ const Employees = (props) => {
     if (employees.length < 1) {
         return (
             <div className="h-screen flex items-center justify-center">
+                <SendInvite />
+                <div className="mx-1"></div>
                 لا يوجد لديك موظفين، لإضافة موظف إضغط على
-                <InertiaLink
-                    href={route("viewAddBranch")}
-                    className={"text-primary underline mx-1"}
-                >
-                    إضافة فرع
-                </InertiaLink>
             </div>
         );
     }

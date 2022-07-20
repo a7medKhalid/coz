@@ -16,6 +16,7 @@ interface product {
     id: number;
     name: string;
     description: string;
+    images: any;
     price: number;
     categories: category[];
     isArchived: number;
@@ -25,11 +26,20 @@ const Products = (props) => {
     const products = props.products.data;
     const [editing, setEditing] = React.useState<product>({ id: -2 });
 
+    const images = [
+        {
+            id: 0,
+            name: "test",
+            url: "https://images.pexels.com/photos/1854652/pexels-photo-1854652.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        },
+    ];
     return (
         <div>
-            <div className="grid grid-cols-4 gap-4 rtl">
+            <div className="grid  md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 rtl">
                 <Product
-                    img="https://semantic-ui.com/images/wireframe/image.png"
+                    images={[
+                        "https://semantic-ui.com/images/wireframe/image.png",
+                    ]}
                     type="create"
                     name=""
                     price={0}
@@ -46,7 +56,7 @@ const Products = (props) => {
                                 <Product
                                     id={editing.id}
                                     type="edit"
-                                    img="https://images.pexels.com/photos/1854652/pexels-photo-1854652.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                    images={[...product.images, ...images]}
                                     name={editing.name}
                                     description={editing.description}
                                     price={editing.price}
@@ -61,7 +71,7 @@ const Products = (props) => {
                                 <Product
                                     id={product.id}
                                     type="ready"
-                                    img="https://images.pexels.com/photos/1854652/pexels-photo-1854652.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                    images={[...images, ...product.images]}
                                     name={product.name}
                                     description={product.description}
                                     price={product.price}

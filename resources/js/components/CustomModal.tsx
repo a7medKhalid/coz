@@ -46,7 +46,7 @@ const Title = ({ children, className = "" }) => {
         </>
     );
 };
-const Content = ({ contentClasses = " bg-white", children }) => {
+const Content = ({ contentClasses = " bg-white", children, className }) => {
     const { open, setOpen } = React.useContext(CustomModalContext);
     let alignmentClasses = "origin-top";
 
@@ -63,7 +63,7 @@ const Content = ({ contentClasses = " bg-white", children }) => {
                 leaveTo="transform opacity-0 scale-95"
             >
                 <div
-                    className={`absolute z-50 mt-2   flex items-center justify-center rounded-md  top-20 left-0 right-0 bottom-0 `}
+                    className={`absolute z-50 mt-2  flex items-center justify-center rounded-md  top-20 left-0 right-0 bottom-0 ${className} `}
                 >
                     <div
                         className={
