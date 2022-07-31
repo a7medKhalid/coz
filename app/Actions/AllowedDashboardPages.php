@@ -13,14 +13,16 @@ class AllowedDashboardPages
 
 
 
-        if ($userRole === 'admin'){
+        if ($user->hasRole('admin') ){
             $allowedPages = config('constants.adminDashboardPages');
-        }elseif ($userRole === 'branchManager'){
+        }elseif ($user->hasRole('branchManager')){
             $allowedPages = config('constants.managerDashboardPages');
-        }elseif ($userRole === 'employee'){
-            $allowedPages = config('constants.employeeDashboardPages');
-        }elseif ($userRole === 'productManager'){
+        }elseif ($user->hasRole('productManager')){
             $allowedPages = config('constants.productManagerDashboardPages');
+        }elseif ($user->hasRole('branchEmployee')){
+            $allowedPages = config('constants.branchEmployeeDashboardPages');
+        }elseif ($user->hasRole( 'employee')){
+            $allowedPages = config('constants.employeeDashboardPages');
         }
 
 
