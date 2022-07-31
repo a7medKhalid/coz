@@ -18,7 +18,7 @@ class InventoryViewController extends Controller
         $products = $productController->getAllActiveProductsWithQuantity(Auth::user());
         $allowedDashboardPages = $allowedDashboardPages->execute($request->user());
 
-        return Inertia::render('Dashboard/Products/index',['allowedDashboardPages' => $allowedDashboardPages, 'products' => $products] );
+        return Inertia::render('Dashboard/Inventory/index',['allowedDashboardPages' => $allowedDashboardPages, 'products' => $products] );
     }
 
     public function updateBranchInventory(Request $request){
