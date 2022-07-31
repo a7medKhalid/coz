@@ -12,6 +12,7 @@ export const MAP_ROUTE_TO_ICON = {
     branches: <CubeIcon />,
     employees: <PersonGroupIcon />,
     products: <ArchiveIcon />,
+    inventory: <CubeIcon />,
 };
 
 export const MAP_ROUTE_TO_AR_NAME = {
@@ -19,4 +20,5 @@ export const MAP_ROUTE_TO_AR_NAME = {
     branches: "ادارة الفروع",
     employees: "ادارة الموظفين",
     products: "ادارة المنتجات",
+    inventory: "ادارة المخرون",
 };

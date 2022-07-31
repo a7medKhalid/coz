@@ -149,7 +149,7 @@ const AssignToBranch = ({ branches, item }) => {
             </Dropdown.Trigger>
 
             <Dropdown.Content>
-                {branches.map((branch) => {
+                {/* {branches.map((branch) => {
                     return (
                         <Dropdown.Item
                             key={branch.id}
@@ -158,7 +158,7 @@ const AssignToBranch = ({ branches, item }) => {
                             {branch.name}
                         </Dropdown.Item>
                     );
-                })}
+                })} */}
             </Dropdown.Content>
         </Dropdown>
     );
@@ -170,7 +170,7 @@ const AssignAsProductManager = ({ item }) => {
     const onHandleChange = (event) => {
         post(
             route("assignProductManagerRoleToEmployee", {
-                employee_id: event.target.checked ? null : item.id,
+                employee_id: item.id,
             }),
             {
                 onSuccess: () => {
