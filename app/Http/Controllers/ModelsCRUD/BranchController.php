@@ -27,7 +27,7 @@ class BranchController extends Controller
         }
         //else if user is branch manager, return only branches that user is assigned to
         elseif($userRole == 'branchManager'){
-            $branches = $user->branch;
+            $branches = [$user->branch];
         }
         return $branches;
     }
