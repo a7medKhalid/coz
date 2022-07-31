@@ -119,9 +119,11 @@ class ProductController extends Controller
 
         $getUserBranch = new GetUserBranchAction;
         $branch = $getUserBranch->execute($user);
-        $inventory = $branch->inventroy;
+        $inventory = $branch->inventory;
 
         $products = Product::latest()->paginate(15)->through(function ($product) use ($inventory) {
+
+            //if product is in branch inventory then get quantity
             $productInventory = $inventory?->where('id', $product->id)->first();
             $quantity = $productInventory?$productInventory->pivot->quantity:0;
             return [
