@@ -22,6 +22,13 @@ class CartViewController extends Controller
         return back();
     }
 
+    public function updateBranch(Request $request){
+        $cartController = new CartController();
+        $cart = $cartController->update($request);
+
+        return back();
+    }
+
     public function removeFromCart(Request $request){
         $cartController = new CartController();
         $cart = $cartController->removeFromCart($request);

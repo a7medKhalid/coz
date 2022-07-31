@@ -87,6 +87,7 @@ Route::prefix(
 
     Route::prefix('/cart')->group(function (){
         Route::get('', [CartViewController::class, 'index'])->name('cart');
+        Route::post('/update', [CartViewController::class, 'updateBranch'])->name('updateBranch');
         Route::post('/add', [CartViewController::class, 'addToCart'])->name('addToCart');
         Route::post('/remove', [CartViewController::class, 'removeFromCart'])->name('removeFromCart');
         Route::post('/empty', [CartViewController::class, 'emptyCart'])->name('emptyCart');
