@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartViewController;
 use App\Http\Controllers\InventoryViewController;
 use App\Http\Controllers\ProductsViewController;
 use App\Http\Controllers\StoreViewController;
@@ -83,6 +84,13 @@ Route::prefix(
     '/'
 )->group(function () {
     Route::get('', [StoreViewController::class, 'index'])->name('store');
+
+    Route::prefix('/cart')->group(function (){
+        Route::get('', [CartViewController::class, 'index'])->name('cart');
+        Route::post('/add', [CartViewController::class, 'addToCart'])->name('addToCart');
+        Route::post('/remove', [CartViewController::class, 'removeFromCart'])->name('removeFromCart');
+        Route::post('/empty', [CartViewController::class, 'emptyCart'])->name('emptyCart');
+    });
 
 });
 
