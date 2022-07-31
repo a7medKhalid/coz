@@ -28,7 +28,6 @@ class CartController extends Controller
     public function update(Request $request){
 
         $request->validate([
-            'cart_id' => 'required',
             'branch_id' => 'required',
         ]);
 
@@ -79,6 +78,12 @@ class CartController extends Controller
     }
 
     public function addToCart(Request $request){
+
+        $request->validate([
+            'product_id' => 'required',
+            'quantity' => ['required', 'integer', 'min:1'],
+        ]);
+
         $cart = $this->getCart($request);
 
         //check if product is available in branch
@@ -87,10 +92,10 @@ class CartController extends Controller
             return ['error' => 'Choose a branch first'];
         }
 
-        $product = $branch->products()->where('id', $request->product_id)->first();
+        $product = $branch->inventory()->where('id', $request->product_id)->first();
 
         //check for product quantity
-        if ($product->quantity < $request->quantity){
+        if ($product->pivot->quantity < $request->quantity){
             return ['error' => 'Not enough quantity'];
         }
 

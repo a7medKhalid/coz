@@ -64,6 +64,10 @@ class EmployeesViewController extends Controller
         //find branch by id
         $branch = Branch::find($request->branch_id);
 
+
+        //Todo: check if employee is already assigned to branch
+
+        //Todo: what is this?
         if ($request['branch_id' === null]){
            $employee->removeRole('productManager');
 
