@@ -12,7 +12,7 @@ interface category {
     updated_at: Date;
     name: string;
 }
-interface product {
+export interface product {
     id: number;
     name: string;
     description: string;
@@ -20,6 +20,7 @@ interface product {
     price: number;
     categories: category[];
     isArchived: number;
+    quantity: number;
 }
 const Products = (props) => {
     const { get } = useForm({});

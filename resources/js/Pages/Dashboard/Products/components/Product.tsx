@@ -130,12 +130,14 @@ const Product: React.FC<props> = ({
                             status: "error",
                         });
                     },
-                    onSuccess: () =>
+                    onSuccess: function () {
                         setSnackBar({
                             isShown: true,
                             message: "تم تعديل المنتج بنجاح",
                             status: "success",
                         }),
+                            window.location.reload();
+                    },
                 });
                 break;
         }
