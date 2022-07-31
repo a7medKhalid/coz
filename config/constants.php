@@ -10,7 +10,7 @@
     $adminDashboardPages = array_merge($allRoles, $adminDashboardPages);
     $managerDashboardPages = array_merge($allRoles, $managerDashboardPages);
     $employeeDashboardPages = array_merge($allRoles, $employeeDashboardPages);
-    $branchEmployeeDashboardPages = array_merge($allRoles, $employeeDashboardPages);
+    $branchEmployeeDashboardPages = array_merge($allRoles, $branchEmployeeDashboardPages);
     $productManagerDashboardPages = array_merge($allRoles, $productManagerDashboardPages);
 
 
