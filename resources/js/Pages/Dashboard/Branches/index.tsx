@@ -11,21 +11,15 @@ const Branches = (props) => {
     // const {} = useLoadScript()
     console.log({ props });
 
-    const render = (status: Status) => {
-        return <h1>{status}</h1>;
-    };
     return (
-        <Wrapper
-            apiKey={"AIzaSyDHqnCUbpApAczIlH7VrOdw4tU8SNpi5l8"}
-            render={render}
-        >
+        <>
             <Head title="Dashboard" />
             <div dir="rtl">
                 <CustomLink to="viewAddBranch" text="اضافة فرع" />
                 <Table employees={props.employees} branches={props.branches} />
                 {/* <AddBranch /> */}
             </div>
-        </Wrapper>
+        </>
     );
 };
 
