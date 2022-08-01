@@ -18,7 +18,7 @@ export interface product {
     description: string;
     images: any;
     price: number;
-    categories: category[];
+    categories?: category[];
     isArchived: number;
     quantity: number;
 }
