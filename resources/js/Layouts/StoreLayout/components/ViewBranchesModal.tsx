@@ -8,16 +8,24 @@ import { useForm } from "@inertiajs/inertia-react";
 const ViewBranchesModal = ({ selectedBranch, branches }) => {
     const { post } = useForm({});
     const [showModal, setShowModal] = React.useState(false);
+    const [selectedBranchState, setSelectedBranchState] = React.useState({
+        id: "",
+        name: "",
+    });
     const [selectedPosition, setSelectedPosition] = React.useState({
         lat: 0,
         lng: 0,
     });
 
     const setBranch = () => {
-        post;
+        post(route("updateBranch"), {
+            data: {
+                id: selectedBranchState.id,
+                name: selectedBranchState.name,
+            },
+        });
     };
     // state selected branch
-    const [selectedBranchState, setSelectedBranchState] = React.useState(0);
     function viewModal() {
         setShowModal(true);
     }
@@ -98,10 +106,10 @@ const BranchItem = ({
                     lng: +item.longitude,
                     lat: +item.latitude,
                 });
-                setSelectedBranchState(index);
+                setSelectedBranchState(item);
             }}
             className={`${
-                index === selectedBranchState
+                item.id === selectedBranchState.id
                     ? "bg-sky-400 text-white"
                     : "bg-transparent"
             } px-5 py-2 flex items-center justify-end text-gray-700 cursor-pointer`}
