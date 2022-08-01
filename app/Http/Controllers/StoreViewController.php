@@ -15,6 +15,7 @@ class StoreViewController extends Controller
         //if request has category, get products for that category and if it has branch get available products for that branch
 
 
+
         if($request->has('category') or $request->has('branch')){
             if ($request->has('branch')){
                 $products = $productController->getAllProductsByBranch($request->branch, $request->category);
@@ -22,7 +23,7 @@ class StoreViewController extends Controller
                 $products = $productController->getAllProductsByCategory($request->category);
             }
         }else{
-            $products = $productController->getAllProducts();
+            $products = $productController->getAllProductsWithBranch();
         }
 
 

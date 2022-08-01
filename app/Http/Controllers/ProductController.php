@@ -112,6 +112,41 @@ class ProductController extends Controller
 
     }
 
+    public function getAllProductsWithBranch(){
+
+        $categories = Category::all();
+
+        $products = [];
+
+        foreach ($categories as $category) {
+            $products = $category->products()->paginate(4)->through(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'description' => $product->description,
+                    'price' => $product->price,
+                    'isArchived' => $product->isArchived,
+                    'categories' => $product->categories->pluck('name'),
+                    'images' => $product->getMedia('product_images')->map(function ($image) {
+                        return [
+                            'id' => $image->id,
+                            'name' => $image->name,
+                            'url' => $image->getFullUrl(),
+                        ];
+                    })->toArray(),
+                ];}
+            );
+
+            array_push($products,['category'=>$category->name, 'products'=>$products]);
+
+
+        }
+
+        return $products;
+
+    }
+
+
 
 
 
@@ -119,9 +154,11 @@ class ProductController extends Controller
 
         $getUserBranch = new GetUserBranchAction;
         $branch = $getUserBranch->execute($user);
-        $inventory = $branch->inventroy;
+        $inventory = $branch->inventory;
 
         $products = Product::latest()->paginate(15)->through(function ($product) use ($inventory) {
+
+            //if product is in branch inventory then get quantity
             $productInventory = $inventory?->where('id', $product->id)->first();
             $quantity = $productInventory?$productInventory->pivot->quantity:0;
             return [
@@ -150,11 +187,12 @@ class ProductController extends Controller
 
         $products = $branch->products;
 
-        if($categoryName){
+        if($categoryName and $categoryName !== 'all'){
             $products = $products->whereHas('categories', function($query) use ($categoryName){
                 $query->where('name', $categoryName);
             });
         }
+
 
         return $products;
     }
