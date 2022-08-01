@@ -1,5 +1,5 @@
 import React from "react";
-import { ShoppingCart } from "../../assets/icons";
+import { ShoppingCartIcon } from "../../assets/icons";
 import Button from "../../Components/Button";
 import { product } from "../Dashboard/Products";
 
@@ -11,7 +11,7 @@ const CategoryProducts: React.FC<props> = ({ cateogoryTitle, products }) => {
     return (
         <div>
             <div className="flex item-center justify-end">
-                <div className="text-4xl flex flex-col justify-center items-center font-bold text-right py-4 border-blue-400">
+                <div className="text-4xl flex flex-col justify-center items-end font-bold text-right py-4 border-blue-400">
                     {cateogoryTitle}
                     <div className="w-2/4 h-2 mt-3  bg-primary rounded-sm" />
                 </div>
@@ -20,6 +20,7 @@ const CategoryProducts: React.FC<props> = ({ cateogoryTitle, products }) => {
                 {products.map((item) => {
                     return (
                         <ProductItem
+                            key={item.id}
                             product={item}
                             cateogoryTitle={""}
                             products={[]}
@@ -57,7 +58,7 @@ const ProductItem: React.FC<props> = ({ product }) => {
                     onClick={addToCart}
                     className="bg-gray-200 border border-gray-100 rounded px-2 cursor-pointer hover:bg-primary text-gray-400 hover:text-white  transition duration-150 py-1 text-lg"
                 >
-                    <ShoppingCart className={""} />
+                    <ShoppingCartIcon className={""} />
                 </div>
                 {/* <Button className="text-white bg-white"></Button> */}
                 <div className="text-3xl font-bold rtl flex items-end">

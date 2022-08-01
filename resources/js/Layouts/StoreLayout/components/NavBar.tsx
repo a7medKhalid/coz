@@ -1,8 +1,12 @@
+import { Modal } from "flowbite-react";
 import React from "react";
+import { MarkerIcon } from "../../../assets/icons";
 import Button from "../../../Components/Button";
 import Input from "../../../Components/Input";
+import MapWrapper from "../../../Pages/Dashboard/Branches/components/MapWrapper";
+import ViewBranchesModal from "./ViewBranchesModal";
 
-export default function NavBar({ categories }) {
+export default function NavBar({ categories, selectedBranch, branches }) {
     return (
         <div className="bg-[#7d94b6] fixed z-50 w-screen shadow-lg flex items-center justify-center ">
             <div className="w-3/4 flex items-center justify-between py-4 ">
@@ -15,11 +19,11 @@ export default function NavBar({ categories }) {
                     </Button>
                     {/* <img src={appLogo} alt="logo" className="w-8 h-8" /> */}
                 </div>
-
                 <div>
-                    <div className="bg-[#adbcd1] rounded px-5 py-2">
-                        إختيار الفرع
-                    </div>
+                    <ViewBranchesModal
+                        selectedBranch={selectedBranch}
+                        branches={branches}
+                    />
                     {/* <Input
                         handleChange={() => {}}
                         name="search"
