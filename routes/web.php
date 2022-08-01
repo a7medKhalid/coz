@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartViewController;
 use App\Http\Controllers\InventoryViewController;
 use App\Http\Controllers\ProductsViewController;
+use App\Http\Controllers\PromocodesViewController;
 use App\Http\Controllers\StoreViewController;
 use App\Http\Controllers\Views\BranchesViewController;
 use App\Http\Controllers\Views\DashboardViewController;
@@ -74,6 +75,13 @@ Route::prefix('/dashboard')->group( function () {
             Route::get('/inventory' ,[InventoryViewController::class, 'index'])->name('inventory');
             Route::post('/inventory/update' ,[InventoryViewController::class, 'updateBranchInventory'])->name('updateInventory');
         });
+
+        Route::middleware('can:manage promocodes')->group(function (){
+            Route::get('/promocodes' ,[PromocodesViewController::class, 'index'])->name('promocodes');
+            Route::post('/promocodes' ,[PromocodesViewController::class, 'createPromocode'])->name('createPromocode');
+            Route::post('/promocodes/update' ,[PromocodesViewController::class, 'editPromocode'])->name('editPromocode');
+            Route::post('/promocodes/delete' ,[PromocodesViewController::class, 'deletePromocode'])->name('deletePromocode');
+           });
 
 
     });

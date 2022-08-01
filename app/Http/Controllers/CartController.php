@@ -15,7 +15,7 @@ class CartController extends Controller
         if ($request->user()){
             $cart->owner_id = $request->user()->id;
         }else{
-            $cart->owner_id = $request->owner_id;
+            $cart->owner_id = $request->session()->get('key');
         }
 
         $cart->branch_id = $request->branch_id??null;
@@ -51,7 +51,7 @@ class CartController extends Controller
         if ($user){
             $cart = Cart::where('owner_id', $user->id )->first();
         }else{
-            $cart = Cart::where('owner_id', $request->guest_id )->first();
+            $cart = Cart::where('owner_id',  $request->session()->get('key') )->first();
         }
 
         //if cart doesn't exist, create it
