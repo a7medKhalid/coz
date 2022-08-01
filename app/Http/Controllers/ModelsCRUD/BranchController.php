@@ -34,7 +34,7 @@ class BranchController extends Controller
 
     public function getAllBranches()
     {
-        $branches = Branch::all()->pluck(['id','name','latitude', 'longitude']);
+        $branches = Branch::all();
         return $branches;
     }
     public function create(Request $request){
