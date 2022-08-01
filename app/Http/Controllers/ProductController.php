@@ -119,7 +119,7 @@ class ProductController extends Controller
         $products = [];
 
         foreach ($categories as $category) {
-            $products = $category->products()->paginate(4)->through(function ($product) {
+            $categoryProducts = $category->products()->paginate(4)->through(function ($product) {
                 return [
                     'id' => $product->id,
                     'name' => $product->name,
@@ -137,7 +137,7 @@ class ProductController extends Controller
                 ];}
             );
 
-            array_push($products,['category'=>$category->name, 'products'=>$products]);
+            array_push($products,['category'=>$category->name, 'products'=>$categoryProducts]);
 
 
         }
