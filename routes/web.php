@@ -83,6 +83,10 @@ Route::prefix('/dashboard')->group( function () {
             Route::post('/promocodes/delete' ,[PromocodesViewController::class, 'deletePromocode'])->name('deletePromocode');
            });
 
+        Route::middleware('can:manage customers')->group(function (){
+            Route::get('/customers' ,[StoreViewController::class, 'index'])->name('customers');
+        });
+
 
     });
 

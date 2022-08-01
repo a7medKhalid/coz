@@ -112,7 +112,7 @@ class ProductController extends Controller
 
     }
 
-    public function getAllProductsWithBranch(){
+    public function getAllProductsWithCategory(){
 
         $categories = Category::all();
 

@@ -17,24 +17,6 @@ class StoreViewController extends Controller
         //if request has category, get products for that category and if it has branch get available products for that branch
 
 
-
-        if($request->has('category') or $request->has('branch')){
-            if ($request->has('branch')){
-                $products = $productController->getAllProductsByBranch($request->branch, $request->category);
-            }else{
-                $products = $productController->getAllProductsByCategory($request->category);
-            }
-        }else{
-            $products = $productController->getAllProductsWithBranch();
-        }
-
-
-        $categoryController = new CategoryController;
-        $categories = $categoryController->getAllCategoriesNames($request);
-
-        $branchesController = new BranchController;
-        $branches = $branchesController->getAllBranches();
-
         //check if user is logged in
         if ($request->user()){
             //get user cart
@@ -54,6 +36,25 @@ class StoreViewController extends Controller
                 $selectedBranch = null;
             }
         }
+
+        if($request->has('category')){
+            if ($selectedBranch !== null){
+                $products = $productController->getAllProductsByBranch($request->branch, $request->category);
+            }else{
+                $products = $productController->getAllProductsByCategory($request->category);
+            }
+        }else{
+                $products = $productController->getAllProductsWithCategory();
+        }
+
+
+        $categoryController = new CategoryController;
+        $categories = $categoryController->getAllCategoriesNames($request);
+
+        $branchesController = new BranchController;
+        $branches = $branchesController->getAllBranches();
+
+
 
         return Inertia::render('index',['products' => $products, 'categories' => $categories, 'branches' => $branches ,'selectedBranch' => $selectedBranch ] );
     }
