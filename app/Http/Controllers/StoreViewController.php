@@ -37,14 +37,21 @@ class StoreViewController extends Controller
             }
         }
 
+
+
         if($request->has('category')){
             if ($selectedBranch !== null){
-                $products = $productController->getAllProductsByBranch($request->branch, $request->category);
+                $products = $productController->getAllProductsByBranch($selectedBranch->id, $request->category);
             }else{
                 $products = $productController->getAllProductsByCategory($request->category);
             }
-        }else{
+        }//homepage
+        else{
+            if ($selectedBranch !== null){
+                $products = $productController->getAllProductsByBranchWithCategory($selectedBranch->id);
+            }else{
                 $products = $productController->getAllProductsWithCategory();
+            }
         }
 
 
