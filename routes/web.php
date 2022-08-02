@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomerViewController;
 use App\Http\Controllers\InventoryViewController;
 use App\Http\Controllers\ProductsViewController;
 use App\Http\Controllers\PromocodesViewController;
+use App\Http\Controllers\SettingsViewController;
 use App\Http\Controllers\StoreViewController;
 use App\Http\Controllers\TrackingViewController;
 use App\Http\Controllers\Views\BranchesViewController;
@@ -88,6 +89,11 @@ Route::prefix('/dashboard')->group( function () {
 
         Route::middleware('can:manage customers')->group(function (){
             Route::get('/customers' ,[CustomerViewController::class, 'index'])->name('customers');
+        });
+
+        Route::middleware('can:manage settings')->group(function (){
+            Route::get('/settings' ,[SettingsViewController::class, 'index'])->name('settings');
+            Route::post('/settings' ,[SettingsViewController::class, 'updateSettings'])->name('updateSettings');
         });
 
 
