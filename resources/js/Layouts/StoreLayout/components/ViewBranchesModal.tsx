@@ -18,12 +18,14 @@ const ViewBranchesModal = ({ selectedBranch, branches }) => {
     });
 
     const setBranch = () => {
-        post(route("updateBranch"), {
-            data: {
-                id: selectedBranchState.id,
-                name: selectedBranchState.name,
-            },
-        });
+        console.log(selectedBranch);
+
+        post(
+            route("updateBranch", {
+                branch_id: selectedBranchState.id,
+            })
+        );
+        hideModal();
     };
     // state selected branch
     function viewModal() {
@@ -38,7 +40,7 @@ const ViewBranchesModal = ({ selectedBranch, branches }) => {
                 onClick={viewModal}
                 className="bg-[#adbcd1]  hover:text-white cursor-pointer transition duration-150 rounded px-5 py-2 flex items-center justify-center text-gray-700"
             >
-                {selectedBranch != null ? selectedBranch : "اختر فرع"}
+                {selectedBranch != null ? selectedBranch.name : "اختر فرع"}
                 <MarkerIcon className={"ml-2"} />
             </div>
             <Modal show={showModal} onClose={hideModal}>
@@ -112,7 +114,7 @@ const BranchItem = ({
                 item.id === selectedBranchState.id
                     ? "bg-sky-400 text-white"
                     : "bg-transparent"
-            } px-5 py-2 flex items-center justify-end text-gray-700 cursor-pointer`}
+            } px-5 py-2 flex items-center justify-end text-gray-700 cursor-pointer text-right`}
         >
             {item.name}
             <MarkerIcon className={"ml-2"} />

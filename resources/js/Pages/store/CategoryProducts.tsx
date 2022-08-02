@@ -1,5 +1,6 @@
+import { InertiaLink } from "@inertiajs/inertia-react";
 import React from "react";
-import { ShoppingCartIcon } from "../../assets/icons";
+import { ArrowLeftIcon, ShoppingCartIcon } from "../../assets/icons";
 import Button from "../../Components/Button";
 import { product } from "../Dashboard/Products";
 
@@ -10,13 +11,22 @@ interface props {
 const CategoryProducts: React.FC<props> = ({ cateogoryTitle, products }) => {
     return (
         <div>
-            <div className="flex item-center justify-end">
-                <div className="text-4xl flex flex-col justify-center items-end font-bold text-right py-4 border-blue-400">
-                    {cateogoryTitle}
-                    <div className="w-2/4 h-2 mt-3  bg-primary rounded-sm" />
+            <div className="flex item-center justify-end mt-5">
+                <div className="flex items-center justify-between w-full">
+                    <InertiaLink
+                        href={`/?category=${cateogoryTitle}`}
+                        className="flex items-center text-blue-500 underline cursor-pointer font-bold"
+                    >
+                        <ArrowLeftIcon className={"mr-2"} />
+                        <div className="">رؤية الكل</div>
+                    </InertiaLink>
+                    <div className="text-4xl flex flex-col justify-center items-end font-bold text-right py-4 border-blue-400">
+                        {cateogoryTitle}
+                        <div className="w-2/4 h-2 mt-3  bg-primary rounded-sm" />
+                    </div>
                 </div>
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-3 gap-4">
                 {products.map((item) => {
                     return (
                         <ProductItem
@@ -40,7 +50,7 @@ interface props {
 const ProductItem: React.FC<props> = ({ product }) => {
     const addToCart = () => {};
     return (
-        <div className="h-80  bg-white  shadow rounded bg-gradient-to-r ">
+        <div className="h-full  bg-white  shadow rounded bg-gradient-to-r ">
             <div className="relative">
                 <img
                     className="h-3/4 w-full object-cover rounded-t "
@@ -53,7 +63,7 @@ const ProductItem: React.FC<props> = ({ product }) => {
                     {product.name}
                 </div>
             </div>
-            <div className="flex items-center justify-between px-5 pt-5">
+            <div className="flex items-center justify-between px-5 py-5">
                 <div
                     onClick={addToCart}
                     className="bg-gray-200 border border-gray-100 rounded px-2 cursor-pointer hover:bg-primary text-gray-400 hover:text-white  transition duration-150 py-1 text-lg"
