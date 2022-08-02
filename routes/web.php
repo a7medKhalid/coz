@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartViewController;
+use App\Http\Controllers\CustomerViewController;
 use App\Http\Controllers\InventoryViewController;
 use App\Http\Controllers\ProductsViewController;
 use App\Http\Controllers\PromocodesViewController;
@@ -84,7 +85,7 @@ Route::prefix('/dashboard')->group( function () {
            });
 
         Route::middleware('can:manage customers')->group(function (){
-            Route::get('/customers' ,[StoreViewController::class, 'index'])->name('customers');
+            Route::get('/customers' ,[CustomerViewController::class, 'index'])->name('customers');
         });
 
 
