@@ -1,7 +1,7 @@
 <?php
 
     $allRoles = ['dashboard'];
-    $adminDashboardPages = ['branches', 'employees', 'products', 'promocodes'];
+    $adminDashboardPages = ['branches', 'employees', 'products', 'promocodes', 'customers'];
     $managerDashboardPages = ['employees', 'inventory'];
     $employeeDashboardPages = [];
     $branchEmployeeDashboardPages = ['inventory'];
