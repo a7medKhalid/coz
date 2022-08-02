@@ -15,6 +15,7 @@ export const MAP_ROUTE_TO_ICON = {
     products: <ArchiveIcon />,
     inventory: <CubeIcon />,
     promocodes: <TagIcon className={""} />,
+    customers: <PersonGroupIcon />,
 };
 
 export const MAP_ROUTE_TO_AR_NAME = {
@@ -24,4 +25,5 @@ export const MAP_ROUTE_TO_AR_NAME = {
     products: "ادارة المنتجات",
     inventory: "ادارة المخرون",
     promocodes: "ادارة الخصومات",
+    customers: "عرض العملاء",
 };
