@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreignId('owner_id')->nullable();
+            $table->string('guest_id')->nullable();
             $table->foreignId('branch_id')->nullable();
         });
     }
