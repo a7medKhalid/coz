@@ -1,6 +1,7 @@
 import { useForm } from "@inertiajs/inertia-react";
 import { Modal } from "flowbite-react";
 import React from "react";
+import { TrashIcon } from "../../../assets/icons";
 import Button from "../../../Components/Button";
 import CustomModal from "../../../components/CustomModal";
 import Input from "../../../Components/Input";
@@ -10,6 +11,9 @@ import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 import { LayoutsContext } from "../../../Layouts/LayoutsProvider";
 
 const PromoCodes = (props) => {
+    const { setSnackBar } = React.useContext(LayoutsContext);
+
+    const { post } = useForm({});
     const promocodes = props.promocdes;
 
     // if promocodes is empty, show message in center of viewport
@@ -22,6 +26,31 @@ const PromoCodes = (props) => {
             </div>
         );
     }
+
+    const deletePromocode = (id) => {
+        post(
+            route("deletePromocode", {
+                promocode_id: id,
+            }),
+
+            {
+                onSuccess: () => {
+                    setSnackBar({
+                        isShown: true,
+                        message: "تم حذف الكود بنجاح",
+                        status: "success",
+                    });
+                },
+                onError: () => {
+                    setSnackBar({
+                        isShown: true,
+                        message: "حدث خطأ ما",
+                        status: "error",
+                    });
+                },
+            }
+        );
+    };
 
     return (
         <>
@@ -45,12 +74,13 @@ const PromoCodes = (props) => {
                             <th scope="col" className="py-3 px-6">
                                 متعدد الإستخدمات؟
                             </th>
+                            <th scope="col" className="py-3 px-6">
+                                حذف
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {promocodes.map((item) => {
-                            console.log({ item });
-
                             return (
                                 <tr
                                     className="bg-white border-b  "
@@ -79,6 +109,18 @@ const PromoCodes = (props) => {
                                     </td>
                                     <td className="py-4 px-6">
                                         {item.multi_use ? "نعم" : "لا"}
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        <div
+                                            className="cursor-pointer"
+                                            onClick={() =>
+                                                deletePromocode(item.id)
+                                            }
+                                        >
+                                            <TrashIcon
+                                                className={"text-red-500"}
+                                            />
+                                        </div>
                                     </td>
                                 </tr>
                             );
@@ -121,11 +163,11 @@ const AddPromocode = () => {
     };
     const submit = (e) => {
         e.preventDefault();
-        post(route("promocodes"), {
+        post(route("createPromocode"), {
             onSuccess: () => {
                 setSnackBar({
                     isShown: true,
-                    message: "تم إ",
+                    message: "تم إضافة الكود بنجاح",
                     status: "success",
                 });
             },
