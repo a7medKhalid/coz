@@ -4,6 +4,7 @@ import bannerImg from "../../assets/images/banner.jpg";
 import { ShoppingCartIcon } from "../../assets/icons";
 import MapWrapper from "../../Pages/Dashboard/Branches/components/MapWrapper";
 import { InertiaLink } from "@inertiajs/inertia-react";
+import LayoutsProviders from "../LayoutsProvider";
 
 interface props {
     children: any;
@@ -18,27 +19,29 @@ const StoreLayout: React.FC<props> = ({
     branches,
 }) => {
     return (
-        <div>
-            <NavBar
-                categories={categories}
-                selectedBranch={selectedBranch}
-                branches={branches}
-            />
-            <CategoriesSideBar categories={categories} />
-            <div className="flex items-center justify-center">
-                <div className="md:w-3/4 py-5 px-5 mt-5 relative">
-                    <img
-                        src={bannerImg}
-                        className="rounded-3xl mt-16 md:mt-12"
-                    />
+        <LayoutsProviders>
+            <div>
+                <NavBar
+                    categories={categories}
+                    selectedBranch={selectedBranch}
+                    branches={branches}
+                />
+                <CategoriesSideBar categories={categories} />
+                <div className="flex items-center justify-center">
+                    <div className="md:w-3/4 py-5 px-5 mt-5 relative">
+                        <img
+                            src={bannerImg}
+                            className="rounded-3xl mt-16 md:mt-12"
+                        />
 
-                    {children}
-                </div>
-                <div className="fixed bottom-5 right-5 md:right-24 w-12 h-12 rounded-full bg-primary border-2 border-cyan-300 cursor-pointer flex items-center justify-center">
-                    <ShoppingCartIcon className={"text-white"} />
+                        {children}
+                    </div>
+                    <div className="fixed bottom-5 right-5 md:right-24 w-12 h-12 rounded-full bg-primary border-2 border-cyan-300 cursor-pointer flex items-center justify-center">
+                        <ShoppingCartIcon className={"text-white"} />
+                    </div>
                 </div>
             </div>
-        </div>
+        </LayoutsProviders>
     );
 };
 

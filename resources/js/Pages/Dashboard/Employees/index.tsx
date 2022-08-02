@@ -149,7 +149,7 @@ const AssignToBranch = ({ branches, item }) => {
             </Dropdown.Trigger>
 
             <Dropdown.Content>
-                {/* {branches.map((branch) => {
+                {branches.map((branch) => {
                     return (
                         <Dropdown.Item
                             key={branch.id}
@@ -158,7 +158,7 @@ const AssignToBranch = ({ branches, item }) => {
                             {branch.name}
                         </Dropdown.Item>
                     );
-                })} */}
+                })}
             </Dropdown.Content>
         </Dropdown>
     );
