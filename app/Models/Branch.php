@@ -16,7 +16,7 @@ class Branch extends Model
     }
 
     public function inventory(){
-        return $this->belongsToMany(Product::class, 'branch_has_products')->withPivot('quantity');
+        return $this->belongsToMany(Product::class, 'branch_has_products')->withPivot('quantity')->where('quantity', '>', 0);
     }
 
 //    public function inventory(){

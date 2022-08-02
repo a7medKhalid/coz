@@ -147,43 +147,34 @@ class ProductController extends Controller
 
     }
 
+
+
+
     public function getAllProductsByBranchWithCategory($branchId){
         $branch = Branch::find($branchId);
 
-        $branchProducts = $branch->products;
+
         $categories = Category::all();
+
+
 
 
         $products = [];
         foreach ($categories as $category) {
-            $categoryProducts = $branchProducts->whereHas('categories', function (Builder $query) use ($category) {
-                $query->where('id', $category->id);
-            })->paginate(4)->through(function ($product) {
-                return [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'description' => $product->description,
-                    'price' => $product->price,
-                    'isArchived' => $product->isArchived,
-                    'categories' => $product->categories->pluck('name'),
-                    'images' => $product->getMedia('product_images')->map(function ($image) {
-                        return [
-                            'id' => $image->id,
-                            'name' => $image->name,
-                            'url' => $image->getFullUrl(),
-                        ];
-                    })->toArray(),
-                ];}
-            );
 
-            array_push($products ,['category'=>$category->name, 'products'=>$categoryProducts]);
+            //get category products that exist in branch
+            $categoryProducts = Product::whereHas('categories', function ($query) use ($category) {
+                $query->where('category_id', $category->id);
+            })->whereHas('branches', function ($query) use ($branchId){
+                $query->where('branch_id', $branchId)->where('quantity', '>=', 1);
+            })->limit(4)->get();
 
+            array_push($products ,['category'=>$category->name, 'products'=> $categoryProducts]);
 
         }
 
         return $products;
     }
-
 
 
 
@@ -222,12 +213,16 @@ class ProductController extends Controller
     public function getAllProductsByBranch($branchId, $categoryName = null){
         $branch = Branch::find($branchId);
 
-        $products = $branch->products;
 
-        if($categoryName and $categoryName !== 'all'){
-            $products = $products->whereHas('categories', function($query) use ($categoryName){
-                $query->where('name', $categoryName);
-            });
+        if ($categoryName === 'all' or $categoryName === null) {
+            $products = $branch->inventory;
+        } else {
+            $category = Category::where('name', $categoryName)->first();
+            $products = Product::whereHas('categories', function ($query) use ($category) {
+                $query->where('category_id', $category->id);
+            })->whereHas('branches', function ($query) use ($branchId){
+                $query->where('branch_id', $branchId)->where('quantity', '>=', 1);
+            })->get();
         }
 
 
@@ -237,9 +232,11 @@ class ProductController extends Controller
 
     public function getAllProductsByCategory($categoryName){
 
-        $category = Category::whereName($categoryName)->first();
 
-        $products = $category->products->latest()->paginate(15)->through(function ($product) use ($category) {
+        //get products that belong to category
+        $products = Product::whereHas('categories', function($query) use ($categoryName){
+            $query->where('categories.name', $categoryName);
+        })->paginate(15)->through(function ($product) {
             return [
                 'id' => $product->id,
                 'name' => $product->name,
@@ -254,7 +251,8 @@ class ProductController extends Controller
                         'url' => $image->getFullUrl(),
                     ];
                 })->toArray(),
-            ];});
+            ];}
+        );
 
         return $products;
     }

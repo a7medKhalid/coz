@@ -28,7 +28,7 @@ class StoreViewController extends Controller
                 $selectedBranch = null;
             }
         }else{
-            $cart = Cart::where('owner_id',  $request->session()->get('key'))->first();
+            $cart = Cart::where('guest_id' , $request->session()->getId())->first();
 
             if ($cart){
                 $selectedBranch = $cart->branch;
@@ -42,9 +42,17 @@ class StoreViewController extends Controller
         if($request->has('category')){
             if ($selectedBranch !== null){
                 $products = $productController->getAllProductsByBranch($selectedBranch->id, $request->category);
+
             }else{
-                $products = $productController->getAllProductsByCategory($request->category);
+
+                //if category = all get all products
+                if ($request->category == 'all'){
+                    $products = $productController->getAllProducts();
+                }else{
+                    $products = $productController->getAllProductsByCategory($request->category);
+                }
             }
+
         }//homepage
         else{
             if ($selectedBranch !== null){
