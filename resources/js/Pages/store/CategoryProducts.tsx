@@ -52,35 +52,32 @@ const ProductItem: React.FC<props> = ({ product }) => {
     const { setSnackBar } = React.useContext(LayoutsContext);
 
     const { post, transform, data } = useForm({
+        product_id: null,
         quantity: 1,
     });
     const addToCart = ({ productID }) => {
-        console.log(productID);
+        console.log({ productID });
+        transform((data) => ({
+            ...data,
+            product_id: productID,
+        }));
 
-        post(
-            route("addToCart", {
-                product_id: productID,
-                quantity: data.quantity,
-            }),
-            {
-                onSuccess: (e) => {
-                    console.log({ e });
-
-                    setSnackBar({
-                        isShown: true,
-                        message: "تم إضافة المنتح الى العربة بنجاح",
-                        status: "success",
-                    });
-                },
-                onError: () => {
-                    setSnackBar({
-                        isShown: true,
-                        message: "حدث خطأ ما",
-                        status: "error",
-                    });
-                },
-            }
-        );
+        post(route("addToCart"), {
+            onSuccess: () => {
+                setSnackBar({
+                    isShown: true,
+                    message: "تم إضافة المنتح الى العربة بنجاح",
+                    status: "success",
+                });
+            },
+            onError: () => {
+                setSnackBar({
+                    isShown: true,
+                    message: "حدث خطأ ما",
+                    status: "error",
+                });
+            },
+        });
     };
     return (
         <div className="h-full  bg-white  shadow rounded bg-gradient-to-r ">
