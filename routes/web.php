@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\CartViewController;
+use App\Http\Controllers\CheckoutViewController;
 use App\Http\Controllers\CustomerViewController;
 use App\Http\Controllers\InventoryViewController;
 use App\Http\Controllers\ProductsViewController;
 use App\Http\Controllers\PromocodesViewController;
 use App\Http\Controllers\StoreViewController;
+use App\Http\Controllers\TrackingViewController;
 use App\Http\Controllers\Views\BranchesViewController;
 use App\Http\Controllers\Views\DashboardViewController;
 use App\Http\Controllers\Views\EmployeesViewController;
@@ -104,6 +106,18 @@ Route::prefix(
         Route::post('/add', [CartViewController::class, 'addToCart'])->name('addToCart');
         Route::post('/remove', [CartViewController::class, 'removeFromCart'])->name('removeFromCart');
         Route::post('/empty', [CartViewController::class, 'emptyCart'])->name('emptyCart');
+    });
+
+    Route::prefix('/checkout')->group(function (){
+        Route::get('', [CheckoutViewController::class, 'index'])->name('viewOrderOptions');
+        Route::post('', [CheckoutViewController::class, 'order'])->name('setOrderOptions');
+
+        Route::get('/invoice', [CheckoutViewController::class, 'invoice'])->name('invoice');
+
+    });
+
+    Route::prefix('/tracking')->group(function (){
+        Route::get('', [TrackingViewController::class, 'index'])->name('tracking');
     });
 
 });
