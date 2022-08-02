@@ -5,6 +5,7 @@ import {
     CubeIcon,
     HomeIcon,
     PersonGroupIcon,
+    TagIcon,
 } from "../icons/heroIcons";
 import React from "react";
 export const MAP_ROUTE_TO_ICON = {
@@ -13,6 +14,8 @@ export const MAP_ROUTE_TO_ICON = {
     employees: <PersonGroupIcon />,
     products: <ArchiveIcon />,
     inventory: <CubeIcon />,
+    promocodes: <TagIcon className={""} />,
+    customers: <PersonGroupIcon />,
 };
 
 export const MAP_ROUTE_TO_AR_NAME = {
@@ -21,4 +24,6 @@ export const MAP_ROUTE_TO_AR_NAME = {
     employees: "ادارة الموظفين",
     products: "ادارة المنتجات",
     inventory: "ادارة المخرون",
+    promocodes: "ادارة الخصومات",
+    customers: "عرض العملاء",
 };

@@ -1,7 +1,8 @@
-import { InertiaLink } from "@inertiajs/inertia-react";
+import { InertiaLink, useForm } from "@inertiajs/inertia-react";
 import React from "react";
 import { ArrowLeftIcon, ShoppingCartIcon } from "../../assets/icons";
 import Button from "../../Components/Button";
+import { LayoutsContext } from "../../Layouts/LayoutsProvider";
 import { product } from "../Dashboard/Products";
 
 interface props {
@@ -48,7 +49,36 @@ interface props {
     product: product;
 }
 const ProductItem: React.FC<props> = ({ product }) => {
-    const addToCart = () => {};
+    const { setSnackBar } = React.useContext(LayoutsContext);
+
+    const { post, transform, data } = useForm({
+        product_id: null,
+        quantity: 1,
+    });
+    const addToCart = ({ productID }) => {
+        console.log({ productID });
+        transform((data) => ({
+            ...data,
+            product_id: productID,
+        }));
+
+        post(route("addToCart"), {
+            onSuccess: () => {
+                setSnackBar({
+                    isShown: true,
+                    message: "تم إضافة المنتح الى العربة بنجاح",
+                    status: "success",
+                });
+            },
+            onError: () => {
+                setSnackBar({
+                    isShown: true,
+                    message: "حدث خطأ ما",
+                    status: "error",
+                });
+            },
+        });
+    };
     return (
         <div className="h-full  bg-white  shadow rounded bg-gradient-to-r ">
             <div className="relative">
@@ -65,7 +95,7 @@ const ProductItem: React.FC<props> = ({ product }) => {
             </div>
             <div className="flex items-center justify-between px-5 py-5">
                 <div
-                    onClick={addToCart}
+                    onClick={() => addToCart({ productID: product.id })}
                     className="bg-gray-200 border border-gray-100 rounded px-2 cursor-pointer hover:bg-primary text-gray-400 hover:text-white  transition duration-150 py-1 text-lg"
                 >
                     <ShoppingCartIcon className={""} />
