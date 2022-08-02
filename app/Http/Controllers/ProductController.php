@@ -6,6 +6,7 @@ use App\Actions\GetUserBranchAction;
 use App\Models\Branch;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -146,6 +147,42 @@ class ProductController extends Controller
 
     }
 
+    public function getAllProductsByBranchWithCategory($branchId){
+        $branch = Branch::find($branchId);
+
+        $branchProducts = $branch->products;
+        $categories = Category::all();
+
+
+        $products = [];
+        foreach ($categories as $category) {
+            $categoryProducts = $branchProducts->whereHas('categories', function (Builder $query) use ($category) {
+                $query->where('id', $category->id);
+            })->paginate(4)->through(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'description' => $product->description,
+                    'price' => $product->price,
+                    'isArchived' => $product->isArchived,
+                    'categories' => $product->categories->pluck('name'),
+                    'images' => $product->getMedia('product_images')->map(function ($image) {
+                        return [
+                            'id' => $image->id,
+                            'name' => $image->name,
+                            'url' => $image->getFullUrl(),
+                        ];
+                    })->toArray(),
+                ];}
+            );
+
+            array_push($products ,['category'=>$category->name, 'products'=>$categoryProducts]);
+
+
+        }
+
+        return $products;
+    }
 
 
 
