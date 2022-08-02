@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             UserSeeder::class,
             BranchSeeder::class,
-            ProductSeeder::class,
             CategorySeeder::class,
+            ProductSeeder::class,
         ]);
 
 

@@ -19,7 +19,7 @@ class PromocodesViewController extends Controller
 
         $allowedDashboardPages = $allowedDashboardPages->execute($request->user());
 
-        return Inertia::render('Dashboard/Promocodes/index', ['allowedDashboardPages' => $allowedDashboardPages, 'promocdes' => $promocodes]);
+        return Inertia::render('Dashboard/Promocodes/index', ['allowedDashboardPages' => $allowedDashboardPages, 'promocodes' => $promocodes]);
     }
 
     public function createPromocode(Request $request)
