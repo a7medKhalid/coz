@@ -12,12 +12,7 @@ class CartViewController extends Controller
         $cartController = new CartController();
         $cart = $cartController->getCart($request);
 
-        $cart = [
-            'id' => $cart->id,
-            'products' => $cart->products,
-        ];
-
-        return Inertia::render('Cart/index',["cart"=> $cart] );
+        return Inertia::render('Cart/index',$cart );
     }
 
     public function addToCart(Request $request){

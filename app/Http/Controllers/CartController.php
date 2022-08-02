@@ -59,8 +59,6 @@ class CartController extends Controller
             $cart = $this->create($request);
         }
 
-        
-
         return $cart;
     }
 
@@ -108,7 +106,6 @@ class CartController extends Controller
             $product->pivot->save();
         }else{
             $cart->products()->attach($request->product_id, ['quantity' => $request->quantity]);
-            $cart->save;
         }
 
         return $cart;
