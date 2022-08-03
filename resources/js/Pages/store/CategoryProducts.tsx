@@ -27,7 +27,7 @@ const CategoryProducts: React.FC<props> = ({ cateogoryTitle, products }) => {
                     </div>
                 </div>
             </div>
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-3 gap-4 rtl">
                 {products.map((item) => {
                     return (
                         <ProductItem

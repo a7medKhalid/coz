@@ -5,7 +5,6 @@ import Button from "../../../Components/Button";
 import Input from "../../../Components/Input";
 import MapWrapper from "../../../Pages/Dashboard/Branches/components/MapWrapper";
 import ViewBranchesModal from "./ViewBranchesModal";
-
 export default function NavBar({ categories, selectedBranch, branches }) {
     return (
         <div className="bg-[#7d94b6] fixed z-40 w-screen shadow-lg flex  justify-center items-center ">
@@ -17,7 +16,6 @@ export default function NavBar({ categories, selectedBranch, branches }) {
                     <Button className="mr-2 border-2 border-cyan-300">
                         تسجيل الدخول
                     </Button>
-                    {/* <img src={appLogo} alt="logo" className="w-8 h-8" /> */}
                 </div>
                 <div>
                     <ViewBranchesModal
