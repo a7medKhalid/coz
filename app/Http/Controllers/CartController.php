@@ -75,7 +75,7 @@ class CartController extends Controller
         $cartProducts = $cart->products;
 
 
-       $totalPrice = $this->getCartTotal($request);
+       $totalPrice = $this->getCartTotalWithoutVAT($request);
 
         //get cart products and quantity and return them with total price
         $cartProducts = $cart->products->toQuery()->paginate(100)->through(function ($product) use ($inventory, $cartProducts){
