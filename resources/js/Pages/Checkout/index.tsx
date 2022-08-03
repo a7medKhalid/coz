@@ -15,14 +15,16 @@ export default function Checkout(props) {
     const branches = props.branches;
     const deliveryCost = props?.deliveryCost;
     const vatCost = props?.vatCost;
-    const totalCost = props?.totalConst + vatCost;
+    const totalCost = props?.cartTotal + vatCost;
     const cities = props?.cities;
     const { data, setData, post } = useForm<any>({
         type: "",
         city: "",
         promocode: "",
-        note: "",
+        notes: "",
         phone: "",
+        isDelivery: "",
+        deliveryCity: "",
     });
     const [isDelivery, setIsDelivery] = React.useState(true);
     const onHandleChange = (event: any) => {
@@ -56,8 +58,8 @@ export default function Checkout(props) {
                         <div className="flex items-center">
                             <input
                                 type="radio"
-                                name="type"
-                                id="delivery"
+                                name="isDelivery"
+                                id="true"
                                 defaultChecked
                                 onClick={() => setIsDelivery(true)}
                             />
@@ -65,8 +67,8 @@ export default function Checkout(props) {
                             <div className="mx-2"></div>
                             <input
                                 type="radio"
-                                name="type"
-                                id="pickuo"
+                                name="isDelivery"
+                                id="false"
                                 onClick={() => setIsDelivery(false)}
                             />
                             <Label>استلام</Label>
@@ -75,22 +77,15 @@ export default function Checkout(props) {
 
                         {isDelivery === true && (
                             <div className="w-1/4">
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <div className="bg-gray-100 border border-gray-200 rounded px-5 py-1 cursor-pointer">
-                                            اختيار المدينة
-                                        </div>
-                                    </Dropdown.Trigger>
-                                    <Dropdown.Content>
-                                        {cities?.map((item) => {
-                                            return (
-                                                <div className="text-center py-2 px-5 cursor-pointer hover:bg-gray-100">
-                                                    {item}
-                                                </div>
-                                            );
-                                        })}
-                                    </Dropdown.Content>
-                                </Dropdown>
+                                <select name="deliveryCity">
+                                    {cities?.map((item) => {
+                                        return (
+                                            <option className="text-center py-2 px-5 cursor-pointer hover:bg-gray-100">
+                                                {item}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
                             </div>
                         )}
                         <div className="mt-5"></div>
@@ -109,11 +104,11 @@ export default function Checkout(props) {
 
                         <Label>هل لديك ملاحظات تريد أن تضيفها للطلب؟</Label>
                         <textarea
-                            name={"note"}
+                            name={"notes"}
                             required
                             placeholder={"اكتبها هنا"}
                             rows={3}
-                            value={data.note}
+                            value={data.notes}
                             className={
                                 "w-2/4 border-gray-300 mt-4 focus:border-indigo-300 focus:ring focus:ring-indigo-200 text-right focus:ring-opacity-50 rounded-md shadow-sm"
                             }
