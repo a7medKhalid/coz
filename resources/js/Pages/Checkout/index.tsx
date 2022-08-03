@@ -16,11 +16,13 @@ export default function Checkout(props) {
     const deliveryCost = props?.deliveryCost;
     const vatCost = props?.vatCost;
     const netCost = props?.netCost + vatCost;
+    const cities = props?.cities;
     const { data, setData, post } = useForm<any>({
         type: "",
         city: "",
         promocode: "",
         note: "",
+        phone: "",
     });
     const [isDelivery, setIsDelivery] = React.useState(true);
     const onHandleChange = (event: any) => {
@@ -80,7 +82,7 @@ export default function Checkout(props) {
                                         </div>
                                     </Dropdown.Trigger>
                                     <Dropdown.Content>
-                                        {props.cites?.map((item) => {
+                                        {cities?.map((item) => {
                                             return (
                                                 <div className="text-center py-2 px-5 cursor-pointer hover:bg-gray-100">
                                                     {item}
@@ -118,6 +120,16 @@ export default function Checkout(props) {
                             onChange={onHandleChange}
                         ></textarea>
 
+                        <Label>رقم الجوال</Label>
+                        <Input
+                            type="text"
+                            name="phone"
+                            value={data.phone}
+                            className="mt-1 block w-1/4"
+                            placeholder="رقم الجوال"
+                            handleChange={onHandleChange}
+                            required
+                        />
                         <div className="flex items-center mt-5">
                             <div className="w-1/4 font-bold">
                                 الاجمالي :{" "}

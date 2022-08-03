@@ -42,18 +42,25 @@ export default function Cart(props) {
             }
         );
     };
-    if (cart.cartProducts.data.length === 0) {
+
+    if (cart.cartProducts.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center h-screen">
-                <div className="text-center">
-                    <h1 className="text-3xl font-bold text-gray-800">
-                        عربة التسوق فارغة
-                    </h1>
-                    <InertiaLink href={route("store")}>
-                        عودة الى المتجر
-                    </InertiaLink>
+            <StoreLayout
+                categories={categories}
+                selectedBranch={selectedBranch}
+                branches={props.branches}
+            >
+                <div className="flex flex-col items-center justify-center h-screen">
+                    <div className="text-center">
+                        <h1 className="text-3xl font-bold text-gray-800 mb-5">
+                            عربة التسوق فارغة
+                        </h1>
+                        <InertiaLink href={route("store")}>
+                            عودة الى المتجر
+                        </InertiaLink>
+                    </div>
                 </div>
-            </div>
+            </StoreLayout>
         );
     }
     return (

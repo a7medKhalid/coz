@@ -2,6 +2,7 @@
 
 import {
     ArchiveIcon,
+    CogIcon,
     CubeIcon,
     HomeIcon,
     PersonGroupIcon,
@@ -16,6 +17,7 @@ export const MAP_ROUTE_TO_ICON = {
     inventory: <CubeIcon />,
     promocodes: <TagIcon className={""} />,
     customers: <PersonGroupIcon />,
+    settings: <CogIcon className={""} />,
 };
 
 export const MAP_ROUTE_TO_AR_NAME = {
@@ -26,4 +28,5 @@ export const MAP_ROUTE_TO_AR_NAME = {
     inventory: "ادارة المخرون",
     promocodes: "ادارة الخصومات",
     customers: "عرض العملاء",
+    settings: "الاعدادات",
 };

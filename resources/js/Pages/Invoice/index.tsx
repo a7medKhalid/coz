@@ -6,6 +6,8 @@ import CustomButton from "../../Components/Button";
 import StoreLayout from "../../Layouts/StoreLayout";
 import Input from "../../Components/Input";
 import Dropdown from "../../Components/Dropdown";
+import { Helmet } from "react-helmet";
+import { Router } from "@inertiajs/inertia/types/router";
 
 export default function Invoice(props) {
     console.log(props);
@@ -44,6 +46,9 @@ export default function Invoice(props) {
             selectedBranch={selectedBranch}
             branches={branches}
         >
+            <Helmet>
+                <script src="https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=C4BCDC0242C2CEE53FAB5ED50A407799.uat01-vm-tx04"></script>
+            </Helmet>
             <div className="text-2xl font-bold text-right mt-12 mb-5">
                 الفاتورة
             </div>
@@ -130,13 +135,14 @@ export default function Invoice(props) {
                         <div className="w-1/4">الضريبة : {vatCost} ريال</div>
                     </div>
                 </div>
+                <div className="mt-5"></div>
+                <form
+                    action="http://127.0.0.1:8000/"
+                    className="paymentWidgets"
+                    data-brands="VISA MASTER AMEX"
+                ></form>
             </div>
             <div className="flex items-center justify-end">
-                <InertiaLink href={route("invoice")}>
-                    <CustomButton className="mt-5" type={data}>
-                        الدفع
-                    </CustomButton>
-                </InertiaLink>
                 <InertiaLink href={route("viewOrderOptions")}>
                     <CustomButton
                         className="mt-5 bg-transparent text-primary mx-5"
