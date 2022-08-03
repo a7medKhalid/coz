@@ -118,7 +118,7 @@ Route::prefix(
 
     Route::prefix('/checkout')->group(function (){
         Route::get('', [CheckoutViewController::class, 'index'])->name('viewOrderOptions');
-        Route::post('', [CheckoutViewController::class, 'order'])->name('setOrderOptions');
+        Route::post('', [CheckoutViewController::class, 'createOrder'])->name('setOrderOptions');
 
         Route::get('/invoice', [CheckoutViewController::class, 'invoice'])->name('invoice');
 
