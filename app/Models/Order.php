@@ -11,8 +11,8 @@ class Order extends Model
 
 
     //order_has_products relationship
-    public function order_has_products()
+    public function products()
     {
-        return $this->hasMany(OrderHasProduct::class)->with();
+        return $this->belongsToMany(Product::class, 'order_has_products')->withPivot('quantity');
     }
 }
