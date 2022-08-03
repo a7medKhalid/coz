@@ -75,10 +75,7 @@ class CartController extends Controller
         $cartProducts = $cart->products;
 
 
-        $totalPrice = 0;
-        foreach ($cartProducts as $cartProduct){
-            $totalPrice += $cartProduct->pivot->quantity * $cartProduct->price;
-        }
+       $totalPrice = $this->getCartTotal($request);
 
         //get cart products and quantity and return them with total price
         $cartProducts = $cart->products->toQuery()->paginate(100)->through(function ($product) use ($inventory, $cartProducts){
@@ -163,5 +160,23 @@ class CartController extends Controller
         $cart = $this->getCart($request);
         $cart->products()->detach();
         return $cart;
+    }
+
+    public function getCartTotalWithoutVAT(Request $request){
+        $cart = $this->getCart($request);
+        $totalPrice = 0;
+        foreach ($cart->products as $product){
+            $totalPrice += $product->pivot->quantity * $product->price;
+        }
+        return $totalPrice;
+    }
+
+    public function getCartTotalWithVAT(Request $request){
+        $cart = $this->getCart($request);
+        $totalPrice = 0;
+        foreach ($cart->products as $product){
+            $totalPrice += $product->pivot->quantity * $product->price;
+        }
+        return $totalPrice;
     }
 }

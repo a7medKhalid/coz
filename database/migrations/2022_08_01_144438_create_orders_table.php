@@ -18,12 +18,14 @@ return new class extends Migration
             $table->timestamps();
 
             $table->enum('type', ['delivery', 'pickup']);
-            $table->enum('status', ['pending', 'processing', 'completed', 'cancelled'])->default('pending');
+            $table->enum('status', ['unpaid', 'processing', 'completed', 'cancelled'])->default('unpaid');
             $table->string('notes')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
+            $table->int('totalPrice')->default(0);
+            $table->string('paymentId')->nullable();
 
-            $table->unsignedBigInteger('cart_id')->nullable();
+            $table->foreignId('user_id')->nullable();
         });
     }
 

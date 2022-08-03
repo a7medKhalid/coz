@@ -51,5 +51,11 @@ class User extends Authenticatable
         return $this->belongsTo(Branch::class);
     }
 
+    //orders relationship
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
 
 }
