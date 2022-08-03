@@ -6,6 +6,7 @@ import CustomButton from "../../Components/Button";
 import StoreLayout from "../../Layouts/StoreLayout";
 import Input from "../../Components/Input";
 import Dropdown from "../../Components/Dropdown";
+import ValidationErrors from "../../Components/ValidationErrors";
 
 export default function Checkout(props) {
     console.log(props);
@@ -28,6 +29,9 @@ export default function Checkout(props) {
     });
     const [isDelivery, setIsDelivery] = React.useState(true);
     const onHandleChange = (event: any) => {
+        if (event.target.name === "isDelivery") {
+            setIsDelivery(true);
+        }
         setData(
             event.target.name,
             event.target.type === "checkbox"
@@ -54,29 +58,21 @@ export default function Checkout(props) {
             <div className="border border-gray-200 bg-white rounded px-5 py-5">
                 <form>
                     <div className="rtl">
-                        <div className="font-bold my-2">نوع الطلب</div>
-                        <div className="flex items-center">
-                            <input
-                                type="radio"
-                                name="isDelivery"
-                                id="true"
-                                defaultChecked
-                                onClick={() => setIsDelivery(true)}
-                            />
-                            <Label>توصيل</Label>
-                            <div className="mx-2"></div>
-                            <input
-                                type="radio"
-                                name="isDelivery"
-                                id="false"
-                                onClick={() => setIsDelivery(false)}
-                            />
-                            <Label>استلام</Label>
-                        </div>
+                        <ValidationErrors errors={props.errors} />
+                    </div>
+                    <div className="rtl">
+                        <Label>توصيل؟</Label>
+                        <input
+                            type="checkbox"
+                            name="isDelivery"
+                            onChange={onHandleChange}
+                            checked={isDelivery}
+                        />
                         <div className="mt-2"></div>
 
                         {isDelivery === true && (
                             <div className="w-1/4">
+                                <Label>المدينة</Label>
                                 <select name="deliveryCity">
                                     {cities?.map((item) => {
                                         return (
