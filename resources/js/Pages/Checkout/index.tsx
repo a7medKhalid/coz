@@ -66,7 +66,6 @@ export default function Checkout(props) {
                             type="checkbox"
                             name="isDelivery"
                             onChange={onHandleChange}
-                            checked={isDelivery}
                         />
                         <div className="mt-2"></div>
 
