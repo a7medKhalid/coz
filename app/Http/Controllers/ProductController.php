@@ -252,28 +252,33 @@ class ProductController extends Controller
 
 
         if ($categoryName === 'all' or $categoryName === null) {
-            $products = $branch->inventory->toQuery()->paginate(15)->through(function ($product) use ($inventory) {
+            if ($branch->inventory->isEmpty()){
+                $products = [];
+            }else{
+                $products = $branch->inventory->toQuery()->paginate(15)->through(function ($product) use ($inventory) {
 
-                //if product is in branch inventory then get quantity
-                $productInventory = $inventory?->where('id', $product->id)->first();
-                $quantity = $productInventory?$productInventory->pivot->quantity:0;
-                return [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'description' => $product->description,
-                    'price' => $product->price,
-                    'isArchived' => $product->isArchived,
-                    'categories' => $product->categories->pluck('name'),
-                    'images' => $product->getMedia('product_images')->map(function ($image) {
-                        return [
-                            'id' => $image->id,
-                            'name' => $image->name,
-                            'url' => $image->getFullUrl(),
-                        ];
-                    })->toArray(),
+                    //if product is in branch inventory then get quantity
+                    $productInventory = $inventory?->where('id', $product->id)->first();
+                    $quantity = $productInventory?$productInventory->pivot->quantity:0;
+                    return [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'description' => $product->description,
+                        'price' => $product->price,
+                        'isArchived' => $product->isArchived,
+                        'categories' => $product->categories->pluck('name'),
+                        'images' => $product->getMedia('product_images')->map(function ($image) {
+                            return [
+                                'id' => $image->id,
+                                'name' => $image->name,
+                                'url' => $image->getFullUrl(),
+                            ];
+                        })->toArray(),
 
-                    'quantity' => $quantity,
-                ];});
+                        'quantity' => $quantity,
+                    ];});
+            }
+
         } else {
             $category = Category::where('name', $categoryName)->first();
             $products = Product::whereHas('categories', function ($query) use ($category) {

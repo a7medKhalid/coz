@@ -52,7 +52,7 @@ class SettingsSeeder extends Seeder
             'value' => 'LaravelTinkerConsole',
         ]);
         Settings::create([
-            'name' => 'vatPercentage',
+            'name' => 'VATPercentage',
             'value' => 'LaravelTinkerConsole',
         ]);
 

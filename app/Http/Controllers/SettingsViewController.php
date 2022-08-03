@@ -13,6 +13,10 @@ class SettingsViewController extends Controller
     public function index(Request $request, AllowedDashboardPages $allowedDashboardPages)
     {
         $settings = Settings::all();
+
+        $allowedDashboardPages = $allowedDashboardPages->execute($request->user());
+
+
         return Inertia::render('Dashboard/Settings/index', ['allowedDashboardPages' => $allowedDashboardPages, 'settings' => $settings]);
     }
 
