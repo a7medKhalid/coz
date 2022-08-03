@@ -52,48 +52,70 @@ export default function Cart(props) {
             <div className="text-2xl font-bold text-right mt-12 mb-5">
                 العربة
             </div>
-            <div className="border border-gray-200 bg-white rounded px-5 py-5">
-                <div className="py-2 px-5 md:flex items-center justify-between">
-                    <Button
-                        onClick={() => deleteProductFromCart(5)}
-                        className="bg-red-500"
-                    >
-                        حذف
-                    </Button>
-                    <div className="flex items-center">
-                        <div className="mr-5 text-right">
-                            <div className=" font-bold">اسم المنتح</div>
-                            <div className="my-5">20 ريال</div>
-                            <Dropdown>
-                                <Dropdown.Trigger>
-                                    <div className="bg-gray-100 border border-gray-200 rounded px-5 py-1 cursor-pointer">
-                                        الكمية: {quantity}
-                                    </div>
-                                </Dropdown.Trigger>
-                                <Dropdown.Content>
-                                    {count.map((item) => {
-                                        return (
-                                            <div
-                                                className="text-center py-2 px-5 cursor-pointer hover:bg-gray-100"
-                                                onClick={() => {
-                                                    setQuantity(item);
-                                                }}
-                                            >
-                                                {item}
-                                            </div>
-                                        );
-                                    })}
-                                </Dropdown.Content>
-                            </Dropdown>
-                        </div>
 
-                        <div className="bg-gray-400 rounded border border-gray-100 w-28 h-28" />
+            <div className="w-full">
+                <div className="border border-gray-200 bg-white rounded px-5 py-5 w-full">
+                    <div className="text-right font-bold">
+                        الإجمالي: {cart.totalPrice} ريال
                     </div>
+                    {cart.cartProducts?.map((cartItem, index) => {
+                        return (
+                            <>
+                                <div className="py-2 px-5 md:flex items-center justify-between ">
+                                    <Button
+                                        onClick={() => deleteProductFromCart(5)}
+                                        className="bg-red-500"
+                                    >
+                                        حذف
+                                    </Button>
+                                    <div className="flex items-center">
+                                        <div className="mr-5 text-right">
+                                            <div className=" font-bold">
+                                                {cartItem.name}
+                                            </div>
+                                            <div className="my-5">
+                                                {cartItem.price} ريال
+                                            </div>
+                                            <Dropdown>
+                                                <Dropdown.Trigger>
+                                                    <div className="bg-gray-100 border border-gray-200 rounded px-5 py-1 cursor-pointer">
+                                                        الكمية: {quantity}
+                                                    </div>
+                                                </Dropdown.Trigger>
+                                                <Dropdown.Content>
+                                                    {count.map((item) => {
+                                                        return (
+                                                            <div
+                                                                className="text-center py-2 px-5 cursor-pointer hover:bg-gray-100"
+                                                                onClick={() => {
+                                                                    setQuantity(
+                                                                        item
+                                                                    );
+                                                                }}
+                                                            >
+                                                                {item}
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </Dropdown.Content>
+                                            </Dropdown>
+                                        </div>
+
+                                        <div className="bg-gray-400 rounded border border-gray-100 w-28 h-28" />
+                                    </div>
+                                </div>
+                                {index != cart.cartProducts.length - 1 && (
+                                    <div className="h-0.5 w-full bg-gray-100 mt-3"></div>
+                                )}
+                            </>
+                        );
+                    })}
                 </div>
             </div>
+
             <div className="rtl mt-5">
                 <InertiaLink href={route("viewOrderOptions")}>
-                    <Button>الدفع</Button>
+                    <Button>التالي</Button>
                 </InertiaLink>
             </div>
             {/* <LoopObject object={cart.cartProducts[0]} /> */}
