@@ -15,7 +15,7 @@ export default function Checkout(props) {
     const branches = props.branches;
     const deliveryCost = props?.deliveryCost;
     const vatCost = props?.vatCost;
-    const netCost = props?.netCost + vatCost;
+    const totalCost = props?.totalConst + vatCost;
     const cities = props?.cities;
     const { data, setData, post } = useForm<any>({
         type: "",
@@ -37,7 +37,7 @@ export default function Checkout(props) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("login"));
+        post(route("setOrderOptions"));
     };
 
     return (
@@ -50,7 +50,7 @@ export default function Checkout(props) {
                 تفاصيل الطلب
             </div>
             <div className="border border-gray-200 bg-white rounded px-5 py-5">
-                <form action="">
+                <form>
                     <div className="rtl">
                         <div className="font-bold my-2">نوع الطلب</div>
                         <div className="flex items-center">
@@ -133,10 +133,14 @@ export default function Checkout(props) {
                         <div className="flex items-center mt-5">
                             <div className="w-1/4 font-bold">
                                 الاجمالي :{" "}
-                                {isDelivery ? netCost + deliveryCost : netCost}{" "}
+                                {isDelivery
+                                    ? totalCost + deliveryCost
+                                    : totalCost}{" "}
                                 ريال
                             </div>
-                            <div className="w-1/4">التكلفة: {netCost} ريال</div>
+                            <div className="w-1/4">
+                                التكلفة: {totalCost} ريال
+                            </div>
                             {isDelivery === true && (
                                 <div className="w-1/4">
                                     تكلفة التوصيل: {deliveryCost} ريال
@@ -151,11 +155,9 @@ export default function Checkout(props) {
                 </form>
             </div>
             <div className="flex items-center justify-end">
-                <InertiaLink href={route("invoice")}>
-                    <CustomButton className="mt-5" type={data}>
-                        الفاتورة والدفع
-                    </CustomButton>
-                </InertiaLink>
+                <CustomButton onClick={submit} className="mt-5" type={data}>
+                    الفاتورة والدفع
+                </CustomButton>
                 <InertiaLink href={route("cart")}>
                     <CustomButton
                         className="mt-5 bg-transparent text-primary mx-5"
