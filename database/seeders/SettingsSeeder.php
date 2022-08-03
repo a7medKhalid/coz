@@ -15,5 +15,47 @@ class SettingsSeeder extends Seeder
      */
     public function run()
     {
+        Settings::create([
+            'name' => 'siteName',
+            'value' => 'LaravelTinkerConsole',
+        ]);
+        Settings::create([
+            'name' => 'siteDescription',
+            'value' => 'LaravelTinkerConsole',
+        ]);
+        Settings::create([
+            'name' => 'siteEmail',
+            'value' => 'LaravelTinkerConsole',
+        ]);
+        Settings::create([
+            'name' => 'sitePhone',
+            'value' => 'LaravelTinkerConsole',
+        ]);
+        Settings::create([
+            'name' => 'siteTwitter',
+            'value' => 'LaravelTinkerConsole',
+        ]);
+        Settings::create([
+            'name' => 'siteInstagram',
+            'value' => 'LaravelTinkerConsole',
+        ]);
+        Settings::create([
+            'name' => 'shippingCities',
+            'value' => 'LaravelTinkerConsole',
+        ]);
+        Settings::create([
+            'name' => 'shippingCost',
+            'value' => 'LaravelTinkerConsole',
+        ]);
+        Settings::create([
+            'name' => 'shippingTime',
+            'value' => 'LaravelTinkerConsole',
+        ]);
+        Settings::create([
+            'name' => 'vatPercentage',
+            'value' => 'LaravelTinkerConsole',
+        ]);
+
+
     }
 }

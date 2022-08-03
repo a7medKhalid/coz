@@ -14,8 +14,8 @@ class CategoryController extends Controller
 
     public function getAllCategoriesNames(Request $request){
         $categories = Category::all()->pluck('name');
-        //add all categories to the collection
-        $categories->push('all');
+        //add all categories to the collection beginning
+        $categories->prepend('all');
 
         return $categories;
     }
