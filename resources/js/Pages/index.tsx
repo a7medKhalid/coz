@@ -24,6 +24,7 @@ export default function Store(props) {
                         key={index}
                         cateogoryTitle={item.category}
                         products={item.products.data}
+                        selectedBranch={selectedBranch}
                     />
                 );
             })}

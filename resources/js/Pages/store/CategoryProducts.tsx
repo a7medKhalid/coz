@@ -8,8 +8,13 @@ import { product } from "../Dashboard/Products";
 interface props {
     cateogoryTitle: string;
     products: product[];
+    selectedBranch: string;
 }
-const CategoryProducts: React.FC<props> = ({ cateogoryTitle, products }) => {
+const CategoryProducts: React.FC<props> = ({
+    cateogoryTitle,
+    products,
+    selectedBranch,
+}) => {
     return (
         <div>
             <div className="flex item-center justify-end mt-5">
@@ -34,6 +39,7 @@ const CategoryProducts: React.FC<props> = ({ cateogoryTitle, products }) => {
                             key={item.id}
                             product={item}
                             cateogoryTitle={""}
+                            selectedBranch={selectedBranch}
                             products={[]}
                         />
                     );
@@ -48,14 +54,21 @@ export default CategoryProducts;
 interface props {
     product: product;
 }
-const ProductItem: React.FC<props> = ({ product }) => {
+const ProductItem: React.FC<props> = ({ product, selectedBranch }) => {
     const { setSnackBar } = React.useContext(LayoutsContext);
 
     const { post, transform, data } = useForm({
         quantity: 1,
     });
     const addToCart = ({ productID }) => {
-        console.log(productID);
+        if (selectedBranch === null) {
+            setSnackBar({
+                isShown: true,
+                message: "يجب تحديد الفرع",
+                status: "error",
+            });
+            return;
+        }
 
         post(
             route("addToCart", {

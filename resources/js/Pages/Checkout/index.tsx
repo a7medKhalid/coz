@@ -7,7 +7,7 @@ import StoreLayout from "../../Layouts/StoreLayout";
 import Input from "../../Components/Input";
 import Dropdown from "../../Components/Dropdown";
 
-export default function Invoice(props) {
+export default function Checkout(props) {
     console.log(props);
 
     const categories = props.categories;
@@ -45,28 +45,9 @@ export default function Invoice(props) {
             branches={branches}
         >
             <div className="text-2xl font-bold text-right mt-12 mb-5">
-                تفاصيل الدفع
+                تفاصيل الطلب
             </div>
             <div className="border border-gray-200 bg-white rounded px-5 py-5">
-                <div className="border border-gray-200 px-5 py-2 flex flex-col items-end ">
-                    <div className="flex items-center justify-between w-full">
-                        <InertiaLink href={route("cart")}>
-                            <CustomButton>تعديل العربة</CustomButton>
-                        </InertiaLink>
-                        <div className="font-bold">المنتجات</div>
-                    </div>
-                    <div className="py-2 px-5 md:flex items-center justify-between">
-                        <div className="flex items-center">
-                            <div className="mr-5 text-right text-sm">
-                                <div className=" font-bold">اسم المنتح</div>
-                                <div className="my-5">20 ريال</div>
-                            </div>
-
-                            <div className="bg-gray-400 rounded border border-gray-100 w-20 h-20" />
-                        </div>
-                    </div>
-                </div>
-
                 <form action="">
                     <div className="rtl">
                         <div className="font-bold my-2">نوع الطلب</div>
@@ -154,11 +135,23 @@ export default function Invoice(props) {
                                 الضريبة : {vatCost} ريال
                             </div>
                         </div>
-                        <CustomButton className="mt-5" type={data}>
-                            التالي
-                        </CustomButton>
                     </div>
                 </form>
+            </div>
+            <div className="flex items-center justify-end">
+                <InertiaLink href={route("invoice")}>
+                    <CustomButton className="mt-5" type={data}>
+                        الفاتورة والدفع
+                    </CustomButton>
+                </InertiaLink>
+                <InertiaLink href={route("cart")}>
+                    <CustomButton
+                        className="mt-5 bg-transparent text-primary mx-5"
+                        type={data}
+                    >
+                        العربة
+                    </CustomButton>
+                </InertiaLink>
             </div>
         </StoreLayout>
     );

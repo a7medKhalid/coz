@@ -49,7 +49,9 @@ export default function Cart(props) {
                     <h1 className="text-3xl font-bold text-gray-800">
                         عربة التسوق فارغة
                     </h1>
-                    <InertiaLink href={route("store.index")}></InertiaLink>
+                    <InertiaLink href={route("store")}>
+                        عودة الى المتجر
+                    </InertiaLink>
                 </div>
             </div>
         );
