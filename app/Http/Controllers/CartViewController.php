@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\GetCustomerSelectedBranch;
+use App\Http\Controllers\ModelsCRUD\BranchController;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,7 +15,17 @@ class CartViewController extends Controller
         $cart = $cartController->getCartContent($request);
 
 
-        return Inertia::render('Cart/index',$cart );
+        $categoryController = new CategoryController;
+        $categories = $categoryController->getAllCategoriesNames($request);
+
+        $branchesController = new BranchController;
+        $branches = $branchesController->getAllBranches();
+
+        $getCustomerSelectedBranch = new GetCustomerSelectedBranch();
+        $selectedBranch = $getCustomerSelectedBranch->execute($request);
+
+
+        return Inertia::render('Cart/index',['cart' => $cart, 'categories' => $categories, 'branches' => $branches ,'selectedBranch' => $selectedBranch ] );
     }
 
     public function addToCart(Request $request){
