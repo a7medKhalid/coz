@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('notes')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
-            $table->int('totalPrice')->default(0);
+            $table->integer('totalPrice')->default(0);
             $table->string('paymentId')->nullable();
 
             $table->foreignId('user_id')->nullable();
