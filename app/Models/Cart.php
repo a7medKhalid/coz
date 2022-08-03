@@ -12,7 +12,7 @@ class Cart extends Model
     protected $guarded = [];
 
     public function products(){
-        return $this->belongsToMany(Product::class, 'cart_has_products')->withPivot('quantity');
+        return $this->belongsToMany(Product::class, 'order_has_products')->withPivot('quantity');
     }
 
     public function branch(){
