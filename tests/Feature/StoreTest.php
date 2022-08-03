@@ -19,4 +19,10 @@ class StoreTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_view_product_page(){
+        $response = $this->get('/products',['product_id' => 1]);
+
+        $response->assertStatus(200);
+    }
 }

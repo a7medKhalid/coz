@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\GetCustomerSelectedBranch;
 use App\Actions\GetUserBranchAction;
 use App\Models\Branch;
 use App\Models\Category;
@@ -15,6 +16,18 @@ class ProductController extends Controller
     public function getProductById(Request $request)
     {
         $product = Product::find($request->product_id);
+
+        return $product;
+    }
+
+    public function getProductByIdAndBranch($product_id,Branch $branch)
+    {
+
+        $inventory = $branch?->inventory;
+        $product = $inventory?->where('product_id', $product_id);
+
+        $product->avalibleQuantity = $product->pivot->quantity;
+
         return $product;
     }
 

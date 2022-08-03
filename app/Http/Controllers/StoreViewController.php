@@ -69,4 +69,32 @@ class StoreViewController extends Controller
         return Inertia::render('index',['products' => $products, 'categories' => $categories, 'branches' => $branches ,'selectedBranch' => $selectedBranch ] );
     }
 
+    public function viewProduct(Request $request){
+
+        $getCustomerSelectedBranch = new GetCustomerSelectedBranch();
+        $selectedBranch = $getCustomerSelectedBranch->execute($request);
+
+        $productController = new ProductController();
+        if ($selectedBranch !== null){
+            $product = $productController->getProductByIdAndBranch($request->product_id, $selectedBranch);
+
+        }else{
+            $product = $productController->getProductById($request);
+        }
+
+
+
+        $getCustomerSelectedBranch = new GetCustomerSelectedBranch();
+        $selectedBranch = $getCustomerSelectedBranch->execute($request);
+
+
+        $categoryController = new CategoryController;
+        $categories = $categoryController->getAllCategoriesNames($request);
+
+        $branchesController = new BranchController;
+        $branches = $branchesController->getAllBranches();
+
+        return Inertia::render('Store/Product/index',['product' => $product, 'categories' => $categories, 'branches' => $branches ,'selectedBranch' => $selectedBranch]);
+    }
+
 }
