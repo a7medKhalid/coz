@@ -10,7 +10,8 @@ class CartViewController extends Controller
     public function index(Request $request){
 
         $cartController = new CartController();
-        $cart = $cartController->getCart($request);
+        $cart = $cartController->getCartContent($request);
+
 
         return Inertia::render('Cart/index',$cart );
     }
