@@ -64,14 +64,49 @@ class CartController extends Controller
 
     public function getCartContent(Request $request){
         $cart = $this->getCart($request);
+        $branch = $cart->branch;
+        $inventory = $branch->inventory;
 
-        //get cart products and quantity and return them with total price
-        $cartProducts = $cart->products()->get();
+        if ($cart->products->count() == 0){
+            return ['cartProducts' => [], 'totalPrice' => 0];
+        }
+
+        $cartProducts = $cart->products;
+
+
         $totalPrice = 0;
         foreach ($cartProducts as $cartProduct){
             $totalPrice += $cartProduct->pivot->quantity * $cartProduct->price;
         }
 
+        //get cart products and quantity and return them with total price
+        $cartProducts = $cart->products->toQuery()->paginate(100)->through(function ($product) use ($inventory, $cartProducts){
+
+            //if product is in branch inventory then get quantity
+            $productInventory = $inventory?->where('id', $product->id)->first();
+            $availableQuantity = $productInventory?$productInventory->pivot->quantity:0;
+
+            $cartProduct = $cartProducts->where('id', $product->id)->first();
+            $quantity = $cartProduct?$cartProduct->pivot->quantity:0;
+
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'isArchived' => $product->isArchived,
+                'categories' => $product->categories->pluck('name'),
+                'images' => $product->getMedia('product_images')->map(function ($image) {
+                    return [
+                        'id' => $image->id,
+                        'name' => $image->name,
+                        'url' => $image->getFullUrl(),
+                    ];
+                })->toArray(),
+                'quantity' => $quantity,
+
+                'availableQuantity' => $availableQuantity,
+            ];});
 
 
         return ['cartProducts' => $cartProducts, 'totalPrice' => $totalPrice];

@@ -152,6 +152,8 @@ class ProductController extends Controller
 
     public function getAllProductsByBranchWithCategory($branchId){
         $branch = Branch::find($branchId);
+        $inventory = $branch->inventory;
+
 
 
         $categories = Category::all();
@@ -167,7 +169,28 @@ class ProductController extends Controller
                 $query->where('category_id', $category->id);
             })->whereHas('branches', function ($query) use ($branchId){
                 $query->where('branch_id', $branchId)->where('quantity', '>=', 1);
-            })->paginate(4);
+            })->paginate(4)->through(function ($product) use ($inventory) {
+
+                //if product is in branch inventory then get quantity
+                $productInventory = $inventory?->where('id', $product->id)->first();
+                $quantity = $productInventory?$productInventory->pivot->quantity:0;
+                return [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'description' => $product->description,
+                    'price' => $product->price,
+                    'isArchived' => $product->isArchived,
+                    'categories' => $product->categories->pluck('name'),
+                    'images' => $product->getMedia('product_images')->map(function ($image) {
+                        return [
+                            'id' => $image->id,
+                            'name' => $image->name,
+                            'url' => $image->getFullUrl(),
+                        ];
+                    })->toArray(),
+
+                    'quantity' => $quantity,
+                ];});
 
             array_push($products ,['category'=>$category->name, 'products'=> $categoryProducts]);
 
@@ -212,18 +235,63 @@ class ProductController extends Controller
 
     public function getAllProductsByBranch($branchId, $categoryName = null){
         $branch = Branch::find($branchId);
+        $inventory = $branch->inventory;
 
 
         if ($categoryName === 'all' or $categoryName === null) {
-            $products = $branch->inventory->toQuery()->paginate(15);
+            $products = $branch->inventory->toQuery()->paginate(15)->through(function ($product) use ($inventory) {
+
+                //if product is in branch inventory then get quantity
+                $productInventory = $inventory?->where('id', $product->id)->first();
+                $quantity = $productInventory?$productInventory->pivot->quantity:0;
+                return [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'description' => $product->description,
+                    'price' => $product->price,
+                    'isArchived' => $product->isArchived,
+                    'categories' => $product->categories->pluck('name'),
+                    'images' => $product->getMedia('product_images')->map(function ($image) {
+                        return [
+                            'id' => $image->id,
+                            'name' => $image->name,
+                            'url' => $image->getFullUrl(),
+                        ];
+                    })->toArray(),
+
+                    'quantity' => $quantity,
+                ];});
         } else {
             $category = Category::where('name', $categoryName)->first();
             $products = Product::whereHas('categories', function ($query) use ($category) {
                 $query->where('category_id', $category->id);
             })->whereHas('branches', function ($query) use ($branchId){
                 $query->where('branch_id', $branchId)->where('quantity', '>=', 1);
-            })->paginate(15);
+            })->paginate(15)->through(function ($product) use ($inventory) {
+
+                //if product is in branch inventory then get quantity
+                $productInventory = $inventory?->where('id', $product->id)->first();
+                $quantity = $productInventory?$productInventory->pivot->quantity:0;
+                return [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'description' => $product->description,
+                    'price' => $product->price,
+                    'isArchived' => $product->isArchived,
+                    'categories' => $product->categories->pluck('name'),
+                    'images' => $product->getMedia('product_images')->map(function ($image) {
+                        return [
+                            'id' => $image->id,
+                            'name' => $image->name,
+                            'url' => $image->getFullUrl(),
+                        ];
+                    })->toArray(),
+
+                    'quantity' => $quantity,
+                ];});
+
         }
+
 
 
         return $products;
@@ -237,6 +305,7 @@ class ProductController extends Controller
         $products = Product::whereHas('categories', function($query) use ($categoryName){
             $query->where('categories.name', $categoryName);
         })->paginate(15)->through(function ($product) {
+
             return [
                 'id' => $product->id,
                 'name' => $product->name,
