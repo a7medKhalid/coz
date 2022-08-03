@@ -42,7 +42,18 @@ export default function Cart(props) {
             }
         );
     };
-
+    if (cart.cartProducts.data.length === 0) {
+        return (
+            <div className="flex flex-col items-center justify-center h-screen">
+                <div className="text-center">
+                    <h1 className="text-3xl font-bold text-gray-800">
+                        عربة التسوق فارغة
+                    </h1>
+                    <InertiaLink href={route("store.index")}></InertiaLink>
+                </div>
+            </div>
+        );
+    }
     return (
         <StoreLayout
             categories={categories}
@@ -58,7 +69,7 @@ export default function Cart(props) {
                     <div className="text-right font-bold">
                         الإجمالي: {cart.totalPrice} ريال
                     </div>
-                    {cart.cartProducts?.map((cartItem, index) => {
+                    {cart.cartProducts?.data?.map((cartItem, index) => {
                         return (
                             <>
                                 <div className="py-2 px-5 md:flex items-center justify-between ">
