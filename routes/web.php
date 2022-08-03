@@ -106,6 +106,8 @@ Route::prefix(
 )->group(function () {
     Route::get('', [StoreViewController::class, 'index'])->name('store');
 
+    Route::get('/products', [StoreViewController::class, 'viewProduct'])->name('viewProduct');
+
     Route::prefix('/cart')->group(function (){
         Route::get('', [CartViewController::class, 'index'])->name('cart');
         Route::post('/update', [CartViewController::class, 'updateBranch'])->name('updateBranch');

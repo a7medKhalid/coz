@@ -64,8 +64,9 @@ class CartController extends Controller
 
     public function getCartContent(Request $request){
         $cart = $this->getCart($request);
+
         $branch = $cart->branch;
-        $inventory = $branch->inventory;
+        $inventory = $branch?->inventory;
 
         if ($cart->products->count() == 0){
             return ['cartProducts' => [], 'totalPrice' => 0];
