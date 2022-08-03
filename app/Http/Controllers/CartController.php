@@ -96,6 +96,9 @@ class CartController extends Controller
 
         //check for product quantity
         if ($product->pivot->quantity < $request->quantity){
+
+            //throw error if product is not available in branch
+
             return ['error' => 'Not enough quantity'];
         }
 
@@ -104,8 +107,11 @@ class CartController extends Controller
         if ($product){
             $product->pivot->quantity += $request->quantity;
             $product->pivot->save();
+
         }else{
             $cart->products()->attach($request->product_id, ['quantity' => $request->quantity]);
+            $cart->save();
+
         }
 
         return $cart;

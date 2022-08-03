@@ -42,12 +42,24 @@ class StoreViewController extends Controller
         if($request->has('category')){
             if ($selectedBranch !== null){
                 $products = $productController->getAllProductsByBranch($selectedBranch->id, $request->category);
+                $s = [];
+                $products =array_push($s, ['products' => $products]);
+                $products = $s;
+                //
+                // products
+                // [
+                //  ['p'=>[{},{}],'c'=>'s']
+                //
+                //]
+
+
 
             }else{
 
                 //if category = all get all products
                 if ($request->category == 'all'){
                     $products = $productController->getAllProducts();
+                    $products = ['products' => $products];
                 }else{
                     $products = $productController->getAllProductsByCategory($request->category);
                 }
@@ -69,6 +81,9 @@ class StoreViewController extends Controller
         $branchesController = new BranchController;
         $branches = $branchesController->getAllBranches();
 
+
+//        dd(['products' => $products, 'categories' => $categories, 'branches' => $branches ,'selectedBranch' => $selectedBranch ]);
+//        dd(['products' => $products, 'categories' => $categories, 'branches' => $branches ,'selectedBranch' => $selectedBranch ]);
 
 
         return Inertia::render('index',['products' => $products, 'categories' => $categories, 'branches' => $branches ,'selectedBranch' => $selectedBranch ] );
