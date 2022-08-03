@@ -15,9 +15,10 @@ const PromoCodes = (props) => {
 
     const { post } = useForm({});
     const promocodes = props.promocdes;
+    console.log({ promocodes });
 
     // if promocodes is empty, show message in center of viewport
-    if (promocodes.length === 0) {
+    if (promocodes === null || promocodes === undefined) {
         return (
             <div className="h-screen flex items-center justify-center">
                 <AddPromocode />
