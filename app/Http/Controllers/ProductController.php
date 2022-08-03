@@ -167,7 +167,7 @@ class ProductController extends Controller
                 $query->where('category_id', $category->id);
             })->whereHas('branches', function ($query) use ($branchId){
                 $query->where('branch_id', $branchId)->where('quantity', '>=', 1);
-            })->limit(4)->get();
+            })->paginate(4);
 
             array_push($products ,['category'=>$category->name, 'products'=> $categoryProducts]);
 
@@ -215,14 +215,14 @@ class ProductController extends Controller
 
 
         if ($categoryName === 'all' or $categoryName === null) {
-            $products = $branch->inventory;
+            $products = $branch->inventory->toQuery()->paginate(15);
         } else {
             $category = Category::where('name', $categoryName)->first();
             $products = Product::whereHas('categories', function ($query) use ($category) {
                 $query->where('category_id', $category->id);
             })->whereHas('branches', function ($query) use ($branchId){
                 $query->where('branch_id', $branchId)->where('quantity', '>=', 1);
-            })->get();
+            })->paginate(15);
         }
 
 
