@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\AllowedDashboardPages;
+use App\Actions\GetCustomerSelectedBranch;
 use App\Http\Controllers\ModelsCRUD\BranchController;
 use App\Models\Cart;
 use Illuminate\Http\Request;
@@ -17,25 +18,8 @@ class StoreViewController extends Controller
         //if request has category, get products for that category and if it has branch get available products for that branch
 
 
-        //check if user is logged in
-        if ($request->user()){
-            //get user cart
-            $cart = $request->user()->cart;
-            //get user cart branch
-            if ($cart){
-                $selectedBranch = $cart->branch;
-            }else{
-                $selectedBranch = null;
-            }
-        }else{
-            $cart = Cart::where('guest_id' , $request->session()->getId())->first();
-
-            if ($cart){
-                $selectedBranch = $cart->branch;
-            }else{
-                $selectedBranch = null;
-            }
-        }
+        $getCustomerSelectedBranch = new GetCustomerSelectedBranch();
+        $selectedBranch = $getCustomerSelectedBranch->execute($request);
 
 
 
@@ -43,15 +27,8 @@ class StoreViewController extends Controller
             if ($selectedBranch !== null){
                 $products = $productController->getAllProductsByBranch($selectedBranch->id, $request->category);
                 $s = [];
-                $products =array_push($s, ['products' => $products]);
+                $products = array_push($s, ['products' => $products]);
                 $products = $s;
-                //
-                // products
-                // [
-                //  ['p'=>[{},{}],'c'=>'s']
-                //
-                //]
-
 
 
             }else{
@@ -59,9 +36,14 @@ class StoreViewController extends Controller
                 //if category = all get all products
                 if ($request->category == 'all'){
                     $products = $productController->getAllProducts();
-                    $products = ['products' => $products];
+                    $s = [];
+                    $products = array_push($s, ['products' => $products]);
+                    $products = $s;
                 }else{
                     $products = $productController->getAllProductsByCategory($request->category);
+                    $s = [];
+                    $products = array_push($s, ['products' => $products]);
+                    $products = $s;
                 }
             }
 
@@ -82,8 +64,6 @@ class StoreViewController extends Controller
         $branches = $branchesController->getAllBranches();
 
 
-//        dd(['products' => $products, 'categories' => $categories, 'branches' => $branches ,'selectedBranch' => $selectedBranch ]);
-//        dd(['products' => $products, 'categories' => $categories, 'branches' => $branches ,'selectedBranch' => $selectedBranch ]);
 
 
         return Inertia::render('index',['products' => $products, 'categories' => $categories, 'branches' => $branches ,'selectedBranch' => $selectedBranch ] );
