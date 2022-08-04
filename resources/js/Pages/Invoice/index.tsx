@@ -15,9 +15,9 @@ export default function Invoice(props) {
     const categories = props.categories;
     const selectedBranch = props.selectedBranch;
     const branches = props.branches;
-    const deliveryCost = props?.deliveryCost;
-    const vatCost = props?.vatCost;
-    const netCost = props?.netCost + vatCost;
+
+    const totalPrice = props?.totalPrice;
+    const paymentID = props?.paymentID;
     const { data, setData, post } = useForm<any>({
         type: "",
         city: "",
@@ -47,7 +47,9 @@ export default function Invoice(props) {
             branches={branches}
         >
             <Helmet>
-                <script src="https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=C4BCDC0242C2CEE53FAB5ED50A407799.uat01-vm-tx04"></script>
+                <script
+                    src={`https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${paymentID}`}
+                ></script>
             </Helmet>
             <div className="text-2xl font-bold text-right mt-12 mb-5">
                 الفاتورة
@@ -122,22 +124,14 @@ export default function Invoice(props) {
 
                     <div className="flex items-center mt-5">
                         <div className="w-1/4 font-bold">
-                            الاجمالي :{" "}
-                            {isDelivery ? netCost + deliveryCost : netCost} ريال
+                            الاجمالي : {totalPrice}
+                            ريال
                         </div>
-                        <div className="w-1/4">التكلفة: {netCost} ريال</div>
-                        {isDelivery === true && (
-                            <div className="w-1/4">
-                                تكلفة التوصيل: {deliveryCost} ريال
-                            </div>
-                        )}
-
-                        <div className="w-1/4">الضريبة : {vatCost} ريال</div>
                     </div>
                 </div>
                 <div className="mt-5"></div>
                 <form
-                    action="http://127.0.0.1:8000/"
+                    action="http://127.0.0.1:8000/invoice"
                     className="paymentWidgets"
                     data-brands="VISA MASTER AMEX"
                 ></form>
