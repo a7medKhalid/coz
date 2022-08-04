@@ -26,7 +26,7 @@ const CategoryProducts: React.FC<props> = ({
                         <ArrowLeftIcon className={"mr-2"} />
                         <div className="">رؤية الكل</div>
                     </InertiaLink>
-                    <div className="text-4xl flex flex-col justify-center items-end font-bold text-right py-4 border-blue-400">
+                    <div className="text-4xl tracking-wide flex flex-col justify-center items-end font-bold text-right py-4 border-blue-400">
                         {cateogoryTitle}
                         <div className="w-2/4 h-2 mt-3  bg-primary rounded-sm" />
                     </div>
@@ -105,7 +105,7 @@ const ProductItem: React.FC<props> = ({ product, selectedBranch }) => {
                         alt="img"
                     />
                     <div className="h-full bottom-0 absolute bg-gradient-to-t from-gray-800 w-full" />
-                    <div className="bottom-2 right-2 absolute text-2xl text-white">
+                    <div className="bottom-2 tracking-wide right-2 absolute text-2xl text-white">
                         {product.name}
                     </div>
                 </div>
