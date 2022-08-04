@@ -1,4 +1,5 @@
 import { useForm } from "@inertiajs/inertia-react";
+import { Label } from "flowbite-react";
 import React from "react";
 import { ShoppingCartIcon } from "../../../assets/icons";
 import LoopObject from "../../../helpers/LoopObject";
@@ -28,6 +29,7 @@ const Product = ({ product, selectedBranch }) => {
     const { setSnackBar } = React.useContext(LayoutsContext);
     const [quantity, setQuantity] = React.useState(1);
     const { post } = useForm({});
+
     const addToCart = ({ productID }) => {
         if (selectedBranch === null) {
             setSnackBar({
@@ -69,11 +71,26 @@ const Product = ({ product, selectedBranch }) => {
                     {product.name}
                 </div>
                 <div className="text-xl mt-5">{product.description}</div>
-                <div className="text-3xl font-bold rtl flex items-end mt-5">
-                    {product.price}
-                    <div className="text-sm mr-2">ريال</div>
+                <div className="flex items-center justify-between mt-5 ">
+                    <div className="text-3xl font-bold rtl flex items-end mt-5">
+                        {product.price * quantity}
+                        <div className="text-sm mr-2">ريال</div>
+                    </div>
+                    <div>
+                        <Label>الكمية</Label>
+
+                        <div className="mt-2"></div>
+                        <select
+                            name="quantity"
+                            id=""
+                            className="px-10 py-1 rounded-lg bg-gray-200"
+                            onChange={(e) => setQuantity(e.target.value)}
+                        >
+                            <option value="1">1</option>
+                        </select>
+                    </div>
                 </div>
-                <div className="rtl mt-5">
+                <div className="rtl mt-7">
                     <div
                         onClick={() => addToCart({ productID: product.id })}
                         className="bg-gray-200 w-fit  border z-50 border-gray-100 rounded px-2 cursor-pointer hover:bg-primary text-gray-400 hover:text-white  transition duration-150 py-1 text-lg"
