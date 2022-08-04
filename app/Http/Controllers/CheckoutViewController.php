@@ -46,21 +46,13 @@ class CheckoutViewController extends Controller
         $orderController = new OrderController();
         $order = $orderController->createOrder($request);
 
-        //initialize payment
-        $url = "https://test.oppwa.com/v1/checkouts";
-        $data = "entityId=8a8294174d0595bb014d05d829cb01cd" .
-            "&amount=92.00" .
-            "&currency=SAR" .
-            "&paymentType=DB";
-
-
 
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer OGE4Mjk0MTc0ZDA1OTViYjAxNGQwNWQ4MjllNzAxZDF8OVRuSlBjMm45aA==',
-        ])->asForm()->post($url,[
-            'entityId' => '8a8294174d0595bb014d05d829cb01cd',
-            'amount' => '92.00',
+        ])->asForm()->post(config('app.gatewayURL'),[
+            'entityId' => config('app.gatewayEntityId'),
+            'amount' => $order->total,
             'currency' => 'SAR',
             'paymentType' => 'DB',
         ]);
@@ -104,7 +96,7 @@ class CheckoutViewController extends Controller
             'branches' => $branches ,
             'selectedBranch' => $selectedBranch,
             'type' => $type,
-            'paymentId' => $paymentId,
+            'paymentID' => $paymentId,
             'totalPrice' => $totalPrice,
             'address' => $address,
             'notes' => $notes,

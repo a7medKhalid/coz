@@ -24,7 +24,7 @@ class ProductController extends Controller
     {
 
         $inventory = $branch?->inventory;
-        $product = $inventory?->where('product_id', $product_id);
+        $product = $inventory?->find($product_id);
 
         $product->avalibleQuantity = $product->pivot->quantity;
 

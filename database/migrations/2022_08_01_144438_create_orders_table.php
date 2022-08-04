@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('paymentId')->nullable();
 
             $table->foreignId('user_id')->nullable();
+            $table->foreignId('branch_id')->nullable();
         });
     }
 
