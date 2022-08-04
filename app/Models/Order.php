@@ -9,6 +9,8 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
 
     //order_has_products relationship
     public function products()
