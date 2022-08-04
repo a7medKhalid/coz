@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Zorb\Promocodes\Models\Promocode;
 
@@ -12,7 +13,7 @@ class OrderController extends Controller
         $request->validate([
             'isDelivery' => ['required', 'boolean'],
             'deliveryCity' => 'required_if:isDelivery,true',
-            'promocode' => ['nullable', 'string', 'max:255','exists:promocodes,code' ],
+            'promocode' => ['nullable', 'string', 'max:255' ],
             'notes' => 'nullable|string|max:255',
             'phone' => 'required|string|max:255',
         ]);
@@ -31,8 +32,8 @@ class OrderController extends Controller
         }
 
 
-        $order = $cart->orders()->create([
-            'status' => $request->isDelivery?'delivery':'pickup',
+        $order = Order::create([
+            'type' => $request->isDelivery?'delivery':'pickup',
             'address' => $request->deliveryCity,
             'notes' => $request->notes,
             'phone' => $request->phone,
