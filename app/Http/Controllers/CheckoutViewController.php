@@ -56,14 +56,16 @@ class CheckoutViewController extends Controller
 
 
 
-        $response = Http::post($url, [
-            'headers' => [
-                'Authorization' => 'Bearer OGE4Mjk0MTc0ZDA1OTViYjAxNGQwNWQ4MjllNzAxZDF8OVRuSlBjMm45aA==',
-            ],
-            'form_params' => $data,
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer OGE4Mjk0MTc0ZDA1OTViYjAxNGQwNWQ4MjllNzAxZDF8OVRuSlBjMm45aA==',
+        ])->asForm()->post($url,[
+            'entityId' => '8a8294174d0595bb014d05d829cb01cd',
+            'amount' => '92.00',
+            'currency' => 'SAR',
+            'paymentType' => 'DB',
         ]);
 
-        dd($response);
+
 
         $order->paymentId = $response->json()['id'];
         $order->save();
@@ -74,7 +76,7 @@ class CheckoutViewController extends Controller
 
     }
 
-    public function invoice(Request $request, $orderId){
+    public function invoice(Request $request){
         $categoryController = new CategoryController;
         $categories = $categoryController->getAllCategoriesNames($request);
 
@@ -85,6 +87,7 @@ class CheckoutViewController extends Controller
         $selectedBranch = $getCustomerSelectedBranch->execute($request);
 
 
+        $orderId = $request->orderId;
         $order = Order::find($orderId);
 
         $type = $order->type;
@@ -92,6 +95,8 @@ class CheckoutViewController extends Controller
         $totalPrice = $order->totalPrice;
         $address = $order->address;
         $notes = $order->notes;
+        $phone = $order->phone;
+
 
 
         return Inertia::render('Invoice/index',[
@@ -103,6 +108,7 @@ class CheckoutViewController extends Controller
             'totalPrice' => $totalPrice,
             'address' => $address,
             'notes' => $notes,
+            'phone' => $phone,
             ] );
     }
 }
