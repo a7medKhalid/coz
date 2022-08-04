@@ -16,20 +16,19 @@ export default function Store(props) {
             branches={props.branches}
         >
             <div className="mt-14">
-                <TrackingDetails />
+                <img src={bannerImg} className="rounded-3xl mt-16 md:mt-12" />
+                {/* <MapWrapper></MapWrapper> */}
+                {products.map((item, index) => {
+                    return (
+                        <CategoryProducts
+                            key={index}
+                            cateogoryTitle={item.category}
+                            products={item.products.data}
+                            selectedBranch={selectedBranch}
+                        />
+                    );
+                })}
             </div>
-            {/* <img src={bannerImg} className="rounded-3xl mt-16 md:mt-12" /> */}
-            {/* <MapWrapper></MapWrapper> */}
-            {/* {products.map((item, index) => {
-                return (
-                    <CategoryProducts
-                        key={index}
-                        cateogoryTitle={item.category}
-                        products={item.products.data}
-                        selectedBranch={selectedBranch}
-                    />
-                );
-            })} */}
         </StoreLayout>
     );
 }
