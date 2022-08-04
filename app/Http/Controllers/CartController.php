@@ -138,7 +138,7 @@ class CartController extends Controller
         //check if product is already in cart
         $product = $cart->products()->where('product_id', $request->product_id)->first();
         if ($product){
-            $product->pivot->quantity += $request->quantity;
+            $product->pivot->quantity = $request->quantity;
             $product->pivot->save();
 
         }else{
