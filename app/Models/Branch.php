@@ -19,6 +19,10 @@ class Branch extends Model
         return $this->belongsToMany(Product::class, 'branch_has_products')->withPivot('quantity')->where('quantity', '>', 0);
     }
 
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
+
 //    public function inventory(){
 //        return $this->hasMany(BranchHasProduct::class);
 //    }

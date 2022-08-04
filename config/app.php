@@ -212,4 +212,10 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+
+    //payment gateway
+    'gatewayURL' => env('GATEWAY_URL'),
+    'gatewayKey' => env('GATEWAY_KEY'),
+    'gatewayEntityId' => env('GATEWAY_ENTITY_ID'),
+
 ];

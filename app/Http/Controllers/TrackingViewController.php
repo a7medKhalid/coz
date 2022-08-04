@@ -21,6 +21,12 @@ class TrackingViewController extends Controller
         $orderId = $order->id;
         $orderStatus = $order->status;
         $orderTotal = $order->total;
+        $orderType = $order->type;
+        $orderBranch = $order->branch->name;
+
+        //check if order is paid
+
+
 
 
         $categoryController = new CategoryController;
@@ -33,6 +39,16 @@ class TrackingViewController extends Controller
         $selectedBranch = $getCustomerSelectedBranch->execute($request);
 
 
-        return Inertia::render('Tracking/index',['categories' => $categories, 'branches' => $branches ,'selectedBranch' => $selectedBranch, 'orderId' => $orderId, 'orderStatus' => $orderStatus, 'orderTotal' => $orderTotal ] );
+        return Inertia::render('Tracking/index',['categories' => $categories,
+            'branches' => $branches ,
+            'selectedBranch' => $selectedBranch,
+            'orderId' => $orderId,
+            'orderStatus' => $orderStatus,
+            'orderTotal' => $orderTotal,
+            'orderType' => $orderType,
+            'orderBranchName' => $orderBranch,
+            'orderBranchLatitude' => $order->branch->latitude,
+            'orderBranchLongitude' => $order->branch->longitude,
+        ] );
     }
 }

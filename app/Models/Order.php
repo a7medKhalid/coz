@@ -17,4 +17,10 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class, 'order_has_products')->withPivot('quantity');
     }
+
+    //order_has_branch relationship
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 }

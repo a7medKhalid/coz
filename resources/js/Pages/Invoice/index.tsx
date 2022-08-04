@@ -131,7 +131,7 @@ export default function Invoice(props) {
                 </div>
                 <div className="mt-5"></div>
                 <form
-                    action="http://127.0.0.1:8000/invoice"
+                    action="http://127.0.0.1:8000/tracking/"
                     className="paymentWidgets"
                     data-brands="VISA MASTER AMEX"
                 ></form>
