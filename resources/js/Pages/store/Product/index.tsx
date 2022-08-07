@@ -65,8 +65,8 @@ const Product = ({ product, selectedBranch }) => {
     };
 
     return (
-        <div className="grid grid-cols-3">
-            <div className="col-span-1 text-right px-5">
+        <div className="grid md:grid-cols-3">
+            <div className="col-span-2 lg:col-span-1 text-right lg:px-5 mt-5 lg:mt-0 order-1 ">
                 <div className="text-2xl font-bold tracking-widest">
                     {product.name}
                 </div>

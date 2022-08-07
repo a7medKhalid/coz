@@ -5,6 +5,7 @@ import MapWrapper from "../../Pages/Dashboard/Branches/components/MapWrapper";
 import { InertiaLink } from "@inertiajs/inertia-react";
 import LayoutsProviders from "../LayoutsProvider";
 import appLogo from "../../assets/images/appLogo.png";
+import MobileNavBar from "./components/MobileNavBar";
 
 interface props {
     children: any;
@@ -21,14 +22,24 @@ const StoreLayout: React.FC<props> = ({
     return (
         <LayoutsProviders>
             <div>
-                <NavBar
-                    categories={categories}
-                    selectedBranch={selectedBranch}
-                    branches={branches}
-                />
-                <CategoriesSideBar categories={categories} />
-                <div className="flex items-center justify-center">
-                    <div className="md:w-3/4 py-5 px-5 mt-5 relative">
+                <div className="visible 2xl:invisible">
+                    <MobileNavBar
+                        categories={categories}
+                        selectedBranch={selectedBranch}
+                        branches={branches}
+                    />
+                </div>
+                <div className="invisible 2xl:visible">
+                    <NavBar
+                        categories={categories}
+                        selectedBranch={selectedBranch}
+                        branches={branches}
+                    />
+                    <CategoriesSideBar categories={categories} />
+                </div>
+
+                <div className="lg:flex items-center justify-center">
+                    <div className="md:w-3/4 py-5 px-5  lg:mb-0 lg:mt-5 relative">
                         {children}
                     </div>
                     <InertiaLink href="cart">

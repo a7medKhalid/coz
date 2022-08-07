@@ -18,20 +18,22 @@ export default function Checkout(props) {
     const vatCost = props?.vatCost;
     const totalCost = props?.cartTotal + vatCost;
     const cities = props?.cities;
-    const { data, setData, post } = useForm<any>({
+    const { data, setData, post, transform } = useForm<any>({
         type: "",
-        city: "",
         promocode: "",
         notes: "",
         phone: "",
         isDelivery: "",
-        deliveryCity: "",
+        deliveryCity: cities[0],
     });
-    const [isDelivery, setIsDelivery] = React.useState(true);
+    const [isDelivery, setIsDelivery] = React.useState(false);
     const onHandleChange = (event: any) => {
         if (event.target.name === "isDelivery") {
-            setIsDelivery(true);
+            setIsDelivery(event.target.value == "true" ? true : false);
         }
+        console.log(event.target.name);
+        console.log(event.target.value);
+
         setData(
             event.target.name,
             event.target.type === "checkbox"
@@ -42,6 +44,11 @@ export default function Checkout(props) {
 
     const submit = (e) => {
         e.preventDefault();
+        console.log(data);
+        transform((data) => ({
+            ...data,
+            isDelivery: isDelivery,
+        }));
 
         post(route("setOrderOptions"));
     };
@@ -61,21 +68,48 @@ export default function Checkout(props) {
                         <ValidationErrors errors={props.errors} />
                     </div>
                     <div className="rtl">
-                        <Label>توصيل؟</Label>
-                        <input
-                            type="checkbox"
-                            name="isDelivery"
-                            onChange={onHandleChange}
-                        />
+                        <Label>نوع الطلب</Label>
+                        <div className="flex items-center">
+                            <input
+                                type="radio"
+                                name="isDelivery"
+                                value={"true"}
+                                id="isDeliveryTrue"
+                                onChange={onHandleChange}
+                            />
+                            <Label>توصيل</Label>
+                            <div className="mx-2"></div>
+                            <input
+                                type="radio"
+                                name="isDelivery"
+                                value={"false"}
+                                id="isDeliveryFalse"
+                                onChange={onHandleChange}
+                            />
+                            <Label>استلام</Label>
+                        </div>
                         <div className="mt-2"></div>
 
                         {isDelivery === true && (
                             <div className="w-1/4">
                                 <Label>المدينة</Label>
-                                <select name="deliveryCity">
+                                <select
+                                    name="deliveryCity"
+                                    defaultValue={cities[0]}
+                                    onChange={onHandleChange}
+                                >
+                                    <option
+                                        value={""}
+                                        className="text-center py-2 px-5 cursor-pointer hover:bg-gray-100"
+                                    >
+                                        اختر المدينة
+                                    </option>
                                     {cities?.map((item) => {
                                         return (
-                                            <option className="text-center py-2 px-5 cursor-pointer hover:bg-gray-100">
+                                            <option
+                                                value={item}
+                                                className="text-center py-2 px-5 cursor-pointer hover:bg-gray-100"
+                                            >
                                                 {item}
                                             </option>
                                         );

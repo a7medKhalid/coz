@@ -8,7 +8,6 @@ import StoreLayout from "../../Layouts/StoreLayout";
 
 export default function Cart(props) {
     const { post } = useForm({});
-    const [quantity, setQuantity] = React.useState(1);
     // const { setSnackBar } = React.useContext(LayoutsContext);
 
     const categories = props.categories;
@@ -16,30 +15,30 @@ export default function Cart(props) {
     const selectedBranch = props.selectedBranch;
     const cart = props.cart;
     console.log(cart);
-    var count = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     const deleteProductFromCart = (id) => {
+        console.log({ id });
+
         post(
             route("removeFromCart", {
                 id: id,
-            }),
-
-            {
-                onSuccess: () => {
-                    setSnackBar({
-                        isShown: true,
-                        message: "تم حذف المنتح من العربة بنجاح",
-                        status: "success",
-                    });
-                },
-                onError: () => {
-                    setSnackBar({
-                        isShown: true,
-                        message: "حدث خطأ ما",
-                        status: "error",
-                    });
-                },
-            }
+            })
+            // {
+            //     onSuccess: () => {
+            //         setSnackBar({
+            //             isShown: true,
+            //             message: "تم حذف المنتح من العربة بنجاح",
+            //             status: "success",
+            //         });
+            //     },
+            //     onError: () => {
+            //         setSnackBar({
+            //             isShown: true,
+            //             message: "حدث خطأ ما",
+            //             status: "error",
+            //         });
+            //     },
+            // }
         );
     };
 
@@ -79,11 +78,20 @@ export default function Cart(props) {
                         الإجمالي: {cart.totalPrice} ريال
                     </div>
                     {cart.cartProducts?.data?.map((cartItem, index) => {
+                        let count: any = [];
+                        console.log(cartItem.availableQuantity);
+
+                        for (let i = 0; i < cartItem.availableQuantity; i++) {
+                            count.push(i + 1);
+                        }
+
                         return (
                             <>
-                                <div className="py-2 px-5 md:flex items-center justify-between ">
+                                <div className="py-2 px-5 flex-wrap flex items-center justify-between ">
                                     <Button
-                                        onClick={() => deleteProductFromCart(5)}
+                                        onClick={() =>
+                                            deleteProductFromCart(cartItem.id)
+                                        }
                                         className="bg-red-500"
                                     >
                                         حذف
@@ -94,12 +102,15 @@ export default function Cart(props) {
                                                 {cartItem.name}
                                             </div>
                                             <div className="my-5">
-                                                {cartItem.price} ريال
+                                                {cartItem.price *
+                                                    cartItem.quantity}{" "}
+                                                ريال
                                             </div>
                                             <Dropdown>
                                                 <Dropdown.Trigger>
                                                     <div className="bg-gray-100 border border-gray-200 rounded px-5 py-1 cursor-pointer">
-                                                        الكمية: {quantity}
+                                                        الكمية:{" "}
+                                                        {cartItem.quantity}
                                                     </div>
                                                 </Dropdown.Trigger>
                                                 <Dropdown.Content>
@@ -108,8 +119,16 @@ export default function Cart(props) {
                                                             <div
                                                                 className="text-center py-2 px-5 cursor-pointer hover:bg-gray-100"
                                                                 onClick={() => {
-                                                                    setQuantity(
-                                                                        item
+                                                                    post(
+                                                                        route(
+                                                                            "addToCart",
+                                                                            {
+                                                                                product_id:
+                                                                                    cartItem.id,
+                                                                                quantity:
+                                                                                    item,
+                                                                            }
+                                                                        )
                                                                     );
                                                                 }}
                                                             >

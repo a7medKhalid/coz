@@ -14,8 +14,7 @@ const PromoCodes = (props) => {
     const { setSnackBar } = React.useContext(LayoutsContext);
 
     const { post } = useForm({});
-    const promocodes = props.promocdes;
-    console.log({ promocodes });
+    const promocodes = props.promocodes;
 
     // if promocodes is empty, show message in center of viewport
     if (promocodes === null || promocodes === undefined) {
