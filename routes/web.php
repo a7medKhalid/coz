@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartViewController;
+use App\Http\Controllers\CategoriesViewController;
 use App\Http\Controllers\CheckoutViewController;
 use App\Http\Controllers\CustomerViewController;
 use App\Http\Controllers\InventoryViewController;
@@ -72,6 +73,14 @@ Route::prefix('/dashboard')->group( function () {
             Route::get('/categories' ,[ProductsViewController::class, 'getCategories'])->name('categories');
             Route::post('/categories' ,[ProductsViewController::class, 'createCategory'])->name('createCategory');
             Route::post('/categories/delete' ,[ProductsViewController::class, 'deleteCategory'])->name('deleteCategory');
+
+        });
+
+        Route::middleware('can:manage categories')->group(function (){
+            Route::get('/categories' ,[CategoriesViewController::class, 'index'])->name('categories');
+            Route::post('/categories' ,[CategoriesViewController::class, 'createCategory'])->name('createCategory');
+            Route::post('/products/update' ,[CategoriesViewController::class, 'updateProduct'])->name('updateProduct');
+            Route::post('/categories/delete' ,[CategoriesViewController::class, 'deleteCategory'])->name('deleteCategory');
 
         });
 
