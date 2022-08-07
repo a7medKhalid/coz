@@ -27,6 +27,13 @@ class CategoryController extends Controller
         return $category;
     }
 
+    public function updateCategory(Request $request){
+        $category = Category::find($request->id);
+        $category->name = $request->name;
+        $category->save();
+        return $category;
+    }
+
     public function deleteCategory(Request $request){
         $category = Category::find($request->category_id);
         $category->delete();

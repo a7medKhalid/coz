@@ -76,33 +76,6 @@ class ProductsViewController extends Controller
         return back();
     }
 
-    public function getCategories(Request $request){
-
-        $categoryController = new CategoryController;
-
-        $categories = $categoryController->getAllCategories($request);
-
-        return inertia('Dashboard/Products/index', [
-            'categories' => $categories,
-        ]);
-    }
-
-    public function addCategory(Request $request){
-        return back();
-    }
-
-    public function createCategory(Request $request){
-        $categoryController = new CategoryController;
-        $category = $categoryController->createCategory($request);
-        return back();
-    }
-
-    public function deleteCategory(Request $request){
-        $categoryController = new CategoryController;
-        $category = $categoryController->deleteCategory($request);
-        return back();
-    }
-
 
 
 
