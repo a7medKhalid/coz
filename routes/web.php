@@ -80,7 +80,7 @@ Route::prefix('/dashboard')->group( function () {
         Route::middleware('can:manage categories')->group(function (){
             Route::get('/categories' ,[CategoriesViewController::class, 'index'])->name('categories');
             Route::post('/categories' ,[CategoriesViewController::class, 'createCategory'])->name('createCategory');
-            Route::post('/products/update' ,[CategoriesViewController::class, 'updateProduct'])->name('updateProduct');
+            Route::post('/categories/update' ,[CategoriesViewController::class, 'updateCategory'])->name('updateCategory');
             Route::post('/categories/delete' ,[CategoriesViewController::class, 'deleteCategory'])->name('deleteCategory');
 
         });
