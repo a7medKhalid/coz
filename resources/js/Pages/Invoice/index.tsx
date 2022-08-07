@@ -39,6 +39,9 @@ export default function Invoice(props) {
 
         post(route("login"));
     };
+    var wpwlOptions = {
+        style: "card",
+    };
 
     return (
         <StoreLayout
@@ -48,6 +51,7 @@ export default function Invoice(props) {
         >
             <Helmet>
                 <script
+                    async
                     src={`https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${paymentID}`}
                 ></script>
             </Helmet>
@@ -133,7 +137,7 @@ export default function Invoice(props) {
                 <form
                     action="http://127.0.0.1:8000/tracking/"
                     className="paymentWidgets"
-                    data-brands="VISA MASTER AMEX"
+                    data-brands="MADA"
                 ></form>
             </div>
             <div className="flex items-center justify-end">

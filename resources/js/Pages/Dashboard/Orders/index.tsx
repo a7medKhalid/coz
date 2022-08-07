@@ -4,6 +4,7 @@ import React from "react";
 import { TrashIcon } from "../../../assets/icons";
 import Button from "../../../Components/Button";
 import CustomModal from "../../../components/CustomModal";
+import Dropdown from "../../../Components/Dropdown";
 import Input from "../../../Components/Input";
 import Label from "../../../Components/Label";
 import ValidationErrors from "../../../Components/ValidationErrors";
@@ -116,22 +117,32 @@ const Orders = (props) => {
                                         scope="row"
                                         className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
                                     >
-                                        {item.status === "processing" && (
-                                            <div className="bg-sky-100 border border-sky-200 text-sky-800 w-fit px-1 rounded">
-                                                قيد التنفيذ
-                                            </div>
-                                        )}
-                                        {item.status === "completed" && (
-                                            <div className="bg-green-100 border border-green-200 text-green-800 w-fit px-1 rounded">
-                                                مننتهية
-                                            </div>
-                                        )}
-                                        {item.status !== "completed" &&
-                                            item.status !== "processing" && (
-                                                <div className="bg-gray-100 border border-gray-200 text-gray-800 w-fit px-1 rounded">
-                                                    {item.status}
-                                                </div>
-                                            )}
+                                        <Dropdown>
+                                            <Dropdown.Trigger>
+                                                {item.status ===
+                                                    "processing" && (
+                                                    <div className="bg-sky-100 border border-sky-200 text-sky-800 w-fit px-1 rounded">
+                                                        قيد التنفيذ
+                                                    </div>
+                                                )}
+                                                {item.status ===
+                                                    "completed" && (
+                                                    <div className="bg-green-100 border border-green-200 text-green-800 w-fit px-1 rounded">
+                                                        مننتهية
+                                                    </div>
+                                                )}
+                                                {item.status !== "completed" &&
+                                                    item.status !==
+                                                        "processing" && (
+                                                        <div className="bg-gray-100 border border-gray-200 text-gray-800 w-fit px-1 rounded">
+                                                            {item.status}
+                                                        </div>
+                                                    )}
+                                            </Dropdown.Trigger>
+                                            <Dropdown.Content>
+                                                <Dropdown.Item></Dropdown.Item>
+                                            </Dropdown.Content>
+                                        </Dropdown>
                                     </td>
                                     <td
                                         scope="row"
