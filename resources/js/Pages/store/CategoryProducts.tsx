@@ -113,7 +113,7 @@ const ProductItem: React.FC<props> = ({ product, selectedBranch }) => {
             <div className="flex items-center justify-between px-5 py-5">
                 <div
                     onClick={() => addToCart({ productID: product.id })}
-                    className="bg-gray-200  border z-50 border-gray-100 rounded px-2 cursor-pointer hover:bg-primary text-gray-400 hover:text-white  transition duration-150 py-1 text-lg"
+                    className="bg-gray-200  border  border-gray-100 rounded px-2 cursor-pointer hover:bg-primary text-gray-400 hover:text-white  transition duration-150 py-1 text-lg"
                 >
                     <ShoppingCartIcon className={""} />
                 </div>
