@@ -46,7 +46,7 @@ const NavItem = ({ item }) => {
 };
 const CategoriesSideBar = ({ categories, onClick }) => {
     return (
-        <div className="fixed  z-50 h-screen w-screen  py-10 px-5 bg-gray-100 border-l-2 border-gray-200 text-right">
+        <div className="fixed  z-50 h-screen overflow-y-scroll w-screen  py-10 px-5 bg-gray-100 border-l-2 border-gray-200 text-right">
             <div className="flex justify-end mb-5 text-primary cursor-pointer">
                 <XCircleIcon className={""} onClick={onClick} />
             </div>

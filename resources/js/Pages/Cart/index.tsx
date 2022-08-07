@@ -87,7 +87,7 @@ export default function Cart(props) {
 
                         return (
                             <>
-                                <div className="py-2 px-5 md:flex items-center justify-between ">
+                                <div className="py-2 px-5 flex-wrap flex items-center justify-between ">
                                     <Button
                                         onClick={() =>
                                             deleteProductFromCart(cartItem.id)

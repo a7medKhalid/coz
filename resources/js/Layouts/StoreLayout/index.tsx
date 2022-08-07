@@ -22,14 +22,14 @@ const StoreLayout: React.FC<props> = ({
     return (
         <LayoutsProviders>
             <div>
-                <div className="visible md:invisible">
+                <div className="visible 2xl:invisible">
                     <MobileNavBar
                         categories={categories}
                         selectedBranch={selectedBranch}
                         branches={branches}
                     />
                 </div>
-                <div className="invisible md:visible">
+                <div className="invisible 2xl:visible">
                     <NavBar
                         categories={categories}
                         selectedBranch={selectedBranch}
@@ -38,8 +38,8 @@ const StoreLayout: React.FC<props> = ({
                     <CategoriesSideBar categories={categories} />
                 </div>
 
-                <div className="flex items-center justify-center">
-                    <div className="md:w-3/4 py-5 px-5 mt-5 relative">
+                <div className="lg:flex items-center justify-center">
+                    <div className="md:w-3/4 py-5 px-5  lg:mb-0 lg:mt-5 relative">
                         {children}
                     </div>
                     <InertiaLink href="cart">

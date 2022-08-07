@@ -3,6 +3,7 @@
 import {
     ArchiveIcon,
     CogIcon,
+    CollectionIcon,
     CubeIcon,
     HomeIcon,
     PersonGroupIcon,
@@ -18,6 +19,7 @@ export const MAP_ROUTE_TO_ICON = {
     promocodes: <TagIcon className={""} />,
     customers: <PersonGroupIcon />,
     settings: <CogIcon className={""} />,
+    categories: <CollectionIcon className={""} />,
 };
 
 export const MAP_ROUTE_TO_AR_NAME = {
@@ -29,4 +31,5 @@ export const MAP_ROUTE_TO_AR_NAME = {
     promocodes: "ادارة الخصومات",
     customers: "عرض العملاء",
     settings: "الاعدادات",
+    categories: "التصنيفات",
 };
