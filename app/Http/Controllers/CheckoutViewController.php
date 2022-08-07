@@ -49,10 +49,10 @@ class CheckoutViewController extends Controller
 
 
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer OGE4Mjk0MTc0ZDA1OTViYjAxNGQwNWQ4MjllNzAxZDF8OVRuSlBjMm45aA==',
-        ])->asForm()->post(config('app.gatewayURL'),[
+            'Authorization' => config('app.gatewayKey'),
+        ])->asForm()->post(config('app.gatewayURL') . 'checkouts',[
             'entityId' => config('app.gatewayEntityId'),
-            'amount' => $order->total,
+            'amount' => $order->totalPrice,
             'currency' => 'SAR',
             'paymentType' => 'DB',
         ]);
@@ -102,5 +102,44 @@ class CheckoutViewController extends Controller
             'notes' => $notes,
             'phone' => $phone,
             ] );
+    }
+
+    public function confirmPayment(Request $request){
+        if ($request->has('id')){
+            $order = Order::where('paymentId', $request->id)->first();
+        }
+
+        $orderId = $order->id;
+        $orderTotal = $order->totalPrice;
+
+
+        //check if order is paid
+
+        $url = 'https://test.oppwa.com' . $request->resourcePath;
+
+        $response = Http::withHeaders([
+            'Authorization' => config('app.gatewayKey'),
+        ])->asForm()->get($url ,[
+            'entityId' => config('app.gatewayEntityId'),
+        ]);
+
+        //check if order is paid
+        if (
+            $response->json()['result']['code'] == '000.100.110'
+            and $response->json()['amount'] == $orderTotal
+            and $response->json()['currency'] == 'SAR'
+        )
+        {
+            $order->status = 'processing';
+        }
+
+
+        //store payment id in order
+        $order->paymentId = $response->json()['id'];
+
+        $order->save();
+
+        return redirect()->route('tracking', ['id' => $orderId]);
+
     }
 }
