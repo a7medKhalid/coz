@@ -137,10 +137,12 @@ Route::prefix(
 
         Route::get('/invoice', [CheckoutViewController::class, 'invoice'])->name('invoice');
 
+        Route::get('/confirm', [CheckoutViewController::class, 'confirmPayment'])->name('confirmPayment');
+
     });
 
     Route::prefix('/tracking')->group(function (){
-        Route::get('', [TrackingViewController::class, 'index'])->name('tracking');
+        Route::get('/{id}', [TrackingViewController::class, 'index'])->name('tracking');
     });
 
 });
