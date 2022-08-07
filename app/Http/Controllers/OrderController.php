@@ -41,16 +41,24 @@ class OrderController extends Controller
 
         ]);
 
+        //get cart branch
+        $cartBranch = $cart->branch;
+        $order->branch()->associate($cartBranch);
+
         $user = $request->user();
         if ($user){
             $order->user_id = $user->id;
-            $order->save();
         }
+
+
 
         //add cart products to order
         foreach ($cart->products as $product){
             $order->products()->attach($product->id, ['quantity' => $product->pivot->quantity]);
         }
+
+
+        $order->save();
 
 
 
