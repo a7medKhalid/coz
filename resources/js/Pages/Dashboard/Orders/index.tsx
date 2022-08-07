@@ -1,4 +1,4 @@
-import { useForm } from "@inertiajs/inertia-react";
+import { InertiaLink, useForm } from "@inertiajs/inertia-react";
 import { Modal } from "flowbite-react";
 import React from "react";
 import { TrashIcon } from "../../../assets/icons";
@@ -138,6 +138,14 @@ const Orders = (props) => {
                                         className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
                                     >
                                         {item.total}
+                                    </td>
+                                    <td
+                                        scope="row"
+                                        className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
+                                    >
+                                        <InertiaLink href={`orders/${item.id}`}>
+                                            <Button>تفاصيل الطلب</Button>
+                                        </InertiaLink>
                                     </td>
                                 </tr>
                             );

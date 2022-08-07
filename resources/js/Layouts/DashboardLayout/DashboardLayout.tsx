@@ -36,9 +36,9 @@ const SideBar = ({ allowedDashboardPages, setActivePage, activePage }) => {
                     </InertiaLink>
                 );
             })}
-            <div className=" mt-10  w-full flex flex-col items-center justify-center px-2">
+            <div className=" absolute bottom-0  w-full flex flex-col items-center justify-center px-2">
                 <img src={appLogo} alt="logo" className="w-8 h-8" />
-                <Divider className="my-5" />
+                <Divider className="my-2" />
                 <InertiaLink href={route("logout")} method="post">
                     <LogoutIcon className="text-red-500 w-6 h-6 " />
                 </InertiaLink>
@@ -50,7 +50,7 @@ const SideBar = ({ allowedDashboardPages, setActivePage, activePage }) => {
 const SideBarIcon = ({ icon, text = "tooltip 💡", isActive }) => (
     <div
         className={`relative flex items-center justify-center 
-    h-12 w-12 mt-2 mb-2 mx-auto  
+    h-11 w-11 mt-2 mb-1 mx-auto  
    hover:bg-primary  
     hover:text-white
     hover:rounded-xl rounded-3xl
