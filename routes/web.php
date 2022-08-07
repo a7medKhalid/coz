@@ -108,7 +108,7 @@ Route::prefix('/dashboard')->group( function () {
 
         Route::middleware('can:manage orders')->group(function (){
             Route::get('/orders' ,[OrdersViewController::class, 'index'])->name('orders');
-            Route::get('/orders/{order}' ,[OrdersViewController::class, 'viewOrder'])->name('viewOrder');
+            Route::get('/orders/{id}' ,[OrdersViewController::class, 'viewOrder'])->name('viewOrder');
             Route::post('/orders/update' ,[OrdersViewController::class, 'updateOrder'])->name('updateOrder');
         });
 
