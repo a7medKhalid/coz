@@ -135,7 +135,7 @@ export default function Invoice(props) {
                 </div>
                 <div className="mt-5"></div>
                 <form
-                    action="http://127.0.0.1:8000/tracking/"
+                    action="http://127.0.0.1:8000/checkout/confirm/"
                     className="paymentWidgets"
                     data-brands="MADA"
                 ></form>
