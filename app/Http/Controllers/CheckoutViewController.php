@@ -139,6 +139,14 @@ class CheckoutViewController extends Controller
 
         $order->save();
 
+        //update branch products quantity
+        $branch = $order->branch;
+        $products = $order->products;
+        foreach ($products as $product){
+            $branch->inventory()->updateExistingPivot($product->id, ['quantity' => $branch->inventory()->find($product->id)->pivot->quantity - $product->pivot->quantity]);
+        }
+
+
         return redirect()->route('tracking', ['id' => $orderId]);
 
     }

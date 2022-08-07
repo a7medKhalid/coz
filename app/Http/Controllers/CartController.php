@@ -152,7 +152,7 @@ class CartController extends Controller
 
     public function removeFromCart(Request $request){
         $cart = $this->getCart($request);
-        $cart->products()->detach($request->product_id);
+        $cart->products()->detach($request->id);
         return $cart;
     }
 
