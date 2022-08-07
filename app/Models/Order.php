@@ -23,4 +23,10 @@ class Order extends Model
     {
         return $this->belongsTo(Branch::class);
     }
+
+    //order_has_user relationship
+    public function customer()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
