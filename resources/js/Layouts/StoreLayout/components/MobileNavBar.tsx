@@ -7,13 +7,19 @@ import Input from "../../../Components/Input";
 import MapWrapper from "../../../Pages/Dashboard/Branches/components/MapWrapper";
 import ViewBranchesModal from "./ViewBranchesModal";
 
-export default function MobileNavBar({ categories, selectedBranch, branches }) {
+export default function MobileNavBar({
+    categories,
+    selectedBranch,
+    branches,
+    auth,
+}) {
     const [viewSideBar, setViewSideBar] = React.useState(false);
     return (
         <div className="bg-[#7d94b6] fixed z-40 w-screen shadow-lg ">
             {viewSideBar && (
                 <div className="h-screen w-screen">
                     <CategoriesSideBar
+                        auth={auth}
                         categories={categories}
                         onClick={() => setViewSideBar(!viewSideBar)}
                     />
@@ -44,10 +50,35 @@ const NavItem = ({ item }) => {
         </InertiaLink>
     );
 };
-const CategoriesSideBar = ({ categories, onClick }) => {
+const CategoriesSideBar = ({ categories, onClick, auth }) => {
     return (
         <div className="fixed  z-50 h-screen overflow-y-scroll w-screen  py-10 px-5 bg-gray-100 border-l-2 border-gray-200 text-right">
-            <div className="flex justify-end mb-5 text-primary cursor-pointer">
+            <div className="flex justify-between items-center mb-5 text-primary cursor-pointer">
+                {!auth?.user ? (
+                    <div>
+                        <InertiaLink href={route("register")}>
+                            <Button className="bg-transparent text-cyan-500 mr-2">
+                                تسجيل
+                            </Button>
+                        </InertiaLink>
+                        <InertiaLink href={route("login")}>
+                            <Button className="mr-2 border-2 border-cyan-300">
+                                تسجيل الدخول
+                            </Button>
+                        </InertiaLink>
+                    </div>
+                ) : (
+                    <div className="flex items-center ">
+                        <InertiaLink href={route("logout")} method="post">
+                            <Button className="mr-2 border-2 border-cyan-300">
+                                تسجيل الخروج
+                            </Button>
+                        </InertiaLink>
+                        <div className="text-cyan-800 ml-3">
+                            مرحبا {auth.user.name}
+                        </div>
+                    </div>
+                )}
                 <XCircleIcon className={""} onClick={onClick} />
             </div>
 

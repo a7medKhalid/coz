@@ -12,12 +12,14 @@ interface props {
     categories: string[];
     selectedBranch: string;
     branches: any;
+    auth?: any;
 }
 const StoreLayout: React.FC<props> = ({
     children,
     categories,
     selectedBranch,
     branches,
+    auth,
 }) => {
     return (
         <LayoutsProviders>
@@ -27,6 +29,7 @@ const StoreLayout: React.FC<props> = ({
                         categories={categories}
                         selectedBranch={selectedBranch}
                         branches={branches}
+                        auth={auth}
                     />
                 </div>
                 <div className="invisible 2xl:visible">
@@ -34,6 +37,7 @@ const StoreLayout: React.FC<props> = ({
                         categories={categories}
                         selectedBranch={selectedBranch}
                         branches={branches}
+                        auth={auth}
                     />
                     <CategoriesSideBar categories={categories} />
                 </div>

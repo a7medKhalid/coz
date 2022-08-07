@@ -2,6 +2,7 @@
 
 import {
     ArchiveIcon,
+    ClipBoardListIcon,
     CogIcon,
     CollectionIcon,
     CubeIcon,
@@ -20,6 +21,7 @@ export const MAP_ROUTE_TO_ICON = {
     customers: <PersonGroupIcon />,
     settings: <CogIcon className={""} />,
     categories: <CollectionIcon className={""} />,
+    orders: <ClipBoardListIcon className={""} />,
 };
 
 export const MAP_ROUTE_TO_AR_NAME = {
@@ -32,4 +34,5 @@ export const MAP_ROUTE_TO_AR_NAME = {
     customers: "عرض العملاء",
     settings: "الاعدادات",
     categories: "التصنيفات",
+    orders: "ادارة الطلبات",
 };

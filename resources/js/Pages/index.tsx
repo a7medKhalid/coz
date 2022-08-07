@@ -9,11 +9,14 @@ export default function Store(props) {
     const categories = props.categories;
     const products = props.products;
     const selectedBranch = props.selectedBranch;
+    const auth = props?.auth;
+
     return (
         <StoreLayout
             categories={categories}
             selectedBranch={selectedBranch}
             branches={props.branches}
+            auth={auth}
         >
             <div className="mt-14">
                 <img src={bannerImg} className="rounded-3xl mt-16 md:mt-12" />

@@ -17,7 +17,7 @@ const PromoCodes = (props) => {
     const promocodes = props.promocodes;
 
     // if promocodes is empty, show message in center of viewport
-    if (promocodes === null || promocodes === undefined) {
+    if (promocodes.length < 1) {
         return (
             <div className="h-screen flex items-center justify-center">
                 <AddPromocode />
