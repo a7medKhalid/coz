@@ -133,25 +133,26 @@ class ProductController extends Controller
         $products = [];
 
         foreach ($categories as $category) {
-            $categoryProducts = $category->products()->paginate(4)->through(function ($product) {
-                return [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'description' => $product->description,
-                    'price' => $product->price,
-                    'isArchived' => $product->isArchived,
-                    'categories' => $product->categories->pluck('name'),
-                    'images' => $product->getMedia('product_images')->map(function ($image) {
-                        return [
-                            'id' => $image->id,
-                            'name' => $image->name,
-                            'url' => $image->getFullUrl(),
-                        ];
-                    })->toArray(),
-                ];}
-            );
-
-            array_push($products,['category'=>$category->name, 'products'=>$categoryProducts]);
+            if ($category->products->count() > 0) {
+                $categoryProducts = $category->products()->paginate(4)->through(function ($product) {
+                    return [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'description' => $product->description,
+                        'price' => $product->price,
+                        'isArchived' => $product->isArchived,
+                        'categories' => $product->categories->pluck('name'),
+                        'images' => $product->getMedia('product_images')->map(function ($image) {
+                            return [
+                                'id' => $image->id,
+                                'name' => $image->name,
+                                'url' => $image->getFullUrl(),
+                            ];
+                        })->toArray(),
+                    ];}
+                );
+                array_push($products,['category'=>$category->name, 'products'=>$categoryProducts]);
+            }
 
 
         }
@@ -177,7 +178,8 @@ class ProductController extends Controller
         $products = [];
         foreach ($categories as $category) {
 
-            //get category products that exist in branch
+
+                //get category products that exist in branch
             $categoryProducts = Product::whereHas('categories', function ($query) use ($category) {
                 $query->where('category_id', $category->id);
             })->whereHas('branches', function ($query) use ($branchId){
@@ -205,7 +207,10 @@ class ProductController extends Controller
                     'quantity' => $quantity,
                 ];});
 
-            array_push($products ,['category'=>$category->name, 'products'=> $categoryProducts]);
+            if ($categoryProducts->count() > 0) {
+                array_push($products ,['category'=>$category->name, 'products'=> $categoryProducts]);
+
+            }
 
         }
 
