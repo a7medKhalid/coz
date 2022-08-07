@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\AllowedDashboardPages;
 use Illuminate\Http\Request;
 
 class CategoriesViewController extends Controller
@@ -12,8 +13,11 @@ class CategoriesViewController extends Controller
 
         $categories = $categoryController->getAllCategories($request);
 
+        $allowedDashboardPagesService = new AllowedDashboardPages;
+        $allowedDashboardPages = $allowedDashboardPagesService->execute($request->user());
         return inertia('Dashboard/Categories/index', [
             'categories' => $categories,
+            'allowedDashboardPages' => $allowedDashboardPages,
         ]);
     }
 

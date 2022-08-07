@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoriesViewController;
 use App\Http\Controllers\CheckoutViewController;
 use App\Http\Controllers\CustomerViewController;
 use App\Http\Controllers\InventoryViewController;
+use App\Http\Controllers\OrdersViewController;
 use App\Http\Controllers\ProductsViewController;
 use App\Http\Controllers\PromocodesViewController;
 use App\Http\Controllers\SettingsViewController;
@@ -105,6 +106,11 @@ Route::prefix('/dashboard')->group( function () {
             Route::post('/settings' ,[SettingsViewController::class, 'updateSettings'])->name('updateSettings');
         });
 
+        Route::middleware('can:manage orders')->group(function (){
+            Route::get('/orders' ,[OrdersViewController::class, 'index'])->name('orders');
+            Route::get('/orders/{order}' ,[OrdersViewController::class, 'viewOrder'])->name('viewOrder');
+            Route::post('/orders/update' ,[OrdersViewController::class, 'updateOrder'])->name('updateOrder');
+        });
 
     });
 
