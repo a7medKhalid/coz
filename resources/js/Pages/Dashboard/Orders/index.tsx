@@ -140,7 +140,15 @@ const Orders = (props) => {
                                                     )}
                                             </Dropdown.Trigger>
                                             <Dropdown.Content>
-                                                <Dropdown.Item></Dropdown.Item>
+                                                <Dropdown.Item>
+                                                    قيد التنفيذ
+                                                </Dropdown.Item>
+                                                <Dropdown.Item>
+                                                    منتهية
+                                                </Dropdown.Item>
+                                                <Dropdown.Item>
+                                                    ملغية
+                                                </Dropdown.Item>
                                             </Dropdown.Content>
                                         </Dropdown>
                                     </td>
