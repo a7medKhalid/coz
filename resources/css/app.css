@@ -13,3 +13,7 @@ html {
 .rtl {
     direction: rtl;
 }
+
+html::-webkit-scrollbar {
+    display: none;
+}

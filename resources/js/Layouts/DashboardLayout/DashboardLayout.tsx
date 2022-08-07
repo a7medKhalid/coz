@@ -15,7 +15,7 @@ interface props {
 const SideBar = ({ allowedDashboardPages, setActivePage, activePage }) => {
     return (
         <div
-            className="fixed top-0 right-0 h-screen w-16 pt-3 flex flex-col
+            className="fixed  top-0 right-0 h-screen w-16 pt-3 flex flex-col
                   bg-white  shadow-lg z-50"
         >
             <div className="text-lg text-center font-bold mb-3 text-primary">
@@ -36,7 +36,7 @@ const SideBar = ({ allowedDashboardPages, setActivePage, activePage }) => {
                     </InertiaLink>
                 );
             })}
-            <div className=" mb-3  absolute bottom-5 w-full flex flex-col items-center justify-center px-2">
+            <div className=" mt-10  w-full flex flex-col items-center justify-center px-2">
                 <img src={appLogo} alt="logo" className="w-8 h-8" />
                 <Divider className="my-5" />
                 <InertiaLink href={route("logout")} method="post">

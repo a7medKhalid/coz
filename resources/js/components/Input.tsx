@@ -10,6 +10,8 @@ interface props {
     placeholder?: string;
     parentClassName?: string;
     disabled?: boolean;
+    autoComplete?: any;
+    onKeyPress?: any;
 }
 const Input: React.FC<props> = ({
     type = "text",
@@ -20,7 +22,9 @@ const Input: React.FC<props> = ({
     required,
     parentClassName,
     handleChange,
+    autoComplete,
     disabled,
+    onKeyPress,
 }) => {
     return (
         <div className={`flex flex-col items-start  w-full ${parentClassName}`}>
@@ -29,12 +33,13 @@ const Input: React.FC<props> = ({
                 name={name}
                 value={value}
                 placeholder={placeholder}
+                onKeyPress={onKeyPress}
                 className={
                     `border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 text-right focus:ring-opacity-50 rounded-md shadow-sm ` +
                     className
                 }
                 disabled={disabled}
-                // autoComplete={autoComplete}
+                autoComplete={autoComplete}
                 required={required}
                 onChange={(e) => handleChange(e)}
             />
