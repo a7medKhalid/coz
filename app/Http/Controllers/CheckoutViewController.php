@@ -146,6 +146,10 @@ class CheckoutViewController extends Controller
             $branch->inventory()->updateExistingPivot($product->id, ['quantity' => $branch->inventory()->find($product->id)->pivot->quantity - $product->pivot->quantity]);
         }
 
+        //empty cart
+        $cartController = new CartController();
+        $cartController->emptyCart($request);
+
 
         return redirect()->route('tracking', ['id' => $orderId]);
 

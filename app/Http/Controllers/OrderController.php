@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Settings;
 use Illuminate\Http\Request;
 use Zorb\Promocodes\Models\Promocode;
 
@@ -59,6 +60,12 @@ class OrderController extends Controller
             $promocode = Promocode::where('code', $request->promocode)->first();
             $totalPrice = $promocode->apply($totalPrice);
         }
+
+        //add VAT and shipping cost to total price
+        $VAT = floatval(Settings::where('name', 'VATPercentage')->first()->value);
+        $VATTotal = round($totalPrice * $VAT,2);
+        $shippingCost = intval(Settings::where('name', 'shippingCost')->first()->value);
+        $totalPrice += $VATTotal + $shippingCost;
 
 
         $order = Order::create([
