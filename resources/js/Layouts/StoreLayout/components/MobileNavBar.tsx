@@ -6,6 +6,7 @@ import Button from "../../../Components/Button";
 import Input from "../../../Components/Input";
 import MapWrapper from "../../../Pages/Dashboard/Branches/components/MapWrapper";
 import ViewBranchesModal from "./ViewBranchesModal";
+import appLogo from "../../../assets/images/appLogo.png";
 
 export default function MobileNavBar({
     categories,
@@ -15,7 +16,7 @@ export default function MobileNavBar({
 }) {
     const [viewSideBar, setViewSideBar] = React.useState(false);
     return (
-        <div className="bg-[#7d94b6] fixed z-40 w-screen shadow-lg ">
+        <div className="bg-slate-100 border-b-2 border-slate-200  fixed z-40 w-screen  ">
             {viewSideBar && (
                 <div className="h-screen w-screen">
                     <CategoriesSideBar
@@ -30,7 +31,12 @@ export default function MobileNavBar({
                     selectedBranch={selectedBranch}
                     branches={branches}
                 />
-                <div className="mx-5">
+                <div className="flex justify-center mx-5">
+                    <InertiaLink href={route("store")}>
+                        <img src={appLogo} alt="logo" className="w-10" />
+                    </InertiaLink>
+                </div>
+                <div className="mr-5 cursor-pointer">
                     <MenuIcon
                         className={""}
                         onClick={(val) => setViewSideBar(!viewSideBar)}
@@ -53,8 +59,8 @@ const NavItem = ({ item }) => {
 const CategoriesSideBar = ({ categories, onClick, auth }) => {
     return (
         <div className="fixed  z-50 h-screen overflow-y-scroll w-screen  py-10 px-5 bg-gray-100 border-l-2 border-gray-200 text-right">
-            <div className="flex justify-between items-center mb-5 text-primary cursor-pointer">
-                {!auth?.user ? (
+            <div className="flex justify-end items-center mb-5 text-primary cursor-pointer">
+                {/* {!auth?.user ? (
                     <div>
                         <InertiaLink href={route("register")}>
                             <Button className="bg-transparent text-cyan-500 mr-2">
@@ -78,7 +84,7 @@ const CategoriesSideBar = ({ categories, onClick, auth }) => {
                             مرحبا {auth.user.name}
                         </div>
                     </div>
-                )}
+                )} */}
                 <XCircleIcon className={""} onClick={onClick} />
             </div>
 
