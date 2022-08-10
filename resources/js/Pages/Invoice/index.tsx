@@ -59,13 +59,14 @@ export default function Invoice(props) {
                 الفاتورة
             </div>
             <div className="border border-gray-200 bg-white rounded px-5 py-5">
-                <div className="border border-gray-200 px-5 py-2 flex flex-col items-end ">
+                {/* <div className="border border-gray-200 px-5 py-2 flex flex-col items-end ">
                     <div className="flex items-center justify-between w-full">
                         <InertiaLink href={route("cart")}>
                             <CustomButton>تعديل العربة</CustomButton>
                         </InertiaLink>
                         <div className="font-bold">المنتجات</div>
                     </div>
+
                     <div className="py-2 px-5 md:flex items-center justify-between">
                         <div className="flex items-center">
                             <div className="mr-5 text-right text-sm">
@@ -76,34 +77,25 @@ export default function Invoice(props) {
                             <div className="bg-gray-400 rounded border border-gray-100 w-20 h-20" />
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="rtl">
                     <div className="font-bold my-2">نوع الطلب</div>
                     <div className="flex items-center">
-                        <input
-                            type="radio"
-                            name="type"
-                            id="delivery"
-                            defaultChecked
-                            disabled
-                        />
-                        <Label>توصيل</Label>
-                        <div className="mx-2"></div>
-                        <input
-                            type="radio"
-                            name="type"
-                            id="pickuo"
-                            disabled={true}
-                        />
-                        <Label>استلام</Label>
+                        {props.type == "delivery" ? (
+                            <div className="text-sm font-bold">توصيل</div>
+                        ) : (
+                            <div className="text-sm font-bold">استلام</div>
+                        )}
                     </div>
                     <div className="mt-2"></div>
 
                     {isDelivery === true && (
                         <div className="w-1/4">
+                            <div className="font-bold my-2">المدينة</div>
+
                             <div className="bg-gray-200 border border-gray-100 px-5 py-2 text-center rounded-lg text-gray-700">
-                                {props.selectedCity}
+                                {props.address}
                             </div>
                         </div>
                     )}

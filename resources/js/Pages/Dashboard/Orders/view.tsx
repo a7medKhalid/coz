@@ -24,6 +24,8 @@ export default function View(props) {
             })}
             <div className="text-2xl font-bold mt-4 mb-2">المنتجات</div>
             {products.map((item, index) => {
+                console.log({ item });
+
                 return (
                     <div className="ltr flex flex-col items-end">
                         <div className="py-2 px-5 flex-wrap flex items-center justify-between ">

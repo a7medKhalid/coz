@@ -168,10 +168,17 @@ const AssignAsProductManager = ({ item }) => {
     const { setSnackBar } = React.useContext(LayoutsContext);
     const { data, setData, post, processing, errors, reset } = useForm({});
     const onHandleChange = (event) => {
+        console.log(event.target.checked);
+
         post(
-            route("assignProductManagerRoleToEmployee", {
-                employee_id: item.id,
-            }),
+            route(
+                event.target.checked
+                    ? "assignProductManagerRoleToEmployee"
+                    : "unAssignProductManagerRoleToEmployee",
+                {
+                    employee_id: item.id,
+                }
+            ),
             {
                 onSuccess: () => {
                     setSnackBar({

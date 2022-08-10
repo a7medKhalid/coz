@@ -12,6 +12,8 @@ interface props {
     disabled?: boolean;
     autoComplete?: any;
     onKeyPress?: any;
+    min?: any;
+    max?: any;
 }
 const Input: React.FC<props> = ({
     type = "text",
@@ -25,6 +27,8 @@ const Input: React.FC<props> = ({
     autoComplete,
     disabled,
     onKeyPress,
+    min,
+    max,
 }) => {
     return (
         <div className={`flex flex-col items-start  w-full ${parentClassName}`}>
@@ -42,6 +46,8 @@ const Input: React.FC<props> = ({
                 autoComplete={autoComplete}
                 required={required}
                 onChange={(e) => handleChange(e)}
+                min={min}
+                max={max}
             />
         </div>
     );
