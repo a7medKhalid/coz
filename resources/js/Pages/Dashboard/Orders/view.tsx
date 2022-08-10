@@ -50,10 +50,11 @@ export default function View(props) {
     );
 }
 const arr = [
+    { title: "id", ar: "رقم الطلب" },
     { title: "customerName", ar: "اسم العميل" },
     { title: "status", ar: "الحالة" },
     { title: "notes", ar: "الملاحظات" },
-    { title: "phone", ar: "بريد الموقع" },
+    { title: "phone", ar: "رقم الجوال" },
     { title: "paymentId", ar: "رقم الدفع" },
     { title: "totalPrice", ar: "الإجمالي" },
     { title: "type", ar: "نوع الطلب" },
