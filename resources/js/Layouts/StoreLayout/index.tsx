@@ -69,12 +69,7 @@ const NavItem = ({ item }) => {
 };
 const CategoriesSideBar = ({ categories }) => {
     return (
-        <div className="fixed mt-12 right-0 min-h-screen w-48 overflow-y-scroll py-10 px-5 bg-gray-100 border-l-2 border-gray-200 text-right">
-            <div className="flex justify-end mb-5">
-                <InertiaLink href={route("store")}>
-                    <img src={appLogo} alt="logo" className="w-10 h-10" />
-                </InertiaLink>
-            </div>
+        <div className="fixed mt-12 right-0 min-h-screen w-48 overflow-y-scroll py-10 px-5 bg-slate-100 border-l-2 border-slate-200 text-right">
             <div className="text-2xl font-bold text-gray-800">التصنيفات</div>
             {categories.map((item) => {
                 return <NavItem item={item} />;

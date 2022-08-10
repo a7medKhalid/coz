@@ -15,17 +15,22 @@ const CategoryProducts: React.FC<props> = ({
     products,
     selectedBranch,
 }) => {
+    if (products == null) {
+        products = [];
+    }
     return (
         <div>
             <div className="flex item-center justify-end mt-5">
                 <div className="flex items-center justify-between w-full">
-                    <InertiaLink
-                        href={`/?category=${cateogoryTitle}`}
-                        className="flex items-center text-blue-500 underline cursor-pointer font-bold"
-                    >
-                        <ArrowLeftIcon className={"mr-2"} />
-                        <div className="">رؤية الكل</div>
-                    </InertiaLink>
+                    {cateogoryTitle != null && (
+                        <InertiaLink
+                            href={`/?category=${cateogoryTitle}`}
+                            className="flex items-center text-blue-500 underline cursor-pointer font-bold"
+                        >
+                            <ArrowLeftIcon className={"mr-2"} />
+                            <div className="">رؤية الكل</div>
+                        </InertiaLink>
+                    )}
                     <div className="text-4xl tracking-wide flex flex-col justify-center items-end font-bold text-right py-4 border-blue-400">
                         {cateogoryTitle}
                         <div className="w-2/4 h-2 mt-3  bg-primary rounded-sm" />
@@ -95,15 +100,20 @@ const ProductItem: React.FC<props> = ({ product, selectedBranch }) => {
             }
         );
     };
+
     return (
         <div className="h-full  bg-white  shadow rounded bg-gradient-to-r hover:bg-gray-100 cursor-pointer">
             <InertiaLink href={`/products?product_id=${product.id}`}>
                 <div className="relative">
-                    <img
-                        className="h-3/4 w-full object-cover rounded-t "
-                        src="https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        alt="img"
-                    />
+                    {product.images.length > 0 ? (
+                        <img
+                            className="h-3/4 w-full object-cover rounded-t "
+                            src={product.images[0].url}
+                            alt="img"
+                        />
+                    ) : (
+                        <div className="h-56 w-full object-cover rounded-t bg-gray-100 "></div>
+                    )}
                     <div className="h-full bottom-0 absolute bg-gradient-to-t from-gray-800 w-full" />
                     <div className="bottom-2 tracking-wide right-2 absolute text-2xl text-white">
                         {product.name}

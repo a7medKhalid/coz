@@ -1,5 +1,5 @@
 import { useForm } from "@inertiajs/inertia-react";
-import { Label } from "flowbite-react";
+import { Carousel, Label } from "flowbite-react";
 import React from "react";
 import { ShoppingCartIcon } from "../../../assets/icons";
 import LoopObject from "../../../helpers/LoopObject";
@@ -100,11 +100,13 @@ const Product = ({ product, selectedBranch }) => {
                 </div>
             </div>
             <div className="col-span-2">
-                <img
-                    className="h-4/4 w-full object-cover rounded-t "
-                    src="https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                    alt="img"
-                />
+                {product.images?.length > 0 && (
+                    <Carousel>
+                        {product.images.map((image, index) => (
+                            <img src={image} key={index} />
+                        ))}
+                    </Carousel>
+                )}
             </div>
         </div>
     );

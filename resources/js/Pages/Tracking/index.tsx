@@ -27,42 +27,46 @@ const TrackingDetails: React.FC<props> = (props) => {
         // {key: "orderBranchLongitude",    ar:"خط العرض" },
     ];
     return (
-        // <StoreLayout
-        //     categories={props.categories}
-        //     selectedBranch={props.selectedBranch}
-        //     branches={props.branches}
-        // >
-        <div className="mt-14">
-            <div className="text-4xl font-bold text-center mb-4">
-                حالة الطلب
-            </div>
-            <div className="grid grid-cols-3">
-                <div className="col-span-1">
-                    <div className="h-[80vh] w-full">
-                        <MapWrapper
-                            setSelectedPosition={(val: any) => {
-                                null;
-                            }}
-                            staticMarker={{
-                                lat: props.orderBranchLatitude,
-                                lng: props.orderBranchLongitude,
-                            }}
-                        />
+        <StoreLayout
+            categories={props.categories}
+            selectedBranch={props.selectedBranch}
+            branches={props.branches}
+        >
+            <div className="mt-14">
+                <div className="text-4xl font-bold text-center mb-4">
+                    رقم الطلب: {props.orderId}
+                </div>
+                <div className="grid grid-cols-3">
+                    <div className="col-span-2">
+                        <div className="h-[80vh] w-full">
+                            <MapWrapper
+                                setSelectedPosition={(val: any) => {
+                                    null;
+                                }}
+                                staticMarker={{
+                                    lat: +props.orderBranchLatitude,
+                                    lng: +props.orderBranchLongitude,
+                                }}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-span-1">
+                        {list.map((item) => {
+                            return (
+                                <div className="flex items-center justify-start rtl">
+                                    <div className="font-bold">
+                                        {item.ar} :{" "}
+                                    </div>
+                                    <div className="font">
+                                        {props[item?.key]}
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
-                <div className="col-span-2">
-                    {list.map((item) => {
-                        return (
-                            <div className="flex items-center justify-start rtl">
-                                <div className="font-bold">{item.ar} : </div>
-                                <div className="font">{props[item?.key]}</div>
-                            </div>
-                        );
-                    })}
-                </div>
             </div>
-        </div>
-        // </StoreLayout>
+        </StoreLayout>
     );
 };
 export default TrackingDetails;
