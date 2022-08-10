@@ -58,7 +58,12 @@ class OrderController extends Controller
         //if promocode is applied, apply it
         if ($request->promocode){
             $promocode = Promocode::where('code', $request->promocode)->first();
+
+            if ($promocode){
+                $totalPrice = applyPomocode($promocode, $totalPrice);
+            }
             $totalPrice = $promocode->apply($totalPrice);
+
         }
 
         //add VAT and shipping cost to total price
@@ -101,12 +106,13 @@ class OrderController extends Controller
         return $order;
     }
 
-    public function updateOrder(Request $request, $id){
+    public function updateOrder(Request $request){
         $request->validate([
+            'orderId' => ['required', 'integer'],
             'status' => 'required|string|max:255',
         ]);
 
-        $order = Order::find($id);
+        $order = Order::find($request->orderId);
         $order->status = $request->status;
         $order->save();
         return $order;

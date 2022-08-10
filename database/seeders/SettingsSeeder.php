@@ -41,19 +41,19 @@ class SettingsSeeder extends Seeder
         ]);
         Settings::create([
             'name' => 'shippingCities',
-            'value' => 'LaravelTinkerConsole',
+            'value' => 'جدة',
         ]);
         Settings::create([
             'name' => 'shippingCost',
-            'value' => 'LaravelTinkerConsole',
+            'value' => '10',
         ]);
         Settings::create([
             'name' => 'shippingTime',
-            'value' => 'LaravelTinkerConsole',
+            'value' => '3',
         ]);
         Settings::create([
             'name' => 'VATPercentage',
-            'value' => 'LaravelTinkerConsole',
+            'value' => '0.15',
         ]);
 
 
