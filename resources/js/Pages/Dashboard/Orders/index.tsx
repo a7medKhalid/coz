@@ -180,7 +180,7 @@ const Orders = (props) => {
                                         scope="row"
                                         className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
                                     >
-                                        {item.totalPrice}
+                                        {item.total}
                                     </td>
                                     <td
                                         scope="row"

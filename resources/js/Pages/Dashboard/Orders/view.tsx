@@ -4,7 +4,7 @@ import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 export default function View(props) {
     console.log(props);
     const order = props.order;
-    const products = props.order.products;
+    const products = props.products.data;
     const branch = props.order.branch;
 
     return (
@@ -38,8 +38,15 @@ export default function View(props) {
                                         {item.price} ريال
                                     </div>
                                 </div>
-
-                                <div className="bg-gray-400 rounded border border-gray-100 w-28 h-28" />
+                                {item.image?.length > 0 ? (
+                                    <img
+                                        src={item.image}
+                                        alt={item.name}
+                                        className="w-28 h-28 rounded-lg"
+                                    />
+                                ) : (
+                                    <div className="bg-gray-400 rounded border border-gray-100 w-28 h-28" />
+                                )}
                             </div>
                         </div>
                         {index != products.length - 1 && (
