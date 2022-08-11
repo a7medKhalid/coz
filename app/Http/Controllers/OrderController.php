@@ -24,7 +24,7 @@ class OrderController extends Controller
                 'customerName' => $customerName?$customerName:'ضيف',
                 'phone' => $order->phone,
                 'branch' => $order->branch->name,
-                'total' => $order->total,
+                'total' => $order->totalPrice,
             ];
         });
         return $orders;
