@@ -70,6 +70,6 @@ class OrdersViewController extends Controller
     public function updateOrder(Request $request){
         $orderController = new OrderController();
         $order = $orderController->updateOrder($request);
-        return redirect()->route('dashboard.orders.view', $order->id);
+        return back();
     }
 }

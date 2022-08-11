@@ -47,6 +47,36 @@ class CheckoutViewController extends Controller
         $order = $orderController->createOrder($request);
 
 
+        //check if order is false return inertia error
+        if ($order === true){
+            $categoryController = new CategoryController;
+            $categories = $categoryController->getAllCategoriesNames($request);
+
+            $branchesController = new BranchController;
+            $branches = $branchesController->getAllBranches();
+
+            $getCustomerSelectedBranch = new GetCustomerSelectedBranch();
+            $selectedBranch = $getCustomerSelectedBranch->execute($request);
+
+
+            $cartController = new CartController();
+
+            $cartTotal = $cartController->getCartTotalWithoutVAT($request);
+
+            $VAT = floatval(Settings::where('name', 'VATPercentage')->first()->value);
+            $VATTotal = round($cartTotal * $VAT,2);
+
+            $shippingCost = intval(Settings::where('name', 'shippingCost')->first()->value);
+
+            $shippingCities = explode(',',Settings::where('name', 'shippingCities')->first()->value);
+
+
+
+            return Inertia::render('Checkout/index',['categories' => $categories, 'branches' => $branches ,'selectedBranch' => $selectedBranch, 'cartTotal' => $cartTotal, 'cities' => $shippingCities , 'deliveryCost' => $shippingCost, 'vatCost' => $VATTotal  ] );
+
+        }
+
+
 
         $response = Http::withHeaders([
             'Authorization' => config('app.gatewayKey'),

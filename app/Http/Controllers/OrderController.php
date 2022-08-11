@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\GetCustomerSelectedBranch;
+use App\Http\Controllers\ModelsCRUD\BranchController;
 use App\Models\Order;
 use App\Models\Settings;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Zorb\Promocodes\Models\Promocode;
 
 class OrderController extends Controller
@@ -21,7 +24,7 @@ class OrderController extends Controller
                 'customerName' => $customerName?$customerName:'ضيف',
                 'phone' => $order->phone,
                 'branch' => $order->branch->name,
-                'total' => $order->total,
+                'total' => $order->totalPrice,
             ];
         });
         return $orders;
@@ -57,19 +60,26 @@ class OrderController extends Controller
 
         //if promocode is applied, apply it
         if ($request->promocode){
-            $promocode = Promocode::where('code', $request->promocode)->first();
 
-            if ($promocode){
-                $totalPrice = applyPomocode($promocode, $totalPrice);
+            try {
+
+            $promocode = applyPomocode($request->promocode);
+            }catch (\Exception $exception){
+                return true;
             }
-            $totalPrice = $promocode->apply($totalPrice);
+
+            $totalPrice = $totalPrice - ((intval($promocode->details['discount']) / 100 )* $totalPrice);
 
         }
 
         //add VAT and shipping cost to total price
         $VAT = floatval(Settings::where('name', 'VATPercentage')->first()->value);
         $VATTotal = round($totalPrice * $VAT,2);
-        $shippingCost = intval(Settings::where('name', 'shippingCost')->first()->value);
+        if ($request->isDelivery) {
+            $shippingCost = intval(Settings::where('name', 'shippingCost')->first()->value);
+        }else{
+            $shippingCost = 0;
+        }
         $totalPrice += $VATTotal + $shippingCost;
 
 
