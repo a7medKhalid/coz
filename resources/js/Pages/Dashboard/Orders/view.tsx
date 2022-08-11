@@ -4,7 +4,7 @@ import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 export default function View(props) {
     console.log(props);
     const order = props.order;
-    const products = props.order.products;
+    const products = props.products.data;
     const branch = props.order.branch;
 
     return (
@@ -24,6 +24,8 @@ export default function View(props) {
             })}
             <div className="text-2xl font-bold mt-4 mb-2">المنتجات</div>
             {products.map((item, index) => {
+                console.log({ item });
+
                 return (
                     <div className="ltr flex flex-col items-end">
                         <div className="py-2 px-5 flex-wrap flex items-center justify-between ">
@@ -36,8 +38,15 @@ export default function View(props) {
                                         {item.price} ريال
                                     </div>
                                 </div>
-
-                                <div className="bg-gray-400 rounded border border-gray-100 w-28 h-28" />
+                                {item.image?.length > 0 ? (
+                                    <img
+                                        src={item.image}
+                                        alt={item.name}
+                                        className="w-28 h-28 rounded-lg"
+                                    />
+                                ) : (
+                                    <div className="bg-gray-400 rounded border border-gray-100 w-28 h-28" />
+                                )}
                             </div>
                         </div>
                         {index != products.length - 1 && (
@@ -50,10 +59,11 @@ export default function View(props) {
     );
 }
 const arr = [
+    { title: "id", ar: "رقم الطلب" },
     { title: "customerName", ar: "اسم العميل" },
     { title: "status", ar: "الحالة" },
     { title: "notes", ar: "الملاحظات" },
-    { title: "phone", ar: "بريد الموقع" },
+    { title: "phone", ar: "رقم الجوال" },
     { title: "paymentId", ar: "رقم الدفع" },
     { title: "totalPrice", ar: "الإجمالي" },
     { title: "type", ar: "نوع الطلب" },

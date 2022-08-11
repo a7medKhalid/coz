@@ -28,17 +28,18 @@ const Orders = (props) => {
         );
     }
 
-    const deletePromocode = (id) => {
+    const updateOrderStatus = (id, status) => {
         post(
-            route("deletePromocode", {
-                promocode_id: id,
+            route("updateOrder", {
+                orderId: id,
+                status: status,
             }),
 
             {
                 onSuccess: () => {
                     setSnackBar({
                         isShown: true,
-                        message: "تم حذف الكود بنجاح",
+                        message: "تم تعديل الحالة بنجاح بنجاح",
                         status: "success",
                     });
                 },
@@ -140,13 +141,36 @@ const Orders = (props) => {
                                                     )}
                                             </Dropdown.Trigger>
                                             <Dropdown.Content>
-                                                <Dropdown.Item>
+                                                <Dropdown.Item
+                                                    onClick={() =>
+                                                        updateOrderStatus(
+                                                            item.id,
+                                                            "processing"
+                                                        )
+                                                    }
+                                                >
                                                     قيد التنفيذ
                                                 </Dropdown.Item>
-                                                <Dropdown.Item>
+                                                <Dropdown.Item
+                                                    onClick={() =>
+                                                        updateOrderStatus(
+                                                            item.id,
+
+                                                            "completed"
+                                                        )
+                                                    }
+                                                >
                                                     منتهية
                                                 </Dropdown.Item>
-                                                <Dropdown.Item>
+                                                <Dropdown.Item
+                                                    onClick={() => {
+                                                        updateOrderStatus(
+                                                            item.id,
+
+                                                            "cancelled"
+                                                        );
+                                                    }}
+                                                >
                                                     ملغية
                                                 </Dropdown.Item>
                                             </Dropdown.Content>

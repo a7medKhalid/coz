@@ -139,9 +139,13 @@ const AddPromocode = () => {
         discount: "",
         expired_at: "",
         usages_left: "",
-        multi_use: "",
+        // multi_use: false,
     });
 
+    const [showCouponError, setShowCouponError] = React.useState({
+        show: false,
+        message: "",
+    });
     // show modal
     const showModal = () => {
         setIsModalShown(true);
@@ -201,20 +205,48 @@ const AddPromocode = () => {
                                 <Input
                                     type="text"
                                     name="code"
-                                    value={data.الرمز}
+                                    value={data.code}
                                     className="mt-1 block w-full"
                                     handleChange={onHandleChange}
                                     required
                                 />
-                                <Label forInput="discount" value="نسبة الخصم" />
+                                <Label
+                                    forInput="discount"
+                                    value="نسبة الخصم %"
+                                />
                                 <Input
-                                    type="text"
+                                    type="number"
                                     name="discount"
+                                    min={1}
+                                    max={100}
                                     value={data.discount}
                                     className="mt-1 block w-full"
-                                    handleChange={onHandleChange}
+                                    handleChange={(e) => {
+                                        if (e.target.value > 100) {
+                                            setShowCouponError({
+                                                show: true,
+                                                message:
+                                                    "النسبة المدخلة تتعدى 100%",
+                                            });
+                                        }
+                                        if (e.target.value < 1) {
+                                            setShowCouponError({
+                                                show: true,
+                                                message:
+                                                    "النسبة المدخلة تقل عن 1%",
+                                            });
+                                        }
+
+                                        onHandleChange(e);
+                                    }}
                                     required
                                 />
+                                {showCouponError.show ? (
+                                    <div className="text-red-500 text-sm font-bold">
+                                        {showCouponError.message}
+                                    </div>
+                                ) : null}
+
                                 <Label forInput="expired_at" value="تنتهي في" />
                                 <Input
                                     type="date"
@@ -236,7 +268,7 @@ const AddPromocode = () => {
                                     handleChange={onHandleChange}
                                     required
                                 />
-                                <div className="flex items-center justify-end">
+                                {/* <div className="flex items-center justify-end">
                                     <Label
                                         forInput="multi_use"
                                         className={"w-full"}
@@ -250,7 +282,7 @@ const AddPromocode = () => {
                                         handleChange={onHandleChange}
                                         required
                                     />
-                                </div>
+                                </div> */}
                             </div>
                         </form>
                     </div>
