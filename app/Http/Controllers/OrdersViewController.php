@@ -47,7 +47,7 @@ class OrdersViewController extends Controller
                 'price' => $product->price,
                 'isArchived' => $product->isArchived,
                 'categories' => $product->categories->pluck('name'),
-                'images' => $product->getMedia('product_images')->map(function ($image) {
+                'ص' => $product->getMedia('product_images')->map(function ($image) {
                     return [
                         'id' => $image->id,
                         'name' => $image->name,
