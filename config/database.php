@@ -4,6 +4,7 @@ use Illuminate\Support\Str;
 
 $DATABASE_URL=parse_url('Your database URL');
 
+
 return [
 
     /*
