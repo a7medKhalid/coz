@@ -1,7 +1,7 @@
 import React from "react";
 import StoreLayout from "../Layouts/StoreLayout";
 import MapWrapper from "./Dashboard/Branches/components/MapWrapper";
-import CategoryProducts from "./Store/CategoryProducts";
+import CategoryProducts from "./store/CategoryProducts";
 import bannerImg from "../assets/images/banner.jpg";
 import TrackingDetails from "./Tracking";
 

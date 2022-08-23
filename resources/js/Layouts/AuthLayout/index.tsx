@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import ApplicationLogo from "@/Components/ApplicationLogo";
-import Dropdown from "../../components/Dropdown";
+import Dropdown from "../../components/DropDown";
 import NavLink from "../../components/NavLink";
 import ResponsiveNavLink from "../../components/ResponsiveNavLink";
 import { Link } from "@inertiajs/inertia-react";

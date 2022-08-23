@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { branchType, employeeType } from "../../../helpers/types";
 import { LayoutsContext } from "../../../Layouts/LayoutsProvider";
 import { InertiaLink, useForm } from "@inertiajs/inertia-react";
-import Dropdown from "../../../components/Dropdown";
+import Dropdown from "../../../components/DropDown";
 import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 import CustomModal, {
     CustomModalContext,
