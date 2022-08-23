@@ -2,7 +2,7 @@ import React from "react";
 import { branchType, employeeType } from "../../../../helpers/types";
 import { LayoutsContext } from "../../../../Layouts/LayoutsProvider";
 import { InertiaLink, useForm } from "@inertiajs/inertia-react";
-import Dropdown from "../../../../Components/Dropdown";
+import Dropdown from "../../../../components/Dropdown";
 
 interface props {
     employees: employeeType[];

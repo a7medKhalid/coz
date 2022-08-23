@@ -2,7 +2,7 @@ import React from "react";
 import { Modal } from "flowbite-react";
 import { MarkerIcon } from "../../../assets/icons";
 import MapWrapper from "../../../Pages/Dashboard/Branches/components/MapWrapper";
-import Button from "../../../Components/Button";
+import Button from "../../../components/Button";
 import { useForm } from "@inertiajs/inertia-react";
 
 const ViewBranchesModal = ({ selectedBranch, branches }) => {

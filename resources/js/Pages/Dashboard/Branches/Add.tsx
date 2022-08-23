@@ -1,13 +1,13 @@
 import { InertiaLink, useForm } from "@inertiajs/inertia-react";
 import React, { useContext } from "react";
-import ValidationErrors from "../../../Components/ValidationErrors";
+import ValidationErrors from "../../../components/ValidationErrors";
 import MapWrapper from "./components/MapWrapper";
 import { LayoutsContext } from "../../../Layouts/LayoutsProvider";
 import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 import CustomLink from "../../../components/CustomLink";
-import Input from "../../../Components/Input";
-import Label from "../../../Components/Label";
-import Button from "../../../Components/Button";
+import Input from "../../../components/Input";
+import Label from "../../../components/Label";
+import Button from "../../../components/Button";
 
 export default function Add() {
     const { snackBar, setSnackBar } = useContext(LayoutsContext);

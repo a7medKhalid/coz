@@ -1,11 +1,11 @@
 import { InertiaLink, useForm } from "@inertiajs/inertia-react";
 import { Button } from "flowbite-react";
 import React, { StrictMode } from "react";
-import Label from "../../Components/Label";
-import CustomButton from "../../Components/Button";
+import Label from "../../components/Label";
+import CustomButton from "../../components/Button";
 import StoreLayout from "../../Layouts/StoreLayout";
-import Input from "../../Components/Input";
-import Dropdown from "../../Components/Dropdown";
+import Input from "../../components/Input";
+import Dropdown from "../../components/Dropdown";
 import { Helmet } from "react-helmet";
 import { Router } from "@inertiajs/inertia/types/router";
 
