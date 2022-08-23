@@ -1,7 +1,7 @@
 import React from "react";
 import { TagIcon } from "../../../../assets/icons";
 import Button from "../../../../components/Button";
-import Dropdown from "../../../../components/Dropdown";
+import Dropdown from "../../../../components/DropDown";
 import Input from "../../../../components/Input";
 
 interface props {

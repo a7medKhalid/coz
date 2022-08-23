@@ -4,7 +4,7 @@ import React from "react";
 import { TrashIcon } from "../../../assets/icons";
 import Button from "../../../components/Button";
 import CustomModal from "../../../components/CustomModal";
-import Dropdown from "../../../components/Dropdown";
+import Dropdown from "../../../components/DropDown";
 import Input from "../../../components/Input";
 import Label from "../../../components/Label";
 import ValidationErrors from "../../../components/ValidationErrors";

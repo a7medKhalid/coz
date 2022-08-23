@@ -5,7 +5,7 @@ import Label from "../../components/Label";
 import CustomButton from "../../components/Button";
 import StoreLayout from "../../Layouts/StoreLayout";
 import Input from "../../components/Input";
-import Dropdown from "../../components/Dropdown";
+import Dropdown from "../../components/DropDown";
 import ValidationErrors from "../../components/ValidationErrors";
 
 export default function Checkout(props) {

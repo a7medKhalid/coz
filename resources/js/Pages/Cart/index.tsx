@@ -1,7 +1,7 @@
 import { InertiaLink, useForm } from "@inertiajs/inertia-react";
 import React from "react";
 import Button from "../../components/Button";
-import Dropdown from "../../components/Dropdown";
+import Dropdown from "../../components/DropDown";
 import LoopObject from "../../helpers/LoopObject";
 import { LayoutsContext } from "../../Layouts/LayoutsProvider";
 import StoreLayout from "../../Layouts/StoreLayout";
