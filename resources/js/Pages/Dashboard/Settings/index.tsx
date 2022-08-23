@@ -1,8 +1,8 @@
 import { useForm } from "@inertiajs/inertia-react";
 import { Label } from "flowbite-react";
 import React from "react";
-import Button from "../../../Components/Button";
-import Input from "../../../Components/Input";
+import Button from "../../../components/Button";
+import Input from "../../../components/Input";
 import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 import { LayoutsContext } from "../../../Layouts/LayoutsProvider";
 

@@ -1,7 +1,7 @@
 import { InertiaLink, useForm } from "@inertiajs/inertia-react";
 import React from "react";
 import { ArrowLeftIcon, ShoppingCartIcon } from "../../assets/icons";
-import Button from "../../Components/Button";
+import Button from "../../components/Button";
 import { LayoutsContext } from "../../Layouts/LayoutsProvider";
 import { product } from "../Dashboard/Products";
 

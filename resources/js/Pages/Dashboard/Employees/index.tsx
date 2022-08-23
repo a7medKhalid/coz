@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 import { branchType, employeeType } from "../../../helpers/types";
 import { LayoutsContext } from "../../../Layouts/LayoutsProvider";
 import { InertiaLink, useForm } from "@inertiajs/inertia-react";
-import Dropdown from "../../../Components/Dropdown";
+import Dropdown from "../../../components/Dropdown";
 import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 import CustomModal, {
     CustomModalContext,
 } from "../../../components/CustomModal";
 import Button from "../../../components/Button";
-import ValidationErrors from "../../../Components/ValidationErrors";
+import ValidationErrors from "../../../components/ValidationErrors";
 import Label from "../../../components/Label";
 import Input from "../../../components/Input";
 

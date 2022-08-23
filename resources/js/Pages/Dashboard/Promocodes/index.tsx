@@ -2,11 +2,11 @@ import { useForm } from "@inertiajs/inertia-react";
 import { Modal } from "flowbite-react";
 import React from "react";
 import { TrashIcon } from "../../../assets/icons";
-import Button from "../../../Components/Button";
+import Button from "../../../components/Button";
 import CustomModal from "../../../components/CustomModal";
-import Input from "../../../Components/Input";
-import Label from "../../../Components/Label";
-import ValidationErrors from "../../../Components/ValidationErrors";
+import Input from "../../../components/Input";
+import Label from "../../../components/Label";
+import ValidationErrors from "../../../components/ValidationErrors";
 import DashboardLayout from "../../../Layouts/DashboardLayout/DashboardLayout";
 import { LayoutsContext } from "../../../Layouts/LayoutsProvider";
 
